@@ -1,0 +1,132 @@
+/*---- The liquid layout ----*/
+
+/* Column container */
+.colmask {
+   position: relative; /* This fixes the IE7 overflow hidden bug and stops the layout jumping out of place */
+   clear: both;
+   float: left;
+   width: 100%;	/* width of whole page */
+   overflow: hidden;	/* This chops off any overhanging divs */
+   background: #d0d0d0;
+}
+
+/* 2 column left menu settings */
+.colleft {
+   float: left;
+   width: 200%;
+   position: relative;
+   left: 12em;
+   background: #fff;
+}
+
+.payloadwrap {
+   float: right;
+   width: 50%;
+   position: relative;
+   right: 11em;
+   padding-bottom: 1em;
+}
+
+.payload {
+   margin: 0 1em 1em 12em;
+   position: relative;
+   right: 100%;
+   overflow: hidden;
+}
+
+.leftbar {
+   float: left;
+   width: 12em;
+   position: relative;
+   right: 12em;
+   background: #d0d0d0;
+}
+
+
+/*---- Header/left/footer style ----*/
+#header {
+   border-bottom: 1px solid black;
+}
+
+/* Navigation menu */
+ul.navigation {
+   border: 1px solid blue;
+   border-top: none;
+}
+
+ul.navigation a {
+   display: block;
+}
+
+#impres {
+   display: none;
+}
+
+.leftbar h1 {
+   text-align: center;
+   font-size: 100%;
+   font-style: normal;
+   font-weight: bold;
+   margin: 0;
+   margin-top: 2ex;
+}
+
+.leftbar p,
+.leftbar ul.news li {
+   padding: 0.5ex 0.2em 1ex;
+   margin: 0;
+   font-style: italic;
+   text-align: center;
+}
+
+.leftbar ul.news {
+   list-style-type: none;
+   font-size: smaller;
+   padding: 0;
+   margin: 0.5em;
+}
+
+.leftbar hr {
+   width: 10em;
+}
+
+/* Search box */
+#search {
+   margin: 0;
+   border: 1px solid blue;
+   border-top: none;
+}
+
+/* Payload styles */
+
+#contactform p {
+   margin-top: 2ex;
+}
+
+.acklist1,
+.acklist {
+   list-style-type: none;
+   padding-left: 1.5em;
+   margin-top: 0;
+   margin-bottom: 0;
+   max-width: 43em;
+}
+
+.acklist li {
+   width: 25%;
+   min-width: 9em;
+   float: left;
+}
+
+/*
+.payload h1, .payload h2, .payload h3 {
+   font-family: "Rosario", "Bitstream Vera Sans", sans-serif;
+   font-weight: bold;
+   font-style: italic;
+   color: #a0a0a0;
+   letter-spacing: -0.08em;
+}
+.payload h2:before, .payload h3:before {
+   content: "\25ba";
+   padding-right: 0.2em;
+}*/

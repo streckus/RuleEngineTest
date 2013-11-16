@@ -1,0 +1,157 @@
+/*---- General styles ----*/
+
+/*p {
+   padding: 0;
+   margin: 0;
+}
+
+ul, ol {
+   padding-top: 0;
+   padding-bottom: 0;
+   margin-top: 0;
+   margin-bottom: 0;
+}*/
+
+@import url(http://fonts.googleapis.com/css?family=Rosario:400,400italic,700,700italic);
+
+img {
+   border: none;
+}
+
+body {
+   background: white;
+   font-family: "Rosario", "Bitstream Vera Serif", serif;
+}
+
+a {text-decoration: none}
+a:link {color: #0000FF}
+a:visited {color: #3000A0}
+a:hover {color: #000080}
+a:active {color: #000080}
+
+td {
+   vertical-align: top;
+}
+
+/*---- Layout for graph classes ----*/
+/*sub, sup {
+   font-size: 0.75em;
+}*/
+
+.complement {
+   border-top-style: solid;
+   border-top-width: 1px;
+}
+
+.graphclass {
+   line-height: 1.4;
+}
+
+.graphclass img {
+   vertical-align: baseline;
+}
+
+.classeslist {
+   list-style-type: none;
+   padding: 0;
+   margin: 0;
+   white-space: nowrap;
+}
+
+.classeslist, .indent {
+   margin-left: 2em;
+}
+
+/*---- The liquid layout ----*/
+/* Header */
+#header {
+   clear: both;
+   float: left;
+   width: 100%;
+}
+
+/* Footer settings */
+#footer {
+   clear: both;
+   float: left;
+   width: 100%;
+}
+
+/*---- Header/left/footer style ----*/
+#header {
+   text-align: center;
+   font-weight: bold;
+   font-size: 3.8ex;
+}
+
+#header img {
+   padding: 5px 11px;
+   float: left;
+}
+
+/*---- Navigation menu ----*/
+ul.navigation {
+   list-style-type: none;
+   margin: 0;
+   padding: 0.4em;
+}
+
+ul.navigation li {
+   display: inline;	/* IE hack */
+}
+
+ul.navigation a {
+   padding: 0.2em 0.2em;
+   text-decoration: none;
+   font-weight: bold;
+   border: 1px solid black;
+   border-left-color: white;
+   border-top-color: white;
+   color: blue;
+}
+
+ul.navigation a:hover {
+   border-color: white;
+   border-left-color: black;
+   border-top-color: black;
+   color: white;
+   background-color: gray;
+}
+
+/* Footer */
+#footer {
+   margin-top: 2ex;
+   margin-bottom: 0.5ex;
+   color: gray;
+   text-align: center;
+   font-size: smaller;
+   font-style: italic;
+}
+
+/* Search box */
+#search {
+   float: right;
+   font-size: smaller;
+   background: #d0d0d0;
+   padding: 2px 2px 2px 4px;
+}
+
+/*---- Payload styles ----*/
+
+.parbox, p {
+   min-width: 10em;
+   max-width: 43em;
+}
+
+.payload p {
+   /*min-width: 10em;
+   max-width: 43em;*/
+   padding: 0.1ex 0;
+   margin: 0;
+   text-indent: 1.5em;
+}
+
+.toplink {
+   text-align: right;
+   clear: both;
+}

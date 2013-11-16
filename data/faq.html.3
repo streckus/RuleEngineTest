@@ -1,0 +1,188 @@
+<h1>Frequently Asked Questions on ISGCI</h1>
+
+<h2>General</h2>
+
+<div class="faq">
+<p>How do I cite ISGCI?</p>
+
+<p>If you want to cite a particular page, then you can use the data given in
+the footer of that page. For the system in general, use the data in the footer of the <a href="index.html">home page</a>.</p>
+</div>
+
+<div class="faq">
+<p>I want to look for some particular data in your system, but its query
+features are too simple for my complicated question. What can I do now?</p>
+
+<p>
+Answer 1: Please <a href="contact.html">contact</a> us. We might be able to
+help you by doing a direct query on the database. This will also help us to
+improve ISGCI, by letting us know the things people actually (want to) do with
+ISGCI.
+</p>
+
+<p>
+Answer 2: The <a href="http://www.sagemath.org">Sage</a> mathematics system
+contains a copy of the ISGCI database (sage.graphs.isgci), which you can
+investigate with the full power of Python at your disposal. Note that this
+database may not be fully up to date in comparison to
+<a href="index.html">www.graphclasses.org</a>.
+</p>
+</div>
+
+<div class="faq">
+<p>Can I contribute to ISGCI?</p>
+
+<p>Probably. What are your interests? Why don't you drop us an <a
+href="contact.html">email</a>?
+</p>
+</div>
+
+
+<div class="faq">
+<p>What are those weird g6: texts for every smallgraph?</p>
+
+<p>It is the definition of the graph in <a href="http://cs.anu.edu.au/~bdm/data/formats.txt">graph6 format</a>. You can copy&amp;paste this to import the graph into e.g. <a href="http://www.sagemath.org/doc/reference/sage/graphs/graph.html#graph-format">Sage</a> or <a href="http://reference.wolfram.com/mathematica/ref/format/Graph6.html">Mathematica</a>. You may need to escape special characters, like backslashes; see the aforementioned links.
+</p>
+</div>
+
+<h2>The Java application</h2>
+<div class="faq">
+<p>Which version of Java do I need?</p>
+
+<p>
+You need at least version 1.6. You can download the latest version of Java
+<a href="http://java.com/en/download/">here</a>.
+</p>
+</div>
+
+<div class="faq">
+<p>When I click on the application, I get a download dialog and when I click
+OK, the application is not started?</p
+
+<p>Did you install java? You need at least version 1.6. You can download the
+latest version of Java <a href="http://java.com/en/download/">here</a>.
+</p>
+</div>
+
+<div class="faq">
+<p>When I click on the application, all I get is some XML code?</p>
+
+<p>Did you install java? You need at least version 1.6. You can download the
+latest version of Java <a href="http://java.com/en/download/">here</a>.
+</p>
+</div>
+
+<div class="faq">
+<p>Can I use the application offline?</p>
+
+<p>Yes, you can. Start the java control panel jcontrol and click
+<em>View...</em> in the pane <em>Temporary Internet Files</em>. A dialog
+opens with the cached java applications. On ISGCI, use the context menu
+under the right mouse button to run the application offline. Note that
+functionality that requires access to the ISGCI server will not work, e.g.
+filtering graphclasses or viewing class details.
+</p>
+</div>
+
+<div class="faq">
+<p>Under unix, when I click 'help' or 'smallgraphs' or 'class details' in
+the app, nothing happens?</p>
+
+<p>These menu items try to open a new browser window to display the
+requested information. If the app can't find the proper browser, nothing
+will happen.
+</p>
+<p>
+Check in the Java control panel (jcontrol), tab Advanced, whether the
+<em>Command to launch default browser</em> is correct. If it is, but these
+menu items still do not work and your system uses the shared mime database,
+then you need to specify the default application for html files:
+</p>
+<p>
+First find the .desktop file for your favourite browser, typically it will
+be in /usr/share/applications, e.g.
+/usr/share/applications/mozilla-firefox-3.5.desktop.
+Then edit the file ~/.local/share/applications/defaults.list, creating it
+first, if necessary. The first line of this file should be
+</p>
+<pre>[Default Applications]</pre>
+<p>At the bottom of the file add the line</p>
+<pre>text/html=mozilla-firefox-3.5.desktop</pre>
+<p>
+where the text after the equals sign = should be the name of the desktop
+file (without path) of your browser.
+</p>
+</div>
+
+<h2>The database</h2>
+
+<div class="faq">
+<p>I can't find inclusion A &lt; B, class X, algorithm Y in ISGCI? There's a
+mistake in your database!</p>
+
+<p>Please <a href="contact.html">mail</a> us!</p>
+</div>
+
+<div class="faq">
+<p>Is there a way to get raw relationship data out of ISGCI, could I maybe get
+a copy of your database?</p>
+
+<p>
+The easiest way to get relationship data out of ISGCI is to create a drawing of
+the classes that interest you (e.g. all subclasses of perfect graphs) and
+choose File/Export drawing. Then choose the GraphML format. This will export
+the classes and the relations between them as drawn, but without layout
+information.
+</p>
+
+<p>
+Depending on your goals, this may not be enough. Maybe you would be served
+better with the XML file containing the relations, or with an online
+query possibility. Principally such solutions are possible, but we would
+need to know what you're trying to achieve, so we can decide on the best way
+to help you.
+For example, the <a href="http://www.sagemath.org">Sage</a> mathematics system
+contains such a copy of the ISGCI database (sage.graphs.isgci), which you can
+investigate with the full power of Python at your disposal. Note that this
+database may not be fully up to date in comparison to
+<a href="index.html">www.graphclasses.org</a>.
+</p>
+</div>
+
+<div class="faq">
+<p>Is it possible to have simple graphs available in adjacency list or matrix representation?</p>
+
+<p>Yes, it is. The smallgraphs have next to their name a string preceded by
+g6:. This string is the
+<a href="http://cs.anu.edu.au/~bdm/data/formats.txt">graph6</a> encoding of
+the graph. The graph6 format can be read by e.g. sage and mathematica, which
+you can use to do all sorts of nice calculations on the graph. If all you want
+is an adjacency list or matrix representation of the graph, you can use the
+<a href="http://cs.anu.edu.au/~bdm/data/formats.html">showg</a> program.
+</p>
+</div>
+
+<div class="faq">
+<p>I published an article with results that would fit right into your database.
+Can I send it to you?</p>
+
+<p>
+Yes you can. The rules for adding data to ISGCI are simple: First, we must
+believe the result. This means it's published in a refereed journal or
+conference, or be so short that we can verify it ourselves. Second, it must fit
+in. Roughly speaking, this means that the classes described are of the type
+studied in algorithmic graph theory. If your article describes relations
+between your new class and classes that exist already in ISGCI, it should fit
+right in.
+</p>
+<p>
+If your article describes a new algorithm for a problem that is already in
+ISGCI, it will probably fit in. If the algorithm is for a problem that is not
+yet in ISGCI, we still appreciate to hear of it, but we will put it on our "to
+do" list, until we have gathered enough algorithms to add a new problem.
+</p>
+<p>
+We don't judge whether articles are "important" or "interesting".
+When in doubt, just <a href="contact.html">send</a> us your article. 
+</p>
+</div>

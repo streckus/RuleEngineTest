@@ -1,0 +1,229 @@
+<h1>About ISGCI</h1>
+
+<h2>Background</h2>
+<p>Over the years, the mathematics and computer science communities have
+described many special graph classes in an attempt to enlarge both
+our understanding of fundamental properties of graphs, and our ability to
+solve practical problems efficiently.  This work has been - and still is -
+so fruitful that a large number of classes have been defined, whose relations
+are difficult to overview even for the initiated. In an attempt to make this
+field more accessible the book
+<em>Graph Classes - A Survey</em> by A. Brandstaedt, V.B. Le, J. Spinrad
+documents over 300 classes. ISGCI goes one step further, by allowing the
+user to examine the relation between graph classes interactively. ISGCI
+provides the user with
+</p>
+<ul>
+   <li> drawings of classes and their relations</li>
+   <li> references on classes and their relations</li>
+   <li> colouring of class diagrams according to the computational complexity
+   of selected problems</li>
+   <li> references to algorithms or complexity proofs for selected problems</li>
+</ul>
+
+<h2>How to cite ISGCI</h2>
+
+<p>
+When you wish to cite ISGCI, you can use the following data:
+</p>
+<table style="margin-left:2em; margin-top:1ex; margin-bottom:1ex">
+<tr>
+   <td class="abs">Author</td>
+   <td class="abs">H.N. de Ridder et al.</td>
+</tr>
+<tr>
+   <td class="abs">Title</td>
+   <td class="abs">Information System on Graph Classes and their Inclusions
+   (ISGCI)</td>
+</tr>
+<tr>
+   <td class="abs">URL</td>
+   <td class="abs">@HOMEURL@</td>
+</tr>
+<tr>
+   <td class="abs">Date</td>
+   <td class="abs">Can be found on the left below the menu.</td>
+</tr>
+</table>
+
+<p>
+Here is a bibtex entry for ISGCI:
+</p>
+<pre>
+@misc{isgci,
+author="de Ridder, H. N. and others",
+title="{{I}}nformation~{S}ystem~on~{G}raph~{C}lasses~and~their~{I}nclusions~({I}{S}{G}{C}{I})",
+howpublished="\url{@HOMEURL@}",
+}
+</pre>
+<h2>History</h2>
+<h3>Version 1</h3>
+<p>
+Version 1.0 was created in 1999 at Rostock University, Department of Computer
+Science, by F. Siegemund under supervision of T.  Szymczak after an idea by A.
+Brandstaedt and V.B. Le. It consisted solely of a Java 1.0 applet and contained
+classes and inclusions, but no information on problems and hence no colouring.
+The only information available on classes were their names, in Latex, not
+formatted.  Despite its simplicity, it was an excellent basis to determine the
+use of such a system as well the limitations of the implementation. The two
+foremost limitations perceived were maintainability and the fact that
+inclusions that were obvious from the definition of a graphclass were often not
+in the system. Version 2 was created to cure these limitations.
+</p>
+
+<h3>Version 2</h3>
+<p>
+Version 2 was released in 2001 and was created by S. Knorr, M. Rzehak, and
+H.N. de Ridder with the last one supervising. The web pages were designed by K.
+Erdmann. H.N. de Ridder has been responsible for ISGCI ever since. Version 2
+was written in Java 1.1 and consisted of a complete rewrite of the applet and a
+new application to deduce inclusions automatically. From now on, e.g.
+P<sub>4</sub>-free would not just be a name, but define a graphclass by
+forbidding the subgraph P<sub>4</sub>.
+</p>
+
+<p>
+During the years 2001-2008 many improvements were made to version 2. The
+deduction algorithms were extended and improved (D. Bayer, N. Ryabova, H.N.
+de Ridder), the data storage was changed to XML (N. Ryabova, H.N. de Ridder),
+references were linked to ZMATH entries (D. Bayer, U. Nagel, T.  Teige),
+problems were added (H.N. de Ridder), drawings of smallgraphs were added (M.
+Mowitz, H.N. de Ridder and others), web pages for classes with definitions
+etc. were added (H.N. de Ridder), searching in the web pages and in the
+applet was implemented (D.  Bayer, H.N. de Ridder). Finally many other
+improvements were made to the system and an enormous amount of data was
+added (H.N. de Ridder).
+</p>
+
+<p>
+However, technology was changing and the applet became unusable in modern
+Java systems, because the applet was still written using the AWT graphics
+toolkit and Java had switched to Swing. This was cured by version 3.
+</p>
+
+<h3>Version 3</h3>
+<p>
+Version 3 was released in 2010 and was created by H.N. de Ridder. It
+replaced the AWT visualization code by Swing, switched from applet to jnlp
+application and improved the layout of the web pages using the capabilities
+of modern browsers. In the summer of 2012, Nathann Cohen added an interface to
+the ISGCI database in the <a href="http://www.sagemath.org">Sage</a>
+mathematics system.
+Version 3 is the current release and further improvements to the system itself
+and to its contents will be made.
+</p>
+
+<h2>Some statistics</h2>
+<p>
+Since version 1.0 in 1999, ISGCI has become faster, more stable, more
+capable and better informed.  In June 2003, the database contained over 600
+classes and more than 36,000 inclusions. In March 2010, the number of classes
+has grown to more than 1000 and the number of inclusions to more than
+100,000. Interestingly, the number of inclusions remained at about 10% of
+the square of the number of classes throughout the history of ISGCI.
+</p>
+
+<p>
+In August 2010, the database contained 1109 classes and 114,524 inclusions.
+To obtain these, the system investigated/deduced 4252 classes and 3,253,127
+inclusions. Of these, 3,236,623 or 99.5% were proper inclusions, 13,052 or
+0.4% were equalities and for 3452 or 0.1% the system could not determine
+whether the inclusion is proper or in fact an equality.
+</p>
+
+<p>
+The database contained 1394 references, 1108 or 80% of which had a ZMATH
+link. 100% of the algorithms in the system and 92% of the inclusions had a
+reference. The remaining inclusions were deduced automatically in multiple
+steps over graph classes that were generated automatically and deleted
+afterwards.
+</p>
+
+<h2>Future</h2>
+<p>
+We will continue to improve the software and to extend the database by new
+classes, inclusions and algorithms. We appreciate it very much if you would
+<a href="contact.html">contact</a> us if you find an error or
+omission in the software or the
+database, if you have an idea for a new feature, or if you have described a
+new graph class or algorithm.
+</p>
+
+<h2>Acknowledgements</h2>
+<p>
+Many users have contributed corrections, omissions or ideas to ISGCI. We
+thank all of them, especially
+</p>
+<ul class="acklist1">
+   <li>N. Cohen (created the Sage interface)</li>
+   <li>P. Irzhavski (contributed data for the Hamiltonian problems)</li>
+   <li>P. Ochem (corrected many omissions)</li>
+   <li>A. Salamon (provided ideas)</li>
+</ul>
+<p style="text-indent: 0">
+and further
+</p>
+<ul class="acklist">
+   <li>P. Drange</li>
+   <li>lkozma</li>
+   <li>oscarlin</li>
+   <li>M.D. Safe</li>
+   <li>F. Soulignac</li>
+</ul>
+<p style="clear:both; text-indent: 0">
+and
+</p>
+<ul class="acklist">
+   <li>N. Aerts</li>
+   <li>A. Agrawal</li>
+   <li>L. Alcon</li>
+   <li>B. Alexeev</li>
+   <li>F. Bonomo</li>
+   <li>Y. Cao</li>
+   <li>AbnerCYH</li>
+   <li>K. Dabrowski</li>
+   <li>J. Diaz</li>
+   <li>diego1609</li>
+   <li>L. Erickson</li>
+   <li>E. Feicho</li>
+   <li>L. Feuilloley</li>
+   <li>M. Francis</li>
+   <li>D. Gernert</li>
+   <li>gilamor</li>
+   <li>M. Gille</li>
+   <li>M.C. Golumbic</li>
+   <li>F. Gurski</li>
+   <li>hardmath</li>
+   <li>P. Jonsson</li>
+   <li>jsoto</li>
+   <li>M. Kasprzak</li>
+   <li>J. King</li>
+   <li>T. Kloks</li>
+   <li>M. Kuhlmann</li>
+   <li>A. Labarre</li>
+   <li>A. Leitert</li>
+   <li>lericks4</li>
+   <li>G. Mertzios</li>
+   <li>M. Milanic</li>
+   <li>G. Morel</li>
+   <li>T. Mueller</li>
+   <li>S. Nikolopoulos</li>
+   <li>R. Oliveira Lopes</li>
+   <li>L. Palios</li>
+   <li>F. Pereira</li>
+   <li>D. Pritchard</li>
+   <li>V. Santos</li>
+   <li>A. Uzzell</li>
+   <li>M. Vatshelle</li>
+   <li>R. Wehr</li>
+   <li>K.D. Witzel</li>
+   <li>yixin</li>
+   <li>zaslav</li>
+</ul>
+
+<p style="clear: both">
+Please contact us if you contributed and your name is missing from this list.
+</p>
+<p>
+ISGCI uses the JGraphT library, which is distributed under the <a href="http://www.jgrapht.org/LGPL.html">LGPL v2.1</a> and is available at the <a href="http://www.jgrapht.org">JGraphT website</a>, or by <a href="contact.html">emailing</a> us. The website uses the Rosario font by <a href="http://www.omnibus-type.com">Omnibus-Type</a>.
+</p>

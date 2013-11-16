@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.0 r9654"
+   width="2566.5"
+   height="1132.5"
+   sodipodi:docname="bg2.svg">
+  <metadata
+     id="metadata480">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>ISGCI graph class diagram</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1381"
+     inkscape:window-height="921"
+     id="namedview478"
+     showgrid="false"
+     units="pt"
+     fit-margin-top="1"
+     fit-margin-left="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     inkscape:zoom="0.46657046"
+     inkscape:cx="1287.1036"
+     inkscape:cy="466.25"
+     inkscape:window-x="86"
+     inkscape:window-y="134"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4">
+    <marker
+       id="arrow"
+       orient="auto"
+       markerUnits="strokeWidth"
+       markerWidth="8"
+       markerHeight="6">
+      <path
+         d="M 1,0 -7,3 -5,0 -7,-3 z"
+         id="path7"
+         inkscape:connector-curvature="0"
+         style="fill:#000000" />
+    </marker>
+    <marker
+       id="unproper"
+       orient="auto"
+       markerUnits="strokeWidth"
+       markerWidth="8"
+       markerHeight="6">
+      <path
+         d="M -1,0 7,3 5,0 7,-3 z"
+         id="path10"
+         inkscape:connector-curvature="0"
+         style="fill:#c0c0c0" />
+    </marker>
+  </defs>
+  <title
+     id="title12">ISGCI graph class diagram</title>
+  <desc
+     id="desc14">Generated 2011-03-04 20:33 by http://www.graphclasses.org</desc>
+  <ellipse
+     cx="1111"
+     cy="1134.5"
+     rx="56"
+     ry="14.5"
+     id="ellipse16"
+     sodipodi:cx="1111"
+     sodipodi:cy="1134.5"
+     sodipodi:rx="56"
+     sodipodi:ry="14.5"
+     style="fill:#00ff00;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1043.75"
+     y="1119.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text18"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">(P</text>
+  <text
+     x="1054.75"
+     y="1121.75"
+     style="font-size:9px;fill:#000000;font-family:SansSerif"
+     id="text20"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">4</text>
+  <text
+     x="1060.75"
+     y="1119.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text22"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">,triangle)-free</text>
+  <ellipse
+     cx="868"
+     cy="1134.5"
+     rx="67"
+     ry="14.5"
+     id="ellipse24"
+     sodipodi:cx="868"
+     sodipodi:cy="1134.5"
+     sodipodi:rx="67"
+     sodipodi:ry="14.5"
+     style="fill:#00ff00;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="789.75"
+     y="1119.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text26"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">1-bounded bipartite</text>
+  <ellipse
+     cx="1698"
+     cy="1134.5"
+     rx="73"
+     ry="14.5"
+     id="ellipse32"
+     sodipodi:cx="1698"
+     sodipodi:cy="1134.5"
+     sodipodi:rx="73"
+     sodipodi:ry="14.5"
+     style="fill:#00ff00;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1613.75"
+     y="1119.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text34"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">bipartite</text>
+  <text
+     x="1666.75"
+     y="1119.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text36"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">∩</text>
+  <text
+     x="1676.75"
+     y="1119.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text38"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">bithreshold</text>
+  <ellipse
+     cx="1405"
+     cy="934.5"
+     rx="59"
+     ry="14.5"
+     id="ellipse72"
+     sodipodi:cx="1405"
+     sodipodi:cy="934.5"
+     sodipodi:rx="59"
+     sodipodi:ry="14.5"
+     style="fill:#00b200;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1334.75"
+     y="919.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text74"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">E-free</text>
+  <text
+     x="1375.75"
+     y="919.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text76"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">∩</text>
+  <text
+     x="1385.75"
+     y="919.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text78"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">bipartite</text>
+  <ellipse
+     cx="1225.5"
+     cy="1034.5"
+     rx="39.5"
+     ry="14.5"
+     id="ellipse80"
+     sodipodi:cx="1225.5"
+     sodipodi:cy="1034.5"
+     sodipodi:rx="39.5"
+     sodipodi:ry="14.5"
+     style="fill:#00ff00;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1174.75"
+     y="1019.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text82"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">bi-cograph</text>
+  <ellipse
+     cx="1621.5"
+     cy="634.5"
+     rx="100.5"
+     ry="14.5"
+     id="ellipse84"
+     sodipodi:cx="1621.5"
+     sodipodi:cy="634.5"
+     sodipodi:rx="100.5"
+     sodipodi:ry="14.5"
+     style="fill:#00ff00;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1509.75"
+     y="619.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text86"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">independent module-composed</text>
+  <ellipse
+     cx="868.5"
+     cy="1034.5"
+     rx="68.5"
+     ry="14.5"
+     id="ellipse116"
+     sodipodi:cx="868.5"
+     sodipodi:cy="1034.5"
+     sodipodi:rx="68.5"
+     sodipodi:ry="14.5"
+     style="fill:#00ff00;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="788.75"
+     y="1019.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text118"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">(fork,odd-cycle)-free</text>
+  <ellipse
+     cx="683"
+     cy="1034.5"
+     rx="67"
+     ry="14.5"
+     id="ellipse120"
+     sodipodi:cx="683"
+     sodipodi:cy="1034.5"
+     sodipodi:rx="67"
+     sodipodi:ry="14.5"
+     style="fill:#00b200;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="604.75"
+     y="1019.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text122"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">2-bounded bipartite</text>
+  <ellipse
+     cx="1939"
+     cy="634.5"
+     rx="68"
+     ry="14.5"
+     id="ellipse152"
+     sodipodi:cx="1939"
+     sodipodi:cy="634.5"
+     sodipodi:rx="68"
+     sodipodi:ry="14.5"
+     style="fill:#00b200;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1859.75"
+     y="619.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text154"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">probe bipartite chain</text>
+  <ellipse
+     cx="1933"
+     cy="434.5"
+     rx="55"
+     ry="14.5"
+     id="ellipse156"
+     sodipodi:cx="1933"
+     sodipodi:cy="434.5"
+     sodipodi:rx="55"
+     sodipodi:ry="14.5"
+     style="fill:#ff0000;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1866.75"
+     y="419.75003"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text158"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">chordal bipartite</text>
+  <ellipse
+     cx="1515"
+     cy="734.5"
+     rx="49"
+     ry="14.5"
+     id="ellipse164"
+     sodipodi:cx="1515"
+     sodipodi:cy="734.5"
+     sodipodi:rx="49"
+     sodipodi:ry="14.5"
+     style="fill:#00ff00;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1454.75"
+     y="719.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text166"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">K</text>
+  <text
+     x="1462.75"
+     y="721.75"
+     style="font-size:9px;fill:#000000;font-family:SansSerif"
+     id="text168"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">3</text>
+  <text
+     x="1468.75"
+     y="719.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text170"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">-minor-free</text>
+  <ellipse
+     cx="1539"
+     cy="1134.5"
+     rx="36"
+     ry="14.5"
+     id="ellipse172"
+     sodipodi:cx="1539"
+     sodipodi:cy="1134.5"
+     sodipodi:rx="36"
+     sodipodi:ry="14.5"
+     style="fill:#00ff00;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1491.75"
+     y="1119.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text174"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">difference</text>
+  <ellipse
+     cx="1933"
+     cy="334.5"
+     rx="94"
+     ry="14.5"
+     id="ellipse180"
+     sodipodi:cx="1933"
+     sodipodi:cy="334.5"
+     sodipodi:rx="94"
+     sodipodi:ry="14.5"
+     style="fill:#ff0000;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1827.75"
+     y="319.75003"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text182"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">X-chordal</text>
+  <text
+     x="1889.75"
+     y="319.75003"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text184"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">∩</text>
+  <text
+     x="1899.75"
+     y="319.75003"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text186"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">X-conformal</text>
+  <text
+     x="1979.75"
+     y="319.75003"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text188"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">∩</text>
+  <text
+     x="1989.75"
+     y="319.75003"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text190"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">...</text>
+  <ellipse
+     cx="1756.5"
+     cy="234.5"
+     rx="50.5"
+     ry="14.5"
+     id="ellipse192"
+     sodipodi:cx="1756.5"
+     sodipodi:cy="234.5"
+     sodipodi:rx="50.5"
+     sodipodi:ry="14.5"
+     style="fill:#ff0000;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1694.75"
+     y="219.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text194"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">X-star-chordal</text>
+  <ellipse
+     cx="1784"
+     cy="934.5"
+     rx="70"
+     ry="14.5"
+     id="ellipse204"
+     sodipodi:cx="1784"
+     sodipodi:cy="934.5"
+     sodipodi:rx="70"
+     sodipodi:ry="14.5"
+     style="fill:#00b200;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1702.75"
+     y="919.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text206"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">(A,T</text>
+  <text
+     x="1726.75"
+     y="921.75"
+     style="font-size:9px;fill:#000000;font-family:SansSerif"
+     id="text208"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">2</text>
+  <text
+     x="1732.75"
+     y="919.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text210"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">,odd-cycle)-free</text>
+  <ellipse
+     cx="926"
+     cy="934.5"
+     rx="70"
+     ry="14.5"
+     id="ellipse224"
+     sodipodi:cx="926"
+     sodipodi:cy="934.5"
+     sodipodi:rx="70"
+     sodipodi:ry="14.5"
+     style="fill:#00b200;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="844.75"
+     y="919.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text226"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">(X</text>
+  <text
+     x="856.75"
+     y="921.75"
+     style="font-size:9px;fill:#000000;font-family:SansSerif"
+     id="text228"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">177</text>
+  <text
+     x="874.75"
+     y="919.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text230"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">,odd-cycle)-free</text>
+  <ellipse
+     cx="1933.5"
+     cy="234.5"
+     rx="76.5"
+     ry="14.5"
+     id="ellipse288"
+     sodipodi:cx="1933.5"
+     sodipodi:cy="234.5"
+     sodipodi:rx="76.5"
+     sodipodi:ry="14.5"
+     style="fill:#ff0000;stroke:#000000;stroke-width:1"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <text
+     x="1845.75"
+     y="219.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text290"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">X-conformal</text>
+  <text
+     x="1921.75"
+     y="219.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text292"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">∩</text>
+  <text
+     x="1931.75"
+     y="219.75"
+     style="font-size:12px;fill:#000000;font-family:SansSerif"
+     id="text294"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795">bipartite</text>
+  <polyline
+     points="707,1048 844,1120 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline312"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1606,649 1529,720 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline316"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="918,949 876,1019 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline336"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="895,947 714,1021 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline338"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1933,349 1933,419 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-start:url(#unproper);marker-end:url(#arrow)"
+     id="polyline356"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1259,1042 1649,1123 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline358"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1194,1043 908,1122 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline360"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1210,1048 1126,1120 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline362"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1254,1044 1511,1125 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline364"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="868,1049 868,1119 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline368"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="899,1047 1082,1121 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline372"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1358,943 919,1024 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline380"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1933,249 1933,319 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-start:url(#unproper);marker-end:url(#arrow)"
+     id="polyline388"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1723,941 928,1027 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline398"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1778,247 1909,320 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-start:url(#unproper);marker-end:url(#arrow)"
+     id="polyline402"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1396,949 1339,1034 1517,1122 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline422"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1409,949 1439,1034 1665,1121 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline424"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1904,447 1696,534 1631,619 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline428"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1933,449 1933,534 1939,619 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline430"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1951,649 2029,734 2029,834 2029,934 2029,1034 1738,1121 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline434"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1938,649 1929,734 1929,834 1929,934 1929,1034 1569,1126 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline436"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="938,949 1011,1034 1507,1127 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline448"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <polyline
+     points="1623,649 1639,734 1639,834 1639,934 1639,1034 1552,1120 "
+     style="fill:none;stroke:#000000;stroke-width:1;marker-end:url(#arrow)"
+     id="polyline474"
+     transform="translate(-18.25,-18.25)"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#arrow)"
+     d="m 1499.8835,730.40423 -0.9769,279.31847 -357.0774,98.2218"
+     id="path3457"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccs"
+     inkscape:export-filename="/home/ux/Isgci/teo/build/web/bg.png"
+     inkscape:export-xdpi="74.998795"
+     inkscape:export-ydpi="74.998795" />
+</svg>

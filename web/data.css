@@ -1,0 +1,242 @@
+
+img { vertical-align: text-top; }
+
+#footer {
+   margin-top: 13ex;
+}
+
+#definition {
+   background: #D0D0D0;
+   margin: 1em;
+   padding: 0.8em;
+   border: 2px solid blue;
+   font-style: italic;
+}
+
+.defhdr {
+   font-style: normal;
+   margin-bottom: 0.5ex;
+}
+
+#definition > * {
+   min-width: 0;
+   max-width: 43em;
+}
+
+#definition > ol {
+   list-style-type: lower-roman;
+}
+
+.collapsor {
+   font-size: small;
+   background-color: #D0D0D0;
+   border: 1px solid black;
+   border-left-color: white; border-top-color: white;
+   margin: 0;
+   padding-left: 2pt;
+   padding-right: 2pt;
+}
+
+.tooltip {
+   display: inline;
+}
+.tooltip div{ display: none; }
+.tooltip:hover div{
+   display: block;
+   width: 30em;
+   padding: 2px;
+   position: absolute;
+   border: 1px solid black;
+   background: #FAFAD2
+}
+
+.sparseproblem {
+   font-style: italic;
+}
+
+/*---- Navigation menu ----*/
+#NavigationBox {
+   clear: both;
+   margin: 0;
+   text-align: left;
+   border: 1px solid blue;
+   background-color: #D0D0D0;
+}
+
+ul.navigation {
+   padding: 0.2em 0.4em;
+   margin: 0.2em 0;
+}
+
+ul.navigation li {
+   display: inline;
+}
+
+ul.navigation .title {
+   float: left;
+   width: 6em;
+   font-weight: bold;
+}
+
+#problempage ul.navigation .title {
+   width: 8em;
+}
+
+#refpage ul.navigation li#refmenu,
+#smallgraphpage ul.navigation li#smallgraphmenu {
+   display: none;
+}
+
+/*---- Pagination ----*/
+#PaginationOuter {
+   position: fixed;
+   bottom: 1ex;
+   width: 100%;
+}
+#PaginationInner {
+   margin: 0 auto;
+   display: table;
+}
+#PaginationBox {
+   margin: 0;
+   padding: 0;
+   text-align: center;
+   border: 1px solid blue;
+   background-color: white;
+   display: table-cell;
+}
+ul#Pagination {
+   margin: 0; padding: 0.4em;
+}
+ul#Pagination li {
+   list-style: none;
+   display: inline;
+   margin: 0; padding: 0;
+}
+ul#Pagination .active {
+   color: black;
+   font-weight: bold;
+   border: none;
+   background-color: white;
+}
+ul#Pagination a {
+   padding: 0.1em 0.25em;
+   text-decoration: none; font-weight: bold;
+   border: 1px solid black;
+   border-left-color: white; border-top-color: white;
+   background-color: #D0D0D0;
+   color: blue;
+}
+ul#Pagination a:hover {
+   border-color: white;
+   border-left-color: black; border-top-color: black;
+   color: white; background-color: gray;
+}
+
+/*---- Problem page ----*/
+.vbar {
+   border-left-width: 4px;
+   border-left-style: solid;
+}
+
+/*---- Smallgraph page ----*/
+.alfacolumns {
+   float: left;
+   width: 100%;
+   clear: both;
+   margin-bottom: 2em;
+}
+
+.alfacolumn {
+   list-style-type: none;
+   float: left;
+   width: 20%;
+   margin: 0;
+   padding: 0;
+}
+
+.alfacolumn li {
+   margin: 0;
+   padding: 0;
+   height: 3ex;
+}
+
+#smallgraphpage h3 {
+   font-size: 150%;
+   border-top: 1px solid black;
+   border-bottom: 1px solid black;
+   padding: 0.5ex 0.5em;
+}
+
+#smallgraphpage h3 .plaintext {
+   font-weight: normal;
+   font-size: 66%;
+   font-style: normal;
+}
+
+/*#smallgraphpage .graphpair {
+   clear: both;
+}*/
+
+#smallgraphpage .graph6 {
+   font-weight: normal;
+   font-size: 40%;
+   font-style: normal;
+   color: #404040;
+   margin-left: 1em;
+}
+
+#smallgraphpage .graph6:before {
+   content: "g6: ";
+}
+
+#smallgraphpage .leftgraph {
+   width: 42%;
+   float: left;
+}
+
+#smallgraphpage .rightgraph {
+   width: 42%;
+   float: left;
+}
+
+#smallgraphpage .leftgraph p:first-child,
+#smallgraphpage .rightgraph p:first-child {
+   margin-top: 7ex;
+}
+
+/*---- Class page ----*/
+#classpage h3 {
+   font-size: 100%;
+   font-weight: normal;
+   display: inline;
+   margin-right: 0.5em;
+}
+
+#classpage h3:after {
+   content: ":";
+}
+
+#classpage .references p,
+#classpage .complements p /* only for self-complementary */ {
+   display: inline;
+}
+
+#equdetails,
+#subdetails,
+#superdetails {
+   margin-left: 1em;
+}
+
+.openproblems,
+.conjectures,
+.references,
+.complements,
+.related,
+.seealso,
+.forbidden,
+.minsuper,
+.maxsub {
+   margin-top: 1em;
+   margin-bottom: 1em;
+}

@@ -1,0 +1,19 @@
+      <div id="feature">
+	 <h2>What is ISGCI?</h2>
+	 ISGCI is an encyclopaedia of graphclasses with an accompanying java
+	 application that helps you to research what's known about particular
+	 graph classes. You can:
+	 <ul>
+	    <li>check the relation between graph classes and get a witness for
+	    the result</li>
+	    <li>draw clear inclusion diagrams</li>
+	    <li>colour these diagrams according to the complexity of selected
+	    problems</li>
+	    <li>find the P/NP boundary for a problem</li>
+	    <li>save your diagrams as Postscript, GraphML or SVG files</li>
+	    <li>find references on classes, inclusions and algorithms</li>
+	 </ul>
+      </div>
+      <div class="boxouter"><div class="boxinner"><div class="box">
+	 <h2>Classic classes</h2>
+	 <ul class="classeslist">

@@ -1,0 +1,21 @@
+<!-- Contents end -->
+      <!-- Column 2 end -->
+   </div></div>
+   <div class="leftbar">
+      <!-- Column 1 start -->
+      <ul class="navigation">
+	 <li><a href="index.html">ISGCI home</a></li>
+	 <li><a href="isgci.jnlp">The Java application</a></li>
+	 <li><a href="classes.cgi">All classes</a></li>
+	 <li><a href="classes/refs00.html">References</a></li>
+	 <li><a href="smallgraphs.html">Smallgraphs</a></li>
+	 <li><a href="about.html">About ISGCI</a></li>
+	 <li><a href="screenshots.html">Screenshots</a></li>
+	 <li><a href="new.html">News</a></li>
+	 <li><a href="faq.html">FAQ</a></li>
+	 <li><a href="contact.html">Contact &#9993;</a></li>
+	 <li id="impres"><a onclick="impres();">Impressum</a></li>
+      </ul>
+      <h1>Database contents</h1>
+      <p>
+<!-- status start -->
