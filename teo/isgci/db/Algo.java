@@ -1,7 +1,7 @@
 /*
  * Some general algorithms for graph class hierarchies.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/db/Algo.java,v 2.3 2013/03/12 18:53:42 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

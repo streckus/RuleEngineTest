@@ -1,7 +1,7 @@
 /*
  * Stores the information on inclusions.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/grapht/Inclusion.java,v 2.1 2011/10/22 15:21:08 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

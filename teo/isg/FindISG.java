@@ -1,7 +1,7 @@
 /*
  * Find the relation between induced subgraphs.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isg/FindISG.java,v 1.29 2011/10/27 15:53:27 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.
@@ -177,11 +177,11 @@ public class FindISG{
         }
 
         
-	makeDigraph();
+        makeDigraph();
         System.out.println("Digraph is made. Starting to add big smallmembers");
-	addBigSmallmembers();
+        addBigSmallmembers();
 
-	if (transitivelyClosed)
+        if (transitivelyClosed)
             GAlg.transitiveClosure(resultGraph);
 
         t1=System.currentTimeMillis();
@@ -372,8 +372,8 @@ contConf:   for (i=0; i<contained.size(); i++) {
             curCnt = ((Graph)graphs.elementAt(i)).countNodes();
             if (curCnt>maxCnt)
                 maxCnt = curCnt;
-	    if (curCnt < minCnt)
-		minCnt = curCnt;
+            if (curCnt < minCnt)
+                minCnt = curCnt;
         }
         
         for (i=0; i<families.size(); i++)
@@ -461,38 +461,38 @@ contFHMT:           for (j=0; j<smMem.size(); j++)
     }
     
     public static void makeDigraph() {
-	// Creating a Node for every graph
-	for (int i=0; i<graphs.size(); i++)
+        // Creating a Node for every graph
+        for (int i=0; i<graphs.size(); i++)
             resultGraph.addVertex((Graph) graphs.elementAt(i));
-	
-	// Creating Edges from graphs to their induced subgraphs
+        
+        // Creating Edges from graphs to their induced subgraphs
         for (Graph v : resultGraph.vertexSet()) {
-	    Vector<Graph>subs = (Vector<Graph>) results.get(v);
-	    if (subs == null)
+            Vector<Graph>subs = (Vector<Graph>) results.get(v);
+            if (subs == null)
                 continue;
             for (Graph vSub: subs)
                 resultGraph.addEdge(v, vSub);
         }
-	
-	GAlg.transitiveClosure(resultGraph);
-	
-	// Removing Nodes of graphs with "USG" in the name
+        
+        GAlg.transitiveClosure(resultGraph);
+        
+        // Removing Nodes of graphs with "USG" in the name
         ArrayList<Graph> remove = new ArrayList<Graph>();
         for (Graph v : resultGraph.vertexSet()) {
             if (v.getName().startsWith(USG))
                 remove.add(v);
         }
         resultGraph.removeAllVertices(remove);
-	
-	GAlg.transitiveReduction(resultGraph);
+        
+        GAlg.transitiveReduction(resultGraph);
     }
     
     public static void addBigSmallmembers() throws
             IOException, InterruptedException {
-	
-	Vector bigSmallmemb = new Vector();// Contains graphs of size larger
+        
+        Vector bigSmallmemb = new Vector();// Contains graphs of size larger
                                            // than maxCnt
-	for (int i=0; i<families.size(); i++)
+        for (int i=0; i<families.size(); i++)
             if (families.elementAt(i) instanceof HMTFamily)
                 if (((HMTFamily)families.elementAt(i)).getGrammar() != null) {
                     HMTFamily fhmt = (HMTFamily)families.elementAt(i);
@@ -537,8 +537,8 @@ contBig:            for (int j=0; j<smMem.size(); j++)
         // Not converted to jgrapht!
 /*        for (int j=0; j<topo.size(); j++)
             for (int k=0; k<topo.size(); k++) {
-		if (j == k)
-		    continue;
+                if (j == k)
+                    continue;
                 if (resultGraph.getPath((Node)topo.elementAt(j),
                         (Node)topo.elementAt(k)).size() == 0) {
                     if (isSubgraphVF(

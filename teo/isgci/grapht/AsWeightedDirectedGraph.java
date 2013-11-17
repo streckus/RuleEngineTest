@@ -1,7 +1,7 @@
 /*
  * A weighted view of a directed graphs.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/grapht/AsWeightedDirectedGraph.java,v 2.2 2012/04/11 10:32:55 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * Displays a list of graph classes for which the given problem is still open.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gui/OpenProblemDialog.java,v 2.2 2013/03/12 18:43:39 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

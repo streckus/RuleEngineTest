@@ -1,7 +1,7 @@
 /*
  * References.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/db/Ref.java,v 2.1 2012/04/06 17:57:41 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * Starts ISGCI and provides functinos for loading data.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/Loader.java,v 1.18 2011/10/20 14:49:34 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

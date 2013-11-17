@@ -2,7 +2,7 @@
  * A filter that converts the contents of a <note> element into a characters()
  * call.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/xml/NoteFilter.java,v 2.1 2011/10/11 07:12:01 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

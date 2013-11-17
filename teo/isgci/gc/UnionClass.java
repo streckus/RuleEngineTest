@@ -1,7 +1,7 @@
 /*
  * A GraphClass defined by union of two or more other GraphClasses.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gc/UnionClass.java,v 1.15 2013/09/12 14:31:13 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

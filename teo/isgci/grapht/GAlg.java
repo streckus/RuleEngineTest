@@ -1,7 +1,7 @@
 /*
  * General algorithms and tools for graphs.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/grapht/GAlg.java,v 2.2 2013/04/07 10:48:27 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

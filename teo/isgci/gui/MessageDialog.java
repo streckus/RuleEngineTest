@@ -1,7 +1,7 @@
 /*
  * Class for message dialogs.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gui/MessageDialog.java,v 2.0 2011/09/25 12:37:13 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

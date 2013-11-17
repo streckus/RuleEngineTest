@@ -1,0 +1,63 @@
+B_k_SVG \not\subset SEG and 3-DIR\not\subset B_1-VPG [1639]
+
+Forbidden directed subgraphs, e.g [1632,1633,1634]
+
+Add longest path problem
+
+induced subgraph of hexagonal grids is cubical [1615]
+
+Every planar graphs is k-outerplanar for some k. Is then planar == k-outerplanar?
+
+lin recognition probe interval \cap tree with R. Shamir, D. Tsur faster subtree
+isomorphism J. of Alg. 33:267-280 1999
+
+probe unit interval != unit interval!
+
+Is Eschen et al [1222] recognition algo really for Welsh-Powell Opposition or
+for hereditary Welsh-Powell Opposition graphs?
+
+WC, WIS P for subtree filament? [1159]
+
+forbidden minor: planar, partial-2/3 trees, apex, linklessly embeddable (see Wikipedia on apex graphs).
+forbidden convex subgraphs: almost-median (Bresar, doi 10.1016/j.ejc.2005.10.009
+)
+
+cyclically reducible graphs [1574, p.3]
+
+prism-free \cap almost median [1608]
+
+restricted unimodular graphs (~/Refs/restricted-unimod-chordal.pdf)
+
+forbidden homeomorphic subgraphs for graphs with planar quasi-total graphs.
+forbidden homeomorphic subgraphs for unit bar visibility \cap tree [1300]
+split-perfect: forbidden subgraphs for prime graphs.
+dominating path graph: incomplete list of forbidden subgraphs. among others
+XF_10, XF_11
+
+Infinite forbidden subgraphs:
+several comparability classes according to Trotter&Moore
+(bounded) tolerance: Felsner[383]
+bisplit (RRR 28-2002)
+create new family for cactus (new grammartype!)
+create new family for nearly bipartite (C_n \cup K_1, odd n>=3 )
+Forbidden families for upper domination perfect [1263]
+claw-free \cap upper domination perfect [1265]
+split UEH graphs (splitUEH.pdf)
+path graphs (pathgraphs.pdf)
+superbasic graphs (see basic graphs)
+AH-free graphs (Hertz & De Werra)
+balanced graphs (balancedgraphs.pdf)
+forbidden subgraphs for proper/unit circular arc? [1040]
+forbidden subgraphs for co-bipartite \cap circular arc? Trotter&Moore
+
+colouring NPC on C_k-free graps [1433] -> new class C_k-free, ook zo nK_2, nP_3
+
+concave-round\cap not-co-bipartite \subseteq proper c.a.g. [1244]
+slim and XXX incomparable [1259]
+slender, XXX incomparable [1272]
+skeletal, XXX incomparable [1273]
+superperfect non-comparability [19]
+bipartite and locally connected disjoint (wrong: nK_2 is both)
+
+well-covered GI is GI-complete [1564]
+proper circular arc GI lin [1646]

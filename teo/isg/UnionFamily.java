@@ -1,7 +1,7 @@
 /*
  * Represents a family of graphs given by a union of SmallGraphs.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isg/UnionFamily.java,v 1.8 2011/10/27 15:53:27 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.
@@ -50,11 +50,11 @@ public class UnionFamily extends Family{
     
     public String toString(){
         int i;
-	String s = "Name: "+getName()+"\nSubfamilies: ";
-	for (i=0; i<subfamilies.size(); i++)
-	    s+=((SmallGraph) subfamilies.elementAt(i)).getName()+"; ";
-	s+="\nLink: "+link+"\nComplement: "+complement.getName();
-	return s;
+        String s = "Name: "+getName()+"\nSubfamilies: ";
+        for (i=0; i<subfamilies.size(); i++)
+            s+=((SmallGraph) subfamilies.elementAt(i)).getName()+"; ";
+        s+="\nLink: "+link+"\nComplement: "+complement.getName();
+        return s;
     }
 }
     

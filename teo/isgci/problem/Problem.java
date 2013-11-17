@@ -1,7 +1,7 @@
 /*
  * Problems on graphs.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/problem/Problem.java,v 2.3 2013/09/12 14:31:13 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

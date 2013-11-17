@@ -1,7 +1,7 @@
 /*
  * A convenience form of ..sax.Attributes with just qname and value
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/xml/SimpleAttributes.java,v 2.0 2011/09/25 12:36:13 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

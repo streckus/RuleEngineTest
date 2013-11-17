@@ -1,7 +1,7 @@
 /*
  * Write an ISGCIGraph as GraphML using SAX events.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/xml/GraphMLWriter.java,v 2.1 2011/09/29 08:38:52 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * Layout a Digraph hierachically.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/layout/HierarchyLayout.java,v 2.1 2011/09/29 08:52:51 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

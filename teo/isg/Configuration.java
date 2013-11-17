@@ -1,7 +1,7 @@
 /*
  * Represents a configuration of graphs
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isg/Configuration.java,v 1.11 2011/10/27 15:53:27 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.
@@ -344,7 +344,7 @@ public class Configuration extends SmallGraph{
             Vector automorph = getAutomorphisms();
 
             if (DEBUG)
-                System.out.print("  Automorphismen: " + automorph.size() +"\n");
+                System.out.print("  Automorphismen: "+ automorph.size() +"\n");
 
             for (i = 0; i < automorph.size(); i++) {
                 int p[] = (int []) automorph.elementAt(i);
@@ -705,7 +705,8 @@ loop:   for (i=0; i < power2n; i++) {
              * Rekursion */
 
             for (i = 0; i < rumpf.getComponents(); i++) {
-                Configuration c = new Configuration(this, rumpf.getComponents(i));
+                Configuration c =
+                        new Configuration(this, rumpf.getComponents(i));
 
                 if (c.isInducedSubgraph(g))
                     return true;

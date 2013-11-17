@@ -1,7 +1,7 @@
 /*
  * An exception for problems that seem to be both P and NPC
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/problem/ComplexityClashException.java,v 2.0 2011/09/25 12:33:16 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

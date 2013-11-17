@@ -1,7 +1,7 @@
 /*
  * A GraphClass that is derived from a single other class.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gc/DerivedClass.java,v 1.3 2012/04/09 11:28:24 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

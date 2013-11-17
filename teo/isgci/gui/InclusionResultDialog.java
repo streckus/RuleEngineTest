@@ -1,7 +1,7 @@
 /*
  * Displays the relation between two graphclasses.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gui/InclusionResultDialog.java,v 2.4 2011/12/22 13:13:54 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

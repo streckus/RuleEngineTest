@@ -1,7 +1,7 @@
 /*
  * A common definition of Graph and Family
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isg/SmallGraph.java,v 1.1 2011/10/27 15:53:27 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

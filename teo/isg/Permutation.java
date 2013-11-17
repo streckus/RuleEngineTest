@@ -1,7 +1,7 @@
 /*
  * Permutations.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isg/Permutation.java,v 1.5 2011/04/07 07:28:31 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * The database of ISGCI.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/db/DataSet.java,v 2.3 2013/08/17 11:30:09 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

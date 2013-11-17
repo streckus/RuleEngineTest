@@ -1,4 +1,4 @@
-// $Header: /home/ux/CVSROOT/teo/teo/isgci/iq/iq.peg,v 1.1 2012/04/22 07:45:35 ux Exp $
+// $Id$
 
 top             = space expr EOF {top} ~{bad}
                 / _++ EOF ;

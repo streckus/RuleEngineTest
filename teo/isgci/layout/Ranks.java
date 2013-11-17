@@ -2,7 +2,7 @@
  * Holds the nodes of a graph in Ranks. The nodes are ordered within
  * its ranks to minimize edge-crossings.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/layout/Ranks.java,v 2.1 2011/09/29 08:40:33 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

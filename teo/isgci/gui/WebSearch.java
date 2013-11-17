@@ -2,7 +2,7 @@
 /*
  * Searching classes for keywords through the server
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gui/WebSearch.java,v 2.1 2011/09/29 18:34:29 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * Reads XML file containing small graphs and families and parses it
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/xml/SmallGraphReader.java,v 2.4 2011/10/27 15:53:30 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

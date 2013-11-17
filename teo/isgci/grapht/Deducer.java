@@ -1,7 +1,7 @@
 /*
  * Deduces trivial inclusions.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/grapht/Deducer.java,v 2.10 2012/07/27 07:10:22 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

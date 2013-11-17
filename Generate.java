@@ -1,7 +1,7 @@
 /*
  * Find trivial inclusions, generate node info.
  *
- * $Header: /home/ux/CVSROOT/teo/Generate.java,v 2.10 2013/09/12 14:31:10 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.
@@ -36,7 +36,7 @@ public class Generate {
      */
     public static void show(Graph dg){
         System.err.print("Nodes: "+ dg.vertexSet().size());
-	System.err.println("     Edges: "+ dg.edgeSet().size());
+        System.err.println("     Edges: "+ dg.edgeSet().size());
     }
 
 

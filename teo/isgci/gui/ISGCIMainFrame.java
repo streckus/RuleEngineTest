@@ -1,7 +1,7 @@
 /*
  * The main window of ISGCI. Also the class to start the program.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gui/ISGCIMainFrame.java,v 2.5 2013/08/17 11:30:10 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

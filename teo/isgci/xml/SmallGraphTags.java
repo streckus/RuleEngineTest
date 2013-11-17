@@ -1,7 +1,7 @@
 /*
  * XML Tags for small graphs
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/xml/SmallGraphTags.java,v 2.2 2011/10/11 07:12:01 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

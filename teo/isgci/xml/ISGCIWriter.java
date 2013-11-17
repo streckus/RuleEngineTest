@@ -1,7 +1,7 @@
 /*
  * Write an ISGCIGraph using SAX events.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/xml/ISGCIWriter.java,v 2.10 2013/09/12 14:31:13 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

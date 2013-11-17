@@ -4,7 +4,7 @@
  * that start at or point to the current node.
  * It is supposed to be used for ranking-algorithm (HierarchyLayout).
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/layout/TightTreeWalker.java,v 2.0 2011/09/25 12:36:27 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

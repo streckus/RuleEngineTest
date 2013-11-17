@@ -1,7 +1,7 @@
 /*
  * An ISGCI Query
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/iq/IQ.java,v 1.2 2013/01/19 21:38:32 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * Standard data for relations.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/db/RelationData.java,v 2.1 2011/10/22 20:08:54 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * Utils for XSLT processing.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/XsltUtil.java,v 1.3 2013/03/01 17:06:41 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

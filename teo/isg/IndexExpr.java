@@ -1,7 +1,7 @@
 /*
  * Index Expression (for creating HMT-Families)
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isg/IndexExpr.java,v 1.2 2011/04/07 07:28:31 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

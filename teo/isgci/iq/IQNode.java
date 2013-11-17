@@ -1,7 +1,7 @@
 /*
  * A node in the syntax tree of an ISGCI Query.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/iq/IQNode.java,v 1.1 2012/04/22 07:45:35 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

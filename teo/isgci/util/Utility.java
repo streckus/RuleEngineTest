@@ -1,7 +1,7 @@
 /*
  * A collection of some common and useful functions.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/util/Utility.java,v 2.2 2011/09/29 18:33:49 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

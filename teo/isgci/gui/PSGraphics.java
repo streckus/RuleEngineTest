@@ -1,7 +1,7 @@
 /*
  * Graphics context for Postscript.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gui/PSGraphics.java,v 2.1 2012/10/29 12:53:12 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

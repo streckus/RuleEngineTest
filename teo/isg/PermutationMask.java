@@ -1,7 +1,7 @@
 /*
  * Permutations of Masks.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isg/Attic/PermutationMask.java,v 1.2 2011/06/04 08:11:15 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

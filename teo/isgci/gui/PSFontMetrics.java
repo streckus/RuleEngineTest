@@ -1,7 +1,7 @@
 /*
  * Fontmetrics of Postscript fonts.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gui/PSFontMetrics.java,v 2.1 2011/10/18 15:11:57 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

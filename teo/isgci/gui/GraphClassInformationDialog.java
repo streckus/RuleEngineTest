@@ -1,7 +1,7 @@
 /*
  * Displays information about a given graphclass.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gui/GraphClassInformationDialog.java,v 2.2 2013/08/17 11:30:10 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * Common system for formatting latex.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/util/Latex.java,v 2.0 2011/09/25 12:33:43 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

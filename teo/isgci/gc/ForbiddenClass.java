@@ -1,7 +1,7 @@
 /*
  * A GraphClass that is defined by forbidden induced subgraphs.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gc/ForbiddenClass.java,v 1.51 2012/04/09 11:28:25 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

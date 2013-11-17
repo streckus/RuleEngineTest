@@ -1,7 +1,7 @@
 /*
  * Generates and caches node id's for graph classes.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/util/IDGenerator.java,v 2.0 2011/09/25 12:33:43 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

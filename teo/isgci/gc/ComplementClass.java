@@ -1,7 +1,7 @@
 /*
  * A GraphClass that is the complement of another GraphClass.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gc/ComplementClass.java,v 1.8 2011/05/29 16:50:54 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * A directed graph that caches nodes/edges.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/grapht/CacheGraph.java,v 2.0 2011/09/25 12:41:43 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

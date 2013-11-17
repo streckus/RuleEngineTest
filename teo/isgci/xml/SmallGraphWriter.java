@@ -1,7 +1,7 @@
 /*
  * Writes small graphs to an XML file
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/xml/SmallGraphWriter.java,v 2.6 2012/04/08 06:02:14 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

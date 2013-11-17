@@ -1,7 +1,7 @@
 /*
  * A complexity class.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/problem/Complexity.java,v 2.3 2012/10/28 16:00:57 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

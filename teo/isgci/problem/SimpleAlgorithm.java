@@ -1,7 +1,7 @@
 /*
  * Algorithm for a problem on a particular graphclass
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/problem/SimpleAlgorithm.java,v 2.1 2012/10/28 15:59:06 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * The problem of recognizing a graphclass.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/problem/Recognition.java,v 2.1 2011/09/29 15:08:59 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.

@@ -1,7 +1,7 @@
 /*
  * A GraphClass based on another class and adding the hereditary property.
  *
- * $Header: /home/ux/CVSROOT/teo/teo/isgci/gc/HereditaryClass.java,v 1.10 2012/04/09 11:28:25 ux Exp $
+ * $Id$
  *
  * This file is part of the Information System on Graph Classes and their
  * Inclusions (ISGCI) at http://www.graphclasses.org.
