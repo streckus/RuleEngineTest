@@ -1,0 +1,42 @@
+#!/bin/bash
+INSTALLDIR=/home/www
+VERSION=
+BACKUP=./isgci-$(date +"%F_%H.%M").tar.gz
+
+# Backup directory
+read -p "Installation directory (enter for $INSTALLDIR):"
+if [ -n "$REPLY" ]
+then
+   INSTALLDIR="$REPLY"
+fi
+
+if [ ! -f "$INSTALLDIR/ISGCI.jar" ]
+then
+   echo No ISGCI installation found in $INSTALLDIR. Aborting.
+   exit 1
+fi
+
+read -p "Backup file for current installation (enter for $BACKUP):"
+if [ -n "$REPLY" ]
+then
+   BACKUP="$REPLY"
+fi
+
+# Remove old files (other files will simply be overwritten)
+rm -f "$INSTALLDIR"/Keys/*
+rm -f "$INSTALLDIR"/classes/*
+rm -f "$INSTALLDIR"/images/*
+
+if ! tar czf "$BACKUP" "$INSTALLDIR"
+then
+   read -p "Error creating backup. Enter to continue or ctrl-C to abort"
+fi
+
+# Install dynamic data
+if ! tar xzf isgci$VERSION.tar.gz --no-same-owner --same-permissions --directory "$INSTALLDIR"
+then
+   echo Error extracting isgci$VERSION.tar.gz. Aborting.
+   exit 1
+fi
+
+exit 0
