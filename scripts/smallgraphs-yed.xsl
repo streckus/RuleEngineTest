@@ -31,10 +31,10 @@
 
 <xsl:template match="simple|configuration|complement|alias">
    <xsl:if test="//SMALLGRAPHS/family/(contains|subfamily|(induced/smallgraph)|induced1|(induced-rest/smallgraph)|induced-rest1)
-	    [text()=current()/@name]">
+            [text()=current()/@name]">
       <xsl:call-template name="node">
-	 <xsl:with-param name="name" select="@name"/>
-	 <xsl:with-param name="type" select="''"/>
+         <xsl:with-param name="name" select="@name"/>
+         <xsl:with-param name="type" select="''"/>
       </xsl:call-template>
    </xsl:if>
    <xsl:apply-templates select="alias|(complement[@name!=current()/@name])"/>
@@ -56,9 +56,9 @@
    </xsl:call-template>
    <xsl:for-each select="smallgraph">
       <xsl:call-template name="edge">
-	 <xsl:with-param name="src" select="."/>
-	 <xsl:with-param name="dest" select="$this"/>
-	 <xsl:with-param name="type" select="'subfamily'"/>
+         <xsl:with-param name="src" select="."/>
+         <xsl:with-param name="dest" select="$this"/>
+         <xsl:with-param name="type" select="'subfamily'"/>
       </xsl:call-template>
    </xsl:for-each>
    <xsl:call-template name="edge">
@@ -77,30 +77,30 @@
    <xsl:param name="type" as="xs:string"/>
    <node id="{$name}">
       <data key="d0">
-	 <y:ShapeNode>
-	    <xsl:choose>
-	       <xsl:when test="$type eq 'union'">
-		  <y:Shape type="trapezoid2"/>
-	       </xsl:when>
-	       <xsl:when test="$type eq 'simple'">
-		  <y:Shape type="ellipse"/>
-	       </xsl:when>
-	       <xsl:when test="$type eq ''">
-		  <y:Fill hasColor="false"/>
-		  <y:Shape type="ellipse"/>
-	       </xsl:when>
-	       <xsl:otherwise>
-		  <y:Shape type="rectangle"/>
-	       </xsl:otherwise>
-	    </xsl:choose>
-	    <y:NodeLabel>
-	       <xsl:value-of select="$name"/>
-	       <xsl:if test="$type">
-		  <xsl:text>&#x0a;</xsl:text>
-		  <xsl:value-of select="$type"/>
-	       </xsl:if>
-	    </y:NodeLabel>
-	 </y:ShapeNode>
+         <y:ShapeNode>
+            <xsl:choose>
+               <xsl:when test="$type eq 'union'">
+                  <y:Shape type="trapezoid2"/>
+               </xsl:when>
+               <xsl:when test="$type eq 'simple'">
+                  <y:Shape type="ellipse"/>
+               </xsl:when>
+               <xsl:when test="$type eq ''">
+                  <y:Fill hasColor="false"/>
+                  <y:Shape type="ellipse"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <y:Shape type="rectangle"/>
+               </xsl:otherwise>
+            </xsl:choose>
+            <y:NodeLabel>
+               <xsl:value-of select="$name"/>
+               <xsl:if test="$type">
+                  <xsl:text>&#x0a;</xsl:text>
+                  <xsl:value-of select="$type"/>
+               </xsl:if>
+            </y:NodeLabel>
+         </y:ShapeNode>
       </data>
    </node>
 </xsl:template>
@@ -111,22 +111,22 @@
    <xsl:param name="type" as="xs:string"/>
    <edge source="{$src}" target="{$dest}">
       <data key="e0">
-	 <y:PolyLineEdge>
-	    <xsl:choose>
-	       <xsl:when test="$type eq 'induced'">
-		  <y:LineStyle type="dashed"/>
-	       </xsl:when>
-	       <xsl:when test="$type eq 'induced-rest'">
-		  <y:LineStyle type="dashed_dotted"/>
-	       </xsl:when>
-	       <xsl:otherwise>
-		  <y:LineStyle type="line"/>
-	       </xsl:otherwise>
-	    </xsl:choose>
-	    <xsl:if test="$type ne 'subfamily'">
-	       <y:EdgeLabel><xsl:value-of select="$type"/></y:EdgeLabel>
-	    </xsl:if>
-	 </y:PolyLineEdge>
+         <y:PolyLineEdge>
+            <xsl:choose>
+               <xsl:when test="$type eq 'induced'">
+                  <y:LineStyle type="dashed"/>
+               </xsl:when>
+               <xsl:when test="$type eq 'induced-rest'">
+                  <y:LineStyle type="dashed_dotted"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <y:LineStyle type="line"/>
+               </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="$type ne 'subfamily'">
+               <y:EdgeLabel><xsl:value-of select="$type"/></y:EdgeLabel>
+            </xsl:if>
+         </y:PolyLineEdge>
       </data>
    </edge>
 </xsl:template>

@@ -64,14 +64,14 @@
    <xsl:if test="@relay">
       <xsl:variable name="target" select="@relay"/>
       <xsl:variable name="relay"
-	 select="/SMALLGRAPHS/*[@name=$target]|
-	    /SMALLGRAPHS/*/complement[@name=$target]"/>
+         select="/SMALLGRAPHS/*[@name=$target]|
+            /SMALLGRAPHS/*/complement[@name=$target]"/>
       <xsl:if test="not($relay)">
-	 <xsl:message>Relay <xsl:value-of select="@relay"/> not found.</xsl:message>
+         <xsl:message>Relay <xsl:value-of select="@relay"/> not found.</xsl:message>
       </xsl:if>
       <xsl:call-template name="linkrelay">
-	 <xsl:with-param name="name" select="@name"/>
-	 <xsl:with-param name="relay" select="$relay"/>
+         <xsl:with-param name="name" select="@name"/>
+         <xsl:with-param name="relay" select="$relay"/>
       </xsl:call-template>
    </xsl:if>
    <xsl:text>&#xa;</xsl:text>
@@ -83,15 +83,15 @@
    <xsl:param name="relay" required="yes"/>
    <xsl:choose>
       <xsl:when test="$relay/expl/xfig">
-	 <link name="{$name}"
-	       address="{$relay/link/@address}"
-	       img="{teo:url($imagedir,
-		  teo:gifname($relay/expl/xfig/@file))}"
-	       imgname="{$relay/@name}"/>
+         <link name="{$name}"
+               address="{$relay/link/@address}"
+               img="{teo:url($imagedir,
+                  teo:gifname($relay/expl/xfig/@file))}"
+               imgname="{$relay/@name}"/>
       </xsl:when>
       <xsl:otherwise>
-	 <link name="{$name}"
-	       address="{$relay/link/@address}"/>
+         <link name="{$name}"
+               address="{$relay/link/@address}"/>
       </xsl:otherwise>
    </xsl:choose>
 </xsl:template>
@@ -100,53 +100,53 @@
 <xsl:template match="simple|complement|alias|family|configuration|fakefamily"
       mode="link-data">
    <xsl:variable name="link"
-	 select="(ancestor-or-self::*[exists(../..)]/link)[last()]"/>
+         select="(ancestor-or-self::*[exists(../..)]/link)[last()]"/>
    <xsl:choose>
       <xsl:when test="expl/xfig">
-	 <link name="{@name}"
-	       address="{$link/@address}"
-	       img="{teo:url($imagedir, teo:gifname(expl/xfig/@file))}"/>
+         <link name="{@name}"
+               address="{$link/@address}"
+               img="{teo:url($imagedir, teo:gifname(expl/xfig/@file))}"/>
       </xsl:when>
       <xsl:when test="../expl/xfig">
-	 <link name="{@name}"
-	       address="{$link/@address}"
-	       img="{teo:url($imagedir, teo:gifname(../expl/xfig/@file))}"
-	       imgname="{../@name}"/>
+         <link name="{@name}"
+               address="{$link/@address}"
+               img="{teo:url($imagedir, teo:gifname(../expl/xfig/@file))}"
+               imgname="{../@name}"/>
       </xsl:when>
       <xsl:when test="$link/@relay">
-	 <xsl:variable name="relay"
-	    select="/SMALLGRAPHS/*[@name=$link/@relay]|
-	       /SMALLGRAPHS/*/complement[@name=$link/@relay]"/>
-	 <xsl:if test="not($relay)">
-	    <xsl:message>Relay <xsl:value-of select="$link/@relay"/> not found.</xsl:message>
-	 </xsl:if>
-	 <xsl:call-template name="linkrelay">
-	    <xsl:with-param name="name" select="@name"/>
-	    <xsl:with-param name="relay" select="$relay"/>
-	 </xsl:call-template>
-	 <!-- <xsl:choose>
-	    <xsl:when test="$relay/expl/xfig">
-	       <link name="{@name}"
-		     address="{$relay/link/@address}"
-		     img="{teo:url($imagedir,
-			teo:gifname($relay/expl/xfig/@file))}"
-		     imgname="{$relay/@name}"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	       <link name="{@name}"
-		     address="{$relay/link/@address}"/>
-	    </xsl:otherwise>
-	 </xsl:choose> -->
+         <xsl:variable name="relay"
+            select="/SMALLGRAPHS/*[@name=$link/@relay]|
+               /SMALLGRAPHS/*/complement[@name=$link/@relay]"/>
+         <xsl:if test="not($relay)">
+            <xsl:message>Relay <xsl:value-of select="$link/@relay"/> not found.</xsl:message>
+         </xsl:if>
+         <xsl:call-template name="linkrelay">
+            <xsl:with-param name="name" select="@name"/>
+            <xsl:with-param name="relay" select="$relay"/>
+         </xsl:call-template>
+         <!-- <xsl:choose>
+            <xsl:when test="$relay/expl/xfig">
+               <link name="{@name}"
+                     address="{$relay/link/@address}"
+                     img="{teo:url($imagedir,
+                        teo:gifname($relay/expl/xfig/@file))}"
+                     imgname="{$relay/@name}"/>
+            </xsl:when>
+            <xsl:otherwise>
+               <link name="{@name}"
+                     address="{$relay/link/@address}"/>
+            </xsl:otherwise>
+         </xsl:choose> -->
       </xsl:when>
       <xsl:when test="$link/@img">
-	 <link name="{@name}"
-	       address="{$link/@address}"
-	       img="{teo:url($imagedir, $link/@img)}"
-	       imgname="{$link/@imgname}"/>
+         <link name="{@name}"
+               address="{$link/@address}"
+               img="{teo:url($imagedir, $link/@img)}"
+               imgname="{$link/@imgname}"/>
       </xsl:when>
       <xsl:otherwise>
-	 <link name="{@name}"
-	       address="{$link/@address}"/>
+         <link name="{@name}"
+               address="{$link/@address}"/>
       </xsl:otherwise>
    </xsl:choose>
 </xsl:template>

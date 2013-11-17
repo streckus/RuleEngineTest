@@ -16,15 +16,15 @@ def printwhy(fname, sup, sub, prefix):
    try:
       # Read the nodes
       while 1:
-	 line = f.readline()
-	 data = line.split('\t')	# This keeps the newline after the name
-	 if len(data) != 2:
-	    break
-	 nodes[data[0]] = data[1]
+         line = f.readline()
+         data = line.split('\t')        # This keeps the newline after the name
+         if len(data) != 2:
+            break
+         nodes[data[0]] = data[1]
 
       # Find the inclusion
       while not line.startswith(pattern):
-	 line = f.readline()
+         line = f.readline()
 
       print prefix + pattern
       print prefix + nodes[sup],
@@ -34,9 +34,9 @@ def printwhy(fname, sup, sub, prefix):
       sys.stdout.flush()
       line = f.readline()
       while line.startswith(" "):
-	 data = line.split()
-	 printwhy(fname, data[0], data[2], prefix+"   ")
-	 line = f.readline()
+         data = line.split()
+         printwhy(fname, data[0], data[2], prefix+"   ")
+         line = f.readline()
 
    finally:
       f.close()

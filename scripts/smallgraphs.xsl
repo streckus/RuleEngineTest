@@ -13,11 +13,11 @@
 
 <xsl:output method="xml" encoding="utf-8" doctype-system="smallgraphs.dtd"/>
 <xsl:output name="html" method="html" encoding="utf-8"
-	 doctype-public="-//W3C//DTD HTML 4.01//EN"/>
+         doctype-public="-//W3C//DTD HTML 4.01//EN"/>
 <!-- <xsl:strip-space elements="*"/> -->
 
 <!-- Mind the trailing space and the tab in the sed expression! -->
-<xsl:param name="fig2gif">sed -e 's/^[ 	]*//' -e '/^$/d' | fig2dev -L gif </xsl:param>
+<xsl:param name="fig2gif">sed -e 's/^[  ]*//' -e '/^$/d' | fig2dev -L gif </xsl:param>
 
 <!-- ISGCI homepage -->
 <xsl:param name="homeurl" required="yes"/>
@@ -50,7 +50,7 @@
    <xsl:param name="nodecount" as="xs:integer"/>
    <xsl:param name="edgecount" as="xs:integer"/>
    <xsl:variable name="kn" as="xs:integer"
-	 select="($nodecount * ($nodecount - 1)) idiv 2"/>
+         select="($nodecount * ($nodecount - 1)) idiv 2"/>
    <xsl:sequence select="min(($edgecount, $kn - $edgecount))"/>
 </xsl:function>
 
@@ -60,7 +60,7 @@
 <xsl:function name="teo:coll" as="xs:string">
    <xsl:param name="s"/>
    <xsl:sequence select="replace(replace($s, 'X([CFZ]?)_\{([^}]{2})\}', 'X$1_{0$2}'),
-	'X([CFZ]?)_([^{])', 'X$1_{00$2}') "/>
+        'X([CFZ]?)_([^{])', 'X$1_{00$2}') "/>
 </xsl:function>
 
 <!-- Return the graph6 representation of the given simple smallgraph
@@ -70,9 +70,9 @@
    <xsl:param name="g"/>
    <xsl:param name="complopt"/>
    <xsl:variable name="res" select="XsltUtil:systemOut(concat(
-	 'sgt -6qC', $complopt, ' ',
-	 substring-after(base-uri($theroot), ':'), ' ',
-	 '''', $g, ''''))"/>
+         'sgt -6qC', $complopt, ' ',
+         substring-after(base-uri($theroot), ':'), ' ',
+         '''', $g, ''''))"/>
    <xsl:if test="not($res)">
       <xsl:message>Cannot convert <xsl:value-of select="$g"/> to graph6.</xsl:message>
    </xsl:if>
@@ -86,9 +86,9 @@
 
    <!-- Create smallgraphs for Sage file -->
    <xsl:result-document href="{$sagefile}" method="text" indent="no"
-	 encoding="utf-8">
+         encoding="utf-8">
       <xsl:apply-templates select=
-	    "simple|(simple/complement[@name!=../@name])" mode="sage"/>
+            "simple|(simple/complement[@name!=../@name])" mode="sage"/>
    </xsl:result-document>
 
    <!-- Create smallgraphs.html -->
@@ -114,14 +114,14 @@
    <ul>
       <li><a href="#alphabet">Graphs ordered alphabetically</a></li>
       <li><a href="#order_by_number">Graphs ordered by number of vertices</a>
-	 <ul>
-	 <xsl:for-each-group select="simple" group-by="nodes/@count">
-	    <xsl:sort select="nodes/@count" data-type="number"/>
-	    <li><a href="#nodes{nodes/@count}">
-	       <xsl:value-of select="nodes/@count"/> vertices</a>
-	    </li>
-	 </xsl:for-each-group>
-	 </ul>
+         <ul>
+         <xsl:for-each-group select="simple" group-by="nodes/@count">
+            <xsl:sort select="nodes/@count" data-type="number"/>
+            <li><a href="#nodes{nodes/@count}">
+               <xsl:value-of select="nodes/@count"/> vertices</a>
+            </li>
+         </xsl:for-each-group>
+         </ul>
       </li>
       <li><a href="#forbidden_configurations_XC">Configurations XC</a></li>
       <li><a href="#forbidden_configurations_XZ">Configurations XZ</a></li>
@@ -134,55 +134,55 @@
    <p>Note that complements are usually not listed. So for e.g. co-fork,
    look for fork.</p>
    <xsl:variable name="roughsimples" select="
-	 simple[expl|complement/expl]|
-	 simple[expl|complement/expl]/alias|
-	 simple[expl|complement/expl]/complement[@name!=../@name]|
-	 simple[expl|complement/expl]/complement/alias|
-	 configuration|
-	 family[expl]|
-	 family[expl]/alias|
-	 family/complement[expl]|
-	 family/complement[expl]/alias|
-	 fakefamily|
-	 fakefamily/alias"/>
+         simple[expl|complement/expl]|
+         simple[expl|complement/expl]/alias|
+         simple[expl|complement/expl]/complement[@name!=../@name]|
+         simple[expl|complement/expl]/complement/alias|
+         configuration|
+         family[expl]|
+         family[expl]/alias|
+         family/complement[expl]|
+         family/complement[expl]/alias|
+         fakefamily|
+         fakefamily/alias"/>
    <xsl:variable name="simples">
       <xsl:for-each select="$roughsimples">
-	 <xsl:sort select="teo:coll(@name)"/>
-	 <xsl:if test="
-	    not(
-	       starts-with(@name, '\co{') and
-	       ends-with(@name, '}') and
-	       $roughsimples[@name eq substring(current()/@name, 5,
-		     string-length(current()/@name)-5)]
-	    ) and
-	    not(
-	       starts-with(@name, 'co-') and
-		  $roughsimples[@name eq substring(current()/@name, 4)]
-	    )">
-	    <xsl:element name="simpleitem">
-	       <xsl:attribute name="name">
-		  <xsl:value-of select="@name"/>
-	       </xsl:attribute>
-	       <xsl:attribute name="link">
-		  <xsl:value-of select="
-		  (ancestor-or-self::*[exists(../..)]/link)[last()]/@address"/>
-	       </xsl:attribute>
-	    </xsl:element>
-	 </xsl:if>
+         <xsl:sort select="teo:coll(@name)"/>
+         <xsl:if test="
+            not(
+               starts-with(@name, '\co{') and
+               ends-with(@name, '}') and
+               $roughsimples[@name eq substring(current()/@name, 5,
+                     string-length(current()/@name)-5)]
+            ) and
+            not(
+               starts-with(@name, 'co-') and
+                  $roughsimples[@name eq substring(current()/@name, 4)]
+            )">
+            <xsl:element name="simpleitem">
+               <xsl:attribute name="name">
+                  <xsl:value-of select="@name"/>
+               </xsl:attribute>
+               <xsl:attribute name="link">
+                  <xsl:value-of select="
+                  (ancestor-or-self::*[exists(../..)]/link)[last()]/@address"/>
+               </xsl:attribute>
+            </xsl:element>
+         </xsl:if>
       </xsl:for-each>
    </xsl:variable>
    <xsl:variable name="columns" select="5"/>
    <xsl:variable name="tablen"
-	 select="ceiling(count($simples/*) div $columns)"/>
+         select="ceiling(count($simples/*) div $columns)"/>
 
    <div class="alfacolumns">
       <xsl:for-each-group select="$simples/*"
-	    group-by="(position()-1) idiv $tablen">
-	 <ul class="alfacolumn">
-	    <xsl:for-each select="current-group()">
-	       <li><xsl:apply-templates select="." mode="href"/></li>
-	    </xsl:for-each>
-	 </ul>
+            group-by="(position()-1) idiv $tablen">
+         <ul class="alfacolumn">
+            <xsl:for-each select="current-group()">
+               <li><xsl:apply-templates select="." mode="href"/></li>
+            </xsl:for-each>
+         </ul>
       </xsl:for-each-group>
    </div>
 
@@ -190,112 +190,112 @@
       <h2 id="order_by_number">Graphs ordered by number of vertices</h2>
 
       <xsl:for-each-group select="simple" group-by="nodes/@count">
-	 <xsl:sort select="nodes/@count" data-type="number"/>
-	 <xsl:text>&#xa;</xsl:text>
-	 <h3 id="nodes{nodes/@count}">
-	    <xsl:value-of select="nodes/@count"/> vertices
-	    <span class="plaintext"> - Graphs are ordered by increasing number
-	    of edges in the left column.</span>
-	 </h3>
-	 <xsl:text>&#xa;</xsl:text>
-	 <xsl:for-each select="current-group()">
-	    <xsl:sort select="teo:countMinEdges(nodes/@count,
-		  teo:edgecount(edges))"
-		  data-type="number"/>
-	    <xsl:if test="expl|complement/expl">
-	       <div id="{link/@address}" class="graphpair">
-		  <xsl:choose>
-		     <xsl:when test="teo:edgecount(edges) le
-			   teo:countMinEdges(nodes/@count,
-			      teo:edgecount(edges))">
-			<div class="leftgraph">
-			   <xsl:apply-templates select="." mode="names"/>
-			   <xsl:apply-templates select="expl"/>
-			</div>
-			<div class="rightgraph">
-			<xsl:if test="@name != complement/@name">
-			   <xsl:apply-templates select="complement" mode="names"/>
-			</xsl:if>
-			<xsl:apply-templates select="complement/expl"/>
-			</div>
-		     </xsl:when>
-		     <xsl:otherwise>
-			<div class="leftgraph">
-			   <xsl:apply-templates select="complement" mode="names"/>
-			   <xsl:apply-templates select="complement/expl"/>
-			</div>
-			<div class="rightgraph">
-			   <xsl:if test="@name != complement/@name">
-			      <xsl:apply-templates select="." mode="names"/>
-			   </xsl:if>
-			   <xsl:apply-templates select="expl"/>
-			</div>
-		     </xsl:otherwise>
-		  </xsl:choose>
-	       </div>
-	       <xsl:call-template name="toplink"/>
-	    </xsl:if>
-	 </xsl:for-each>
+         <xsl:sort select="nodes/@count" data-type="number"/>
+         <xsl:text>&#xa;</xsl:text>
+         <h3 id="nodes{nodes/@count}">
+            <xsl:value-of select="nodes/@count"/> vertices
+            <span class="plaintext"> - Graphs are ordered by increasing number
+            of edges in the left column.</span>
+         </h3>
+         <xsl:text>&#xa;</xsl:text>
+         <xsl:for-each select="current-group()">
+            <xsl:sort select="teo:countMinEdges(nodes/@count,
+                  teo:edgecount(edges))"
+                  data-type="number"/>
+            <xsl:if test="expl|complement/expl">
+               <div id="{link/@address}" class="graphpair">
+                  <xsl:choose>
+                     <xsl:when test="teo:edgecount(edges) le
+                           teo:countMinEdges(nodes/@count,
+                              teo:edgecount(edges))">
+                        <div class="leftgraph">
+                           <xsl:apply-templates select="." mode="names"/>
+                           <xsl:apply-templates select="expl"/>
+                        </div>
+                        <div class="rightgraph">
+                        <xsl:if test="@name != complement/@name">
+                           <xsl:apply-templates select="complement" mode="names"/>
+                        </xsl:if>
+                        <xsl:apply-templates select="complement/expl"/>
+                        </div>
+                     </xsl:when>
+                     <xsl:otherwise>
+                        <div class="leftgraph">
+                           <xsl:apply-templates select="complement" mode="names"/>
+                           <xsl:apply-templates select="complement/expl"/>
+                        </div>
+                        <div class="rightgraph">
+                           <xsl:if test="@name != complement/@name">
+                              <xsl:apply-templates select="." mode="names"/>
+                           </xsl:if>
+                           <xsl:apply-templates select="expl"/>
+                        </div>
+                     </xsl:otherwise>
+                  </xsl:choose>
+               </div>
+               <xsl:call-template name="toplink"/>
+            </xsl:if>
+         </xsl:for-each>
       </xsl:for-each-group>
 
       <!-- The configurations XC -->
       <h3 id="forbidden_configurations_XC">Configurations XC</h3>
       <p>
-	 A <i>configuration</i> XC represents a family of graphs by specifying
-	 edges that must be present (solid lines), edges that must not be
-	 present (dotted lines), and edges that may or may not be present (not
-	 drawn). For example,
-	 <a href="#XC1">XC<sub>1</sub></a> represents
-	 <a href="#W4">W<sub>4</sub></a>,
-	 <a href="#gem">gem</a>.
+         A <i>configuration</i> XC represents a family of graphs by specifying
+         edges that must be present (solid lines), edges that must not be
+         present (dotted lines), and edges that may or may not be present (not
+         drawn). For example,
+         <a href="#XC1">XC<sub>1</sub></a> represents
+         <a href="#W4">W<sub>4</sub></a>,
+         <a href="#gem">gem</a>.
       </p>
 
       <xsl:for-each select="configuration[starts-with(@name, 'XC')]">
-	 <xsl:sort select="teo:coll(@name)"/>
-	 <xsl:apply-templates select="."/>
+         <xsl:sort select="teo:coll(@name)"/>
+         <xsl:apply-templates select="."/>
       </xsl:for-each>
 
       <!-- The configurations XZ -->
       <h3 id="forbidden_configurations_XZ">Configurations XZ</h3>
       <p>
-	 A <i>configuration</i> XZ represents a family of graphs by specifying
-	 edges that must be present (solid lines), edges that must not be
-	 present (not drawn), and edges that may or may not be present (red
-	 dotted lines).
+         A <i>configuration</i> XZ represents a family of graphs by specifying
+         edges that must be present (solid lines), edges that must not be
+         present (not drawn), and edges that may or may not be present (red
+         dotted lines).
       </p>
 
       <xsl:for-each select="configuration[starts-with(@name, 'XZ')]">
-	 <xsl:sort select="teo:coll(@name)"/>
-	 <xsl:apply-templates select="."/>
+         <xsl:sort select="teo:coll(@name)"/>
+         <xsl:apply-templates select="."/>
       </xsl:for-each>
 
       <!-- The families XF -->
       <h3 id="families_XF">Families XF</h3>
       <p>
-	 Families are normally specified as
-	 XF<sub><i>i</i></sub><sup><i>f(n)</i></sup> where <i>n</i> implicitly
-	 starts from 0. For example, XF<sub>1</sub><sup><i>2n+3</i></sup> is
-	 the set XF<sub>1</sub><sup>3</sup>, XF<sub>1</sub><sup>5</sup>,
-	 XF<sub>1</sub><sup>7</sup>...
+         Families are normally specified as
+         XF<sub><i>i</i></sub><sup><i>f(n)</i></sup> where <i>n</i> implicitly
+         starts from 0. For example, XF<sub>1</sub><sup><i>2n+3</i></sup> is
+         the set XF<sub>1</sub><sup>3</sup>, XF<sub>1</sub><sup>5</sup>,
+         XF<sub>1</sub><sup>7</sup>...
       </p>
 
       <xsl:for-each select="fakefamily[starts-with(@name, 'XF')]|
-	    family[starts-with(@name, 'XF')]">
-	 <xsl:sort select="teo:coll(@name)"/>
-	 <xsl:apply-templates select="."/>
+            family[starts-with(@name, 'XF')]">
+         <xsl:sort select="teo:coll(@name)"/>
+         <xsl:apply-templates select="."/>
       </xsl:for-each>
 
       <!-- Other families -->
       <h3 id="families">General families</h3>
       <xsl:for-each select="fakefamily[not(starts-with(@name, 'XF'))]|
-	    family[not(starts-with(@name, 'XF'))][expl]|
-	    family/complement[expl]">
-	 <xsl:sort select="teo:coll(@name)"/>
-	 <xsl:apply-templates select="."/>
+            family[not(starts-with(@name, 'XF'))][expl]|
+            family/complement[expl]">
+         <xsl:sort select="teo:coll(@name)"/>
+         <xsl:apply-templates select="."/>
       </xsl:for-each>
 
       <xsl:call-template name="footer">
-	 <xsl:with-param name="page" select="$graphshtml"/>
+         <xsl:with-param name="page" select="$graphshtml"/>
       </xsl:call-template>
    </body>
    </html>
@@ -311,11 +311,11 @@
 <xsl:template match="simple|complement" mode="names">
    <h4>
       <xsl:if test="expl">
-	 <xsl:apply-templates select="." mode="ref"/>
-	 <xsl:for-each select="alias">
-	    = <xsl:apply-templates select="." mode="ref"/>
-	 </xsl:for-each>
-	 <xsl:apply-templates select="." mode="graph6"/>
+         <xsl:apply-templates select="." mode="ref"/>
+         <xsl:for-each select="alias">
+            = <xsl:apply-templates select="." mode="ref"/>
+         </xsl:for-each>
+         <xsl:apply-templates select="." mode="graph6"/>
       </xsl:if>
    </h4>
 </xsl:template>
@@ -359,10 +359,10 @@
 <xsl:template match="family[expl]|family/complement[expl]|fakefamily">
    <div class="graphpair">
       <h4 id="{link/@address}">
-	 <xsl:apply-templates select="." mode="ref"/>
-	 <xsl:for-each select="alias">
-	    = <xsl:apply-templates select="." mode="ref"/>
-	 </xsl:for-each>
+         <xsl:apply-templates select="." mode="ref"/>
+         <xsl:for-each select="alias">
+            = <xsl:apply-templates select="." mode="ref"/>
+         </xsl:for-each>
       </h4>
       <xsl:apply-templates select="expl"/>
    </div>
@@ -384,7 +384,7 @@
 <xsl:template match="expl">
    <xsl:if test="xfig">
       <img src="{teo:url($imagedir, teo:gifname(xfig/@file))}"
-	    alt="{xfig/@file}"/>
+            alt="{xfig/@file}"/>
       <xsl:apply-templates select="xfig" mode="gif"/>
    </xsl:if>
    <xsl:apply-templates/>

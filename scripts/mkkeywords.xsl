@@ -37,10 +37,10 @@
       <xsl:value-of select="name"/>
       <xsl:text disable-output-escaping="yes">&#xA;</xsl:text>
       <xsl:if test="note[@name='definition']">
-	 <xsl:apply-templates select="note[@name='definition']"/>
+         <xsl:apply-templates select="note[@name='definition']"/>
       </xsl:if>
       <xsl:if test="note[@name='keywords']">
-	 <xsl:apply-templates select="note[@name='keywords']"/>
+         <xsl:apply-templates select="note[@name='keywords']"/>
       </xsl:if>
       <xsl:apply-templates select="smallgraph"/>
    </xsl:result-document>

@@ -7,10 +7,12 @@
 </taskdef>
 
 <!-- Input and output files/dirs -->
+<property name="xsl.dir" location="scripts"/>
 <property name="distrib.dir" location="distrib"/>
 <property name="distrib.tar" location="isgci.tar.gz"/>
 <property name="build.dir" location="build"/>
 <property name="build.classes.dir" location="${build.dir}/classes"/>
+<property name="persistent.dir" location="persistent"/>
 
 <property name="data.dir" location="data"/>
 <property name="build.data.dir" location="${build.dir}/data"/>
@@ -23,10 +25,10 @@
 <property name="isgci.full.xml.out" location="${build.data.dir}/full.xml"/>
 <property name="isgci.sage.xml.rel" value="isgci_sage.xml"/>
 <property name="isgci.sage.xml.out" location="${build.data.dir}/${isgci.sage.xml.rel}"/>
-<property name="autocache.txt" location="autocache.txt"/>
-<property name="generate.trace" location="generate.trace"/>
-<property name="relations.trace" location="relations.trace"/>
-<property name="names.txt" location="names.txt"/>
+<property name="generate.trace" location="${build.data.dir}/generate.trace"/>
+<property name="relations.trace" location="${build.data.dir}/relations.trace"/>
+<property name="autocache.txt" location="${persistent.dir}/autocache.txt"/>
+<property name="names.txt" location="${persistent.dir}/names.txt"/>
 
 <property name="iq.dir" value="teo/isgci/iq"/>
 <property name="iq.pkg" value="teo.isgci.iq"/>
@@ -395,7 +397,7 @@
       <fileset dir="${web.images.dir}" includes="g_*"/>
       <fileset file="${graphlinks.xml.out}"/>
    </delete>
-   <xslt style="graphlinks.xsl"
+   <xslt style="${xsl.dir}/graphlinks.xsl"
       in="${smallgraphs.xml.in}"
       out="${graphlinks.xml.out}"
       force="true">
@@ -405,8 +407,9 @@
       <param name="homedir" expression="${web.dir}"/>
       <param name="rooturl" expression="${root.url}"/>
       <param name="imagedir" expression="${web.images.rel}"/>
+      <param name="graphlinks" expression="${graphlinks.xml.out}"/>
    </xslt>
-   <xslt style="smallgraphs.xsl"
+   <xslt style="${xsl.dir}/smallgraphs.xsl"
       in="${smallgraphs.xml.in}"
       out="/dev/null"
       force="true">
@@ -417,6 +420,7 @@
       <param name="rooturl" expression="${root.url}"/>
       <param name="imagedir" expression="${web.images.rel}"/>
       <param name="sagefile" expression="${smallgraphs.sage.txt.out}"/>
+      <param name="graphlinks" expression="${graphlinks.xml.out}"/>
    </xslt>
    <touch file="${build.dir}/smallgraphs.html.timestamp"/>
 </target>
@@ -450,7 +454,7 @@
       <fileset dir="${web.classes.dir}" includes="*.html"/>
       <fileset dir="${web.keys.dir}" includes="*"/>
    </delete>
-   <xslt style="isgci.xsl"
+   <xslt style="${xsl.dir}/isgci.xsl"
       in="${isgci.full.xml.out}"
       out="${build.data.dir}/isgci.xsl.out"
       force="true">
@@ -470,7 +474,7 @@
       <fileset file="${search.cgi.data}"/>
    </concat>
    <chmod perm="ugo+x" file="${search.cgi.out}"/>
-   <xslt style="isgci.xsl"
+   <xslt style="${xsl.dir}/isgci.xsl"
       in="${refs.xml.in}"
       out="/dev/null"
       force="true">
@@ -480,8 +484,9 @@
       <param name="homedir" expression="${web.dir}"/>
       <param name="rooturl" expression="${root.url}"/>
       <param name="classesdir" expression="${web.classes.rel}"/>
+      <param name="graphlinks" expression="${graphlinks.xml.out}"/>
    </xslt>
-   <xslt style="mkkeywords.xsl"
+   <xslt style="${xsl.dir}/mkkeywords.xsl"
       in="${isgci.full.xml.out}"
       out="/dev/null"
       force="true">
@@ -722,7 +727,7 @@
 <target name="families.graphml"
    description="Create graphML for families">
 
-   <xslt style="smallgraphs-yed.xsl"
+   <xslt style="${xsl.dir}/smallgraphs-yed.xsl"
       in="${smallgraphs.xml.in}"
       out="families.graphml"
       force="true">

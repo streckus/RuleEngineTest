@@ -64,9 +64,9 @@
    <xsl:sequence select="
       if ($basename)
       then string-join(($root,
-	 if ($path)
-	 then string-join(($path,$basename), '/')
-	 else $basename), '/')
+         if ($path)
+         then string-join(($path,$basename), '/')
+         else $basename), '/')
       else $homeurl"/>
 </xsl:function>
 
@@ -77,7 +77,7 @@
 <xsl:function name="teo:problemfile">
    <xsl:param name="problem"/>
    <xsl:sequence select="concat('problem_',translate($problem, ' ', '_'),
-	 '.html')"/>
+         '.html')"/>
 </xsl:function>
 
 <!--
@@ -113,7 +113,7 @@
 <xsl:template name="mathjax">
    <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
-	 tex2jax: {inlineMath: [ ['$','$'], ["\((","\))"] ]}
+         tex2jax: {inlineMath: [ ['$','$'], ["\((","\))"] ]}
       });
    </script>
    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"/>
@@ -128,7 +128,7 @@
 <xsl:template name="header">
    <div id="header">
       <a href="{teo:url('','index.html')}"><img src="{
-	    teo:url('','logo75.png')}" alt="ISGCI logo"/></a>
+            teo:url('','logo75.png')}" alt="ISGCI logo"/></a>
       <div>Information System on Graph Classes and their Inclusions</div>
    </div>
 </xsl:template>
@@ -138,7 +138,7 @@
 <xsl:template name="search">
    <form id="search" action="{teo:url('','classes.cgi')}" method="get"><div>
       <label> Find class
-	 <input type="text" name="search" size="12" maxlength="50"/>
+         <input type="text" name="search" size="12" maxlength="50"/>
       </label>
    </div></form>
 </xsl:template>
@@ -164,9 +164,9 @@
    <xsl:param name="style"/>
    <div id="footer">
       <xsl:if test="$style">
-	 <xsl:attribute name="style">
-	    <xsl:value-of select="$style"/>
-	 </xsl:attribute>
+         <xsl:attribute name="style">
+            <xsl:value-of select="$style"/>
+         </xsl:attribute>
       </xsl:if>
       <xsl:value-of select="teo:fullurl($path, $page)"/><br/>
       <xsl:if test="$page">part of the</xsl:if>
