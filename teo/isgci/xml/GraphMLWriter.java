@@ -16,7 +16,7 @@ import java.awt.Color;
 import teo.isgci.util.Latex2JHtml;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
-import teo.sax.XMLWriter;
+
 
 public class GraphMLWriter {
     /** Where to write to */

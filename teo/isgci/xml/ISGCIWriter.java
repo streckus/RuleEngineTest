@@ -23,7 +23,7 @@ import teo.isgci.db.*;
 import teo.isgci.gc.*;
 import teo.isgci.problem.*;
 import teo.isgci.util.LessLatex;
-import teo.sax.XMLWriter;
+
 
 public class ISGCIWriter {
     /** Where to write to */

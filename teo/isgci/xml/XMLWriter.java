@@ -14,7 +14,7 @@
 
 // $Id: XMLWriter.java,v 1.2 2011/04/07 07:28:32 ux Exp $
 
-package teo.sax;
+package teo.isgci.xml;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

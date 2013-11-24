@@ -11,7 +11,6 @@
 package teo.isgci.xml;
  
 import org.xml.sax.*;
-import teo.sax.XMLWriter;
 import java.util.*;
 import java.io.*;
 import teo.isg.SmallGraph;
