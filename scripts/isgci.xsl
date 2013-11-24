@@ -8,9 +8,8 @@
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns:saxon="http://saxon.sf.net/"
    xmlns:teo="http://www.graphclasses.org"
-   xmlns:XsltUtil="java:teo.XsltUtil"
+   xmlns:XsltUtil="java:teo.isgci.appl.XsltUtil"
    extension-element-prefixes="xs saxon teo XsltUtil">
-<!-- $Header: /home/ux/CVSROOT/teo/isgci.xsl,v 1.85 2013/11/15 19:55:57 ux Exp $ -->
 
 <xsl:output method="html" indent="no" encoding="utf-8"/>
 <xsl:strip-space elements="*"/>

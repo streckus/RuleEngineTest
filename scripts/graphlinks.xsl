@@ -7,9 +7,8 @@
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns:teo="http://www.graphclasses.org"
-   xmlns:XsltUtil="java:teo.XsltUtil"
+   xmlns:XsltUtil="java:teo.isgci.appl.XsltUtil"
    extension-element-prefixes="teo xs teo XsltUtil">
-<!-- $Header: /home/ux/CVSROOT/teo/graphlinks.xsl,v 1.2 2012/01/20 19:26:33 ux Exp $ -->
 
 <xsl:output method="xml" encoding="utf-8" doctype-system="smallgraphs.dtd"/>
 <xsl:strip-space elements="*"/>

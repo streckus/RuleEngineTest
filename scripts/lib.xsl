@@ -8,9 +8,8 @@
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns:saxon="http://saxon.sf.net/"
    xmlns:teo="http://www.graphclasses.org"
-   xmlns:XsltUtil="java:teo.XsltUtil"
+   xmlns:XsltUtil="java:teo.isgci.appl.XsltUtil"
    extension-element-prefixes="xs saxon teo XsltUtil">
-<!-- $Header: /home/ux/CVSROOT/teo/lib.xsl,v 1.8 2013/02/16 15:48:43 ux Exp $ -->
 
 <!--
   - Return a valid HTML id generate from the given name (string).

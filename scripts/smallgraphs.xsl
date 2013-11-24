@@ -7,9 +7,8 @@
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns:teo="http://www.graphclasses.org"
-   xmlns:XsltUtil="java:teo.XsltUtil"
+   xmlns:XsltUtil="java:teo.isgci.appl.XsltUtil"
    extension-element-prefixes="teo xs XsltUtil">
-<!-- $Header: /home/ux/CVSROOT/teo/smallgraphs.xsl,v 1.26 2013/03/30 18:12:35 ux Exp $ -->
 
 <xsl:output method="xml" encoding="utf-8" doctype-system="smallgraphs.dtd"/>
 <xsl:output name="html" method="html" encoding="utf-8"
@@ -17,7 +16,7 @@
 <!-- <xsl:strip-space elements="*"/> -->
 
 <!-- Mind the trailing space and the tab in the sed expression! -->
-<xsl:param name="fig2gif">sed -e 's/^[  ]*//' -e '/^$/d' | fig2dev -L gif </xsl:param>
+<xsl:param name="fig2gif">sed -e 's/^[\t ]*//' -e '/^$/d' | fig2dev -L gif </xsl:param>
 
 <!-- ISGCI homepage -->
 <xsl:param name="homeurl" required="yes"/>

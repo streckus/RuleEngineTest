@@ -8,7 +8,7 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo;
+package teo.isgci.appl;
 
 import java.io.*;
 import teo.isgci.util.Latex2Html;
