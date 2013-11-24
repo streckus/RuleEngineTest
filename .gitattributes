@@ -1,0 +1,8 @@
+*	text=auto
+
+[attr]isgci.code isgci.length80 isgci.notab
+
+*.java  isgci.code
+*.peg   isgci.code
+*.xsl   isgci.notab
+build.xml isgci.notab

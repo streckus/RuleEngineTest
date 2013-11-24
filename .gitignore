@@ -1,0 +1,17 @@
+.*
+!.git*
+.*.sw?
+build/
+build.png
+data/keystore*
+distrib/
+families.graphml
+families.png
+scripts/grep.xsl
+scripts/pretty.xsl
+log
+log.old
+names.txt
+Session.vim
+tags
+teo/isgci/iq/IQParser.java
