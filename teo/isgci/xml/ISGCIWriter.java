@@ -169,9 +169,13 @@ public class ISGCIWriter {
                 if (mode == MODE_WEB) {
                     writeHereditariness(gc);
                     writeCliqueFixed(gc);
+                    writer.characters("\n");
                     writeEquivs( scc.get(gc) );
+                    writer.characters("\n");
                     writeComplements(complementAnn.get(gc));
+                    writer.characters("\n");
                     writeRefs(gc.getRefs());
+                    writer.characters("\n");
                 }
                 // Problems
                 writeComplexities(gc, problems);
@@ -353,9 +357,11 @@ public class ISGCIWriter {
             writer.emptyElement("", Tags.PROBLEM, "", atts);
         } else {
             writer.startElement("", Tags.PROBLEM, "", atts);
+            writer.characters("\n");
                 writeAlgorithms(problem, algos);
             writer.endElement(Tags.PROBLEM);
         }
+        writer.characters("\n");
     }
 
     /**
@@ -426,6 +432,7 @@ public class ISGCIWriter {
             atts.clear();
             if (p.isSparse())
                 writer.emptyElement(Tags.PROBLEM_SPARSE);
+            writer.characters("\n");
             if (mode == MODE_WEB) {
                 writeReductions(p.getReductions());
                 writeRefs(p.getRefs());
@@ -445,6 +452,7 @@ public class ISGCIWriter {
             atts.addAttribute(Tags.COMPLEXITY,
                     red.getComplexity().getComplexityString());
             writer.emptyElement("", Tags.PROBLEM_FROM, "", atts);
+            writer.characters("\n");
             atts.clear();
         }
     }
