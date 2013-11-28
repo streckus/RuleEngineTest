@@ -19,6 +19,7 @@ import teo.isgci.xml.*;
 import teo.isgci.gc.GraphClass;
 import teo.isgci.problem.Problem;
 import teo.isgci.util.LessLatex;
+import teo.isgci.relation.*;
 
 /**
  * The Database of the information system.

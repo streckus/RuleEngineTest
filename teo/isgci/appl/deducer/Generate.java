@@ -14,6 +14,7 @@ import teo.isgci.grapht.*;
 import teo.isgci.xml.*;
 import teo.isgci.gc.*;
 import teo.isgci.db.*;
+import teo.isgci.relation.*;
 import teo.isgci.problem.*;
 import teo.isgci.appl.*;
 

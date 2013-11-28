@@ -13,15 +13,8 @@ package teo.isgci.xml;
 import org.xml.sax.*;
 import java.util.*;
 import java.io.*;
-import teo.isg.SmallGraph;
-import teo.isg.Graph;
-import teo.isg.Family;
-import teo.isg.SimpleFamily;
-import teo.isg.HMTFamily;
-import teo.isg.UnionFamily;
-import teo.isg.Configuration;
-import teo.isg.HMTGrammar;
-import teo.isg.HMTGrammar.HMTGraph;
+import teo.isgci.smallgraph.*;
+import teo.isgci.smallgraph.HMTGrammar.HMTGraph;  //FIXME
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 

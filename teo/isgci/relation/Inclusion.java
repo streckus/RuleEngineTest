@@ -8,13 +8,11 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isgci.grapht;
+package teo.isgci.relation;
 
 import java.util.List;
 import java.util.ArrayList;
 import teo.isgci.gc.GraphClass;
-import teo.isgci.db.Relation;
-import teo.isgci.db.RelationData;
 
 /**
  * Represents an inclusion in the system. For efficiency of the graph

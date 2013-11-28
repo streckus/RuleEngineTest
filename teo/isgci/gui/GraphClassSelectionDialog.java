@@ -12,7 +12,8 @@
 package teo.isgci.gui;
 
 import teo.isgci.gc.GraphClass;
-import teo.isgci.db.DataSet;
+import teo.isgci.db.*;
+import teo.isgci.relation.*;
 import teo.isgci.grapht.*;
 import java.io.IOException;
 import java.awt.Cursor;

@@ -8,7 +8,7 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isgci.db;
+package teo.isgci.relation;
 
 import teo.isgci.gc.GraphClass;
 

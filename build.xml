@@ -206,13 +206,13 @@
    <jar destfile="${isgci.jar}"
          index="false"> <!-- otherwise Class-Path doesn't work -->
       <manifest>
-         <attribute name="Main-Class" value="teo.Loader"/>
+         <attribute name="Main-Class" value="teo.isgci.gui.Loader"/>
          <attribute name="Class-Path" value="jgrapht.jar"/>
       </manifest>
       <fileset dir="${build.classes.dir}">
          <include name="teo/**"/>
-         <exclude name="teo/isg/FindISG.class"/>
-         <exclude name="teo/isg/Permutation*.class"/>
+         <exclude name="teo/isgci/smallgraph/FindISG.class"/>
+         <exclude name="teo/isgci/smallgraph/Permutation*.class"/>
          <exclude name="teo/isgci/xml/SmallGraphWriter.class"/>
          <exclude name="teo/isgci/xml/ISGCIWriter*.class"/>
       </fileset>
@@ -273,7 +273,7 @@
 <target name="smallgraphs"
    description="Deduce smallgraph relations">
 
-   <java classname="teo.isg.FindISG" fork="true"
+   <java classname="teo.isgci.smallgraph.FindISG" fork="true"
       classpathref="run.classpath">
       <arg file="${smallgraphs.xml.in}"/>
       <arg file="${smallgraphs.xml.out}"/>

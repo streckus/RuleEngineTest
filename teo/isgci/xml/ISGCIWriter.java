@@ -20,6 +20,8 @@ import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jgrapht.Graphs;
 import teo.isgci.grapht.*;
 import teo.isgci.db.*;
+import teo.isgci.ref.*;
+import teo.isgci.relation.*;
 import teo.isgci.gc.*;
 import teo.isgci.problem.*;
 import teo.isgci.util.LessLatex;

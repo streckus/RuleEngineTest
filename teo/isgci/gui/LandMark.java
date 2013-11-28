@@ -8,7 +8,7 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isgci.util;
+package teo.isgci.gui;
 
 import java.io.*;
 import java.util.*;
@@ -20,13 +20,16 @@ import org.xml.sax.InputSource;
 import gnu.getopt.Getopt;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import teo.isgci.grapht.*;
-import teo.isgci.gui.*;
 import teo.isgci.xml.*;
 import teo.isgci.gc.*;
 import teo.isgci.db.*;
+import teo.isgci.relation.*;
 import teo.isgci.problem.*;
 import teo.isgci.appl.*;
 
+/**
+ * FIXME A hack to let the applet generate maps as images for the webpages.
+ */
 public class LandMark {
     /** Where we check for relations */
     static SimpleDirectedGraph<GraphClass,Inclusion> thegraph;

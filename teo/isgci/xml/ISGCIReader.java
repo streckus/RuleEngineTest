@@ -26,6 +26,8 @@ import teo.isgci.gc.*;
 import teo.isgci.grapht.*;
 import teo.isgci.problem.*;
 import teo.isgci.db.*;
+import teo.isgci.ref.*;
+import teo.isgci.relation.*;
 
 public class ISGCIReader extends DefaultHandler{
     

@@ -10,9 +10,6 @@
 
 package teo.isgci.db;
 
-import teo.isgci.grapht.*;
-import teo.isgci.gc.*;
-import teo.isgci.util.LessLatex;
 import java.util.*;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.SimpleDirectedGraph;
@@ -20,6 +17,10 @@ import org.jgrapht.graph.DirectedSubgraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.util.ArrayUnenforcedSet;
+import teo.isgci.grapht.*;
+import teo.isgci.gc.*;
+import teo.isgci.util.LessLatex;
+import teo.isgci.relation.*;
 
 /**
  * Some general algorithms for graph class hierarchies.

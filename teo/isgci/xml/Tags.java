@@ -10,7 +10,7 @@
 
 package teo.isgci.xml;
 
-import teo.isgci.grapht.Inclusion;
+import teo.isgci.relation.*;
 import teo.isgci.gc.*;
 
 class Tags {

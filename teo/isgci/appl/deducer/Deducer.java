@@ -9,7 +9,7 @@
  */
 
 
-package teo.isgci.grapht;
+package teo.isgci.appl.deducer;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -21,11 +21,13 @@ import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.alg.FloydWarshallShortestPaths;
 import teo.isgci.gc.*;
-import teo.isg.Graph;
 import teo.isgci.db.*;
+import teo.isgci.ref.*;
+import teo.isgci.relation.*;
 import teo.isgci.util.IDGenerator;
 import teo.isgci.util.Itera;
 import teo.isgci.util.Iterators;
+import teo.isgci.grapht.*;
 
 public class Deducer {
     

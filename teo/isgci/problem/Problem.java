@@ -19,7 +19,9 @@ import java.util.HashSet;
 import org.jgrapht.DirectedGraph;
 import teo.isgci.grapht.*;
 import teo.isgci.gc.*;
-import teo.isgci.db.Note;
+import teo.isgci.db.*;
+import teo.isgci.relation.*;
+import teo.isgci.ref.*;
 
 
 /**

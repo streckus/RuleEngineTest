@@ -8,7 +8,7 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isg;
+package teo.isgci.smallgraph;
 
 import java.util.Collections;
 import java.util.ArrayList;

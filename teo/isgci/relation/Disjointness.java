@@ -1,5 +1,5 @@
 /*
- * Two classes being incomparable.
+ * Two classes being disjoint.
  *
  * $Id$
  *
@@ -8,21 +8,20 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isgci.db;
+package teo.isgci.relation;
 
 import teo.isgci.gc.GraphClass;
 
 /**
- * Records incomparability of two classes.
+ * Records disjointness of two classes.
  */
-public class Incomparability extends AbstractRelation {
-
-    public Incomparability(GraphClass gc1, GraphClass gc2) {
+public class Disjointness extends AbstractRelation {
+    public Disjointness(GraphClass gc1, GraphClass gc2) {
         super(gc1, gc2);
     }
 
     public String toString() {
-        return gc1.getID() +" ~ "+ gc2.getID();
+        return gc1.getID() +" 0 "+ gc2.getID();
     }
 }
 

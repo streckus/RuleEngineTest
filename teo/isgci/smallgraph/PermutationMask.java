@@ -8,7 +8,7 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isg;
+package teo.isgci.smallgraph;
 
 public class PermutationMask {
 

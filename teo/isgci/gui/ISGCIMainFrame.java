@@ -20,8 +20,8 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.net.*;
 import java.io.*;
-import teo.isgci.db.DataSet;
-import teo.isgci.db.Ref;
+import teo.isgci.db.*;
+import teo.isgci.relation.*;
 import teo.isgci.problem.*;
 import teo.isgci.gc.ForbiddenClass;
 import teo.isgci.gc.GraphClass;
@@ -89,7 +89,7 @@ public class ISGCIMainFrame extends JFrame
 
         if (createMaps) {       // Create maps and terminate
             createCanvasPanel();
-            new teo.isgci.util.LandMark(this).createMaps();
+            new LandMark(this).createMaps();
             closeWindow();
         }
 

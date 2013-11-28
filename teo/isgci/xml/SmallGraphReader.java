@@ -31,14 +31,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.Attributes;
 
-import teo.isg.SmallGraph;
-import teo.isg.Graph;
-import teo.isg.Family;
-import teo.isg.SimpleFamily;
-import teo.isg.HMTFamily;
-import teo.isg.UnionFamily;
-import teo.isg.HMTGrammar;
-import teo.isg.Configuration;
+import teo.isgci.smallgraph.*;
 import teo.isgci.util.Pair;
 
 public class SmallGraphReader extends DefaultHandler {

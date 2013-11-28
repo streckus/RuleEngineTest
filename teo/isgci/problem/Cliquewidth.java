@@ -13,7 +13,8 @@ package teo.isgci.problem;
 import org.jgrapht.DirectedGraph;
 import teo.isgci.grapht.*;
 import teo.isgci.gc.*;
-import teo.isgci.db.Note;
+import teo.isgci.db.*;
+import teo.isgci.relation.*;
 
 /**
  * Stores information about the cliquewidth of a graph.

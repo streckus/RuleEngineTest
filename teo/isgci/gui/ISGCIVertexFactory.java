@@ -8,13 +8,14 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isgci.grapht;
+package teo.isgci.gui;
 
 import java.util.Collections;
 import java.util.Set;
 import org.jgrapht.VertexFactory;
 import teo.isgci.gc.GraphClass;
 import teo.isgci.gc.BaseClass;
+import teo.isgci.grapht.*;
 
 public class ISGCIVertexFactory implements VertexFactory<Set<GraphClass> > {
     int running;

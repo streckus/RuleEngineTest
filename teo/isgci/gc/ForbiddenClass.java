@@ -43,7 +43,7 @@ import teo.isgci.util.Utility;
 import teo.isgci.util.LessLatex;
 import teo.isgci.util.Pair;
 import teo.isgci.xml.*;
-import teo.isg.*;
+import teo.isgci.smallgraph.*;
 
 /**
  * A GraphClass defined by forbidding induced subgraphs.
@@ -440,7 +440,7 @@ public class ForbiddenClass extends GraphClass {
      * contain a C_5 as an induced subgraph, because P_4 is an induced
      * subgraph in C_5.
      */
-    private Set<String> cancel(Set<String> s){
+    private static Set<String> cancel(Set<String> s){
         int i;
         Set<String> result = new HashSet<String>();
         ArrayList<SmallGraph> vec = new ArrayList<SmallGraph>();
