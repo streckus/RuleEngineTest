@@ -178,6 +178,7 @@
          includeantruntime="false"
          debug="yes">
       <classpath refid="compile.classpath"/>
+      <!-- <compilerarg value="-Xlint:unchecked"/> -->
       <include name="**/*.java"/>
       <exclude name="IQ.java"/>
       <exclude name="Parsetree.java"/>
@@ -185,12 +186,6 @@
       <exclude name="Yylex.java"/>
       <exclude name="parser.java"/>
       <exclude name="sym.java"/>
-   </javac>
-   <javac srcdir="."
-         destdir="."
-         includeantruntime="false">
-      <classpath refid="compile.classpath"/>
-      <include name="XsltUtil.java"/>
    </javac>
    <outofdate>
       <sourcefiles>
