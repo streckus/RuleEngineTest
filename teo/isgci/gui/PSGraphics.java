@@ -624,7 +624,7 @@ public class PSGraphics extends SmartGraphics {
     /**
      * Loads the default Postscript prologue.
      */
-    public static void init(teo.Loader loader) {
+    public static void init(Loader loader) {
         if (initialized)
             return;
 

@@ -334,7 +334,7 @@ public class ForbiddenClass extends GraphClass {
      * class variables are initialized.
      * @param xmlfile .xml file containing the definitions of smallgraphs
      */
-    public static void initRules(teo.Loader loader, String xmlfile) {
+    public static void initRules(Resolver loader, String xmlfile) {
 
         SmallGraphReader handler = new SmallGraphReader();
 
@@ -342,8 +342,8 @@ public class ForbiddenClass extends GraphClass {
             XMLParser xr = null;
             if (loader != null) {
                 xr = new XMLParser(loader.openInputSource(xmlfile),
-                        handler, loader.new Resolver());
-            } else {
+                        handler, loader.getEntityResolver());
+            } else { //FIXME: This branch should be handled by the loader
                 String path=(new File("")).getAbsolutePath();
                 path = (path.startsWith("/") ? "file:" : "file:/") + path +"/";
                 URL url=new URL(new URL(path), xmlfile);

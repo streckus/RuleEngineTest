@@ -51,7 +51,7 @@ public final class DataSet {
 
     /** Load all the data.
      */
-    public static void init(teo.Loader loader, String file) {
+    public static void init(Resolver loader, String file) {
         if (initialized)
             return;
 
@@ -79,12 +79,12 @@ public final class DataSet {
     }
 
 
-    public static void load(teo.Loader loader, String file,
+    public static void load(Resolver loader, String file,
             SimpleDirectedGraph<GraphClass,Inclusion> graph,
             Vector problems) {
         ISGCIReader gcr = new ISGCIReader(graph, problems);
         XMLParser xml=new XMLParser(loader.openInputSource(file),
-                gcr, loader.new Resolver());
+                gcr, loader.getEntityResolver());
         xml.parse();
         date = gcr.getDate();
         nodecount = gcr.getNodeCount();

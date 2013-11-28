@@ -9,7 +9,7 @@
  */
 
 
-package teo;
+package teo.isgci.gui;
 
 import java.awt.Desktop;
 import java.awt.Image;
@@ -22,18 +22,21 @@ import java.io.InputStream;
 import java.io.File;
 import org.xml.sax.InputSource;
 import org.xml.sax.EntityResolver;
-import teo.isgci.gui.ISGCIMainFrame;
+import teo.isgci.xml.*;
+import teo.isgci.appl.*;
 
 public class Loader {
     private URL locationURL;
     private int registered;
     private Object finished;
     private boolean trylocal;
+    private Resolver resolver;
 
     public Loader() {
         locationURL = null;
         registered = 0;
         finished = new Object();
+        resolver = new ISGCIResolver();
     }
 
     public Loader(String location) throws MalformedURLException {
@@ -107,56 +110,6 @@ public class Loader {
 
 
     /**
-     * Return a SAX InputSource for the given file
-     */
-    public InputSource openInputSource(String filename) {
-        InputStream is = null;
-        InputSource i = null;
-
-        //System.err.println(filename);
-        // Try to load from jar
-        try {
-            is = getClass().getClassLoader().getResourceAsStream(filename);
-            if (is != null) {
-                i = new InputSource(is);
-                i.setSystemId(filename);
-            }
-        } catch (Exception e) {
-            System.err.println(e);
-            i = null;
-        }
-
-        // Backup plan: load from server
-        if (i == null  &&  trylocal) {
-            try {
-                System.err.println("Trying loading "+filename+" from server");
-                URL url = new URL(locationURL, filename);
-                i = new InputSource(url.openStream());
-                i.setSystemId(url.toString());
-            } catch (Exception e) {
-                System.err.println(e);
-                i = null;
-            }
-        }
-        return i;
-    }
-
-
-    /**
-     * Resolve XML public ids that refer to the data directory.
-     */
-    public class Resolver implements EntityResolver {
-        public InputSource resolveEntity(String systemId,String publicId) {
-            if (publicId.endsWith("isgci.dtd"))
-                publicId = "data/isgci.dtd"; 
-            else if (publicId.endsWith("smallgraphs.dtd"))
-                publicId = "data/smallgraphs.dtd"; 
-            return openInputSource(publicId);
-        }
-    }
-
-
-    /**
      * Get the image in the given file
      * WARNING: max image size 5k!
      */
@@ -180,6 +133,12 @@ public class Loader {
         return result;
     }
 
+
+    public Resolver getResolver() {
+        return resolver;
+    }
+
+    //----------------------------- main ----------------------------------
 
     public static void main(String args[]) {
         if (args.length < 1) {

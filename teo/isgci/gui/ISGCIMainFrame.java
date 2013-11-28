@@ -47,7 +47,7 @@ public class ISGCIMainFrame extends JFrame
     public static LatexGraphics latex;
     public static Font font;
 
-    protected teo.Loader loader;
+    protected Loader loader;
 
     // The menu
     protected JMenuItem miNew, miExport, miExit;
@@ -67,15 +67,15 @@ public class ISGCIMainFrame extends JFrame
      * @param locationURL The path/URL to the applet/application.
      * @param isApplet true iff the program runs as an applet.
      */
-    public ISGCIMainFrame(teo.Loader loader) {
+    public ISGCIMainFrame(Loader loader) {
         super(APPLICATIONNAME);
 
         loader.register();
         this.loader = loader;
         tracker = this;
 
-        DataSet.init(loader, "data/isgci.xml");
-        ForbiddenClass.initRules(loader, "data/smallgraphs.xml");
+        DataSet.init(loader.getResolver(), "data/isgci.xml");
+        ForbiddenClass.initRules(loader.getResolver(), "data/smallgraphs.xml");
         PSGraphics.init(loader);
         if (latex == null) {
             latex = new LatexGraphics();

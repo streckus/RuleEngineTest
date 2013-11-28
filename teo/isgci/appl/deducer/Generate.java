@@ -15,7 +15,7 @@ import teo.isgci.xml.*;
 import teo.isgci.gc.*;
 import teo.isgci.db.*;
 import teo.isgci.problem.*;
-import teo.Loader;
+import teo.isgci.appl.*;
 
 import gnu.getopt.Getopt;
 import java.io.*;
@@ -180,11 +180,11 @@ public class Generate {
             List<Problem> problems,
             List<AbstractRelation> relations)
             throws java.net.MalformedURLException {
-        Loader loader = new Loader("file:"+System.getProperty("user.dir")+"/",
-                true);
+        Resolver loader = new ISGCIResolver(
+                "file:"+System.getProperty("user.dir")+"/");
         ISGCIReader gcr = new ISGCIReader(graph, problems);
         XMLParser xml = new XMLParser(loader.openInputSource(file),
-                gcr, loader.new Resolver(), new NoteFilter());
+                gcr, loader.getEntityResolver(), new NoteFilter());
         xml.parse();
         relations.addAll(gcr.getRelations());
     }

@@ -34,7 +34,7 @@ public class LatexGraphics extends Latex {
     /**
      * Load the images for the glyphs
      */
-    public void init(teo.Loader loader) {
+    public void init(Loader loader) {
         MediaTracker tracker = null;
         LatexGlyph glyphs[] = LatexGlyph.getGlyphs();
         try {

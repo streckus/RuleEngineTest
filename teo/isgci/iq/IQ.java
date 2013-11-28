@@ -20,6 +20,8 @@ import java.util.HashSet;
 import teo.isgci.gc.GraphClass;
 import teo.isgci.db.Algo;
 import teo.isgci.db.DataSet;
+import teo.isgci.xml.*;
+import teo.isgci.appl.*;
 
 public class IQ {
     /** The string that contains the query */
@@ -83,7 +85,7 @@ public class IQ {
             System.exit(1);
         }
 
-        teo.Loader loader = new teo.Loader(args[0], true);
+        Resolver loader = new ISGCIResolver(args[0]);
         DataSet.init(loader, "data/isgci.xml");
 
         if (args.length > 1) {
