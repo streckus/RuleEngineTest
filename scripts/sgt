@@ -1,0 +1,198 @@
+#!/usr/bin/python
+
+"""Smallgraph Tool"""
+
+import sys
+import os.path
+import string
+import StringIO
+import getopt
+import xml.parsers.expat
+import xml.sax
+from xml.sax.handler import feature_external_pes, feature_external_ges
+import urllib2
+import graph
+
+verbose = 0
+handled = 0
+quiet = 0
+complements = 0
+action = ''
+
+class SmallgraphsHandler(xml.sax.ContentHandler):
+   def __init__(self, names):
+      """This handler checks smallgraphs with names in names"""
+      self.names = names
+      self.thisone = 0
+      self.name = ''
+      self.content = list()
+      self.xfigname = ''
+
+   def startElement(self, tag, atts):
+      global handled
+      if tag in ('family', 'hmt-grammar', 'fakefamily'):
+	 self.thisone = 0
+      elif tag in ('simple', 'configuration'):
+	 self.thisone = (not self.names or atts.get('name') in self.names)
+	 if self.thisone:
+	    handled += 1
+	    self.figgraph = None
+	    self.name = atts.get('name')
+	    self.complement = 0
+	    self.config = tag == 'configuration'
+	    if self.config:
+	       self.optedges = list()
+	       self.nonedges = list()
+      elif tag == 'complement':
+	 if self.thisone:
+	    self.cofiggraph = None
+	    self.coname = self.name
+	    self.name = atts.get('name')
+	    self.complement = 1
+	    if action == 'c'  and  not self.config  and \
+		  self.name == self.coname:
+	       if not self.defgraph.isIsomorphic(self.defgraph.complement()):
+		  print '%s not self-complementary' % self.name
+		  if verbose:
+		     print 'xml:'
+		     print self.defgraph.toXML()
+		     print 'co:'
+		     print self.defgraph.complement().toXML()
+      elif tag == 'nodes':
+	 if self.thisone:
+	    self.nodes = int(atts.get('count'))
+      elif tag == 'xfig':
+	 if self.thisone:
+	    self.xfigname = atts.get('file')
+	    self.content = list()
+      elif tag in ('edges', 'nonedges', 'optedges'):
+	 if self.thisone:
+	    self.content = list()
+
+   def endElement(self, tag):
+      if tag in ('edges', 'nonedges', 'optedges'):
+	 if self.thisone:
+	    e = map(tuple, map(
+		  ( lambda s:
+		     map((lambda t: int(t.strip())), string.split(s, '-')) ),
+		  filter(
+		     (lambda s: s.find('-') > -1),
+		     (''.join(self.content)).split(';'))))
+	    if self.config:
+	       if tag == 'edges':
+		  self.edges = e
+	       else:
+		  if tag == 'nonedges':
+		     self.nonedges = e
+		  else:
+		     self.optedges = e
+	    else:
+	       self.defgraph = graph.Graph(self.name, self.nodes, e)
+	    if action == '6' and complements != 1:
+	       print self.defgraph.toGraph6()
+      elif tag == 'xfig':
+	 if self.thisone:
+	    t = '\n'.join(
+		  map(string.lstrip, (''.join(self.content[1:])).split('\n')))
+	    if action == 'x':
+	       f = open(self.xfigname+".fig", "w")
+	       f.write(t)
+	       f.close()
+	    try:
+	       if self.complement:
+		  self.cofiggraph = \
+		     graph.readfile(StringIO.StringIO(t), self.name)
+	       else:
+		  self.figgraph = \
+		     graph.readfile(StringIO.StringIO(t), self.name)
+		  if self.config  and \
+			not isinstance(self.figgraph, graph.Configuration):
+		     self.figgraph = graph.Configuration(self.figgraph.name,
+			self.figgraph.nodecount, self.figgraph.edges,
+			list(), list())
+	    except:
+	       print >>sys.stderr, 'In %s' % self.name
+	       raise
+      elif tag == 'complement':
+	 if self.thisone:
+	    if action == 'c':
+	       if self.name != self.coname  and  not self.config  and \
+		     self.defgraph.isIsomorphic(self.defgraph.complement()):
+		  print '%s self-complementary' % self.name
+	       if self.cofiggraph  and \
+		  not self.cofiggraph.isIsomorphic(self.defgraph.complement()):
+		  print '%s mismatch (co)' % self.name
+		  if verbose:
+		     print "xfig:"
+		     print self.cofiggraph.toXML()
+		     print "xml:"
+		     print self.defgraph.complement().toXML()
+	    if action == '6' and complements != 2:
+	       print self.defgraph.complement().toGraph6()
+	    self.name = self.coname
+	    self.complement = 0
+      elif tag in ('simple', 'configuration'):
+	 if self.thisone:
+	    if self.config:
+	       self.defgraph = graph.Configuration(self.name, self.nodes,
+		     self.edges, self.optedges, self.nonedges)
+	    if action == 'c'  and   self.figgraph  and  \
+		  not self.figgraph.isIsomorphic(self.defgraph):
+	       print '%s mismatch' % self.name
+	       if verbose:
+		  print "xfig:"
+		  print self.figgraph.toXML()
+		  print "xml:"
+		  print self.defgraph.toXML()
+
+
+   def characters(self, data):
+      if self.thisone:
+	 self.content.append(data)
+
+def help():
+   print >>sys.stderr, 'Usage: %s action [opts] xml-file name...' % sys.argv[0]
+   print >>sys.stderr, 'Actions: -c  Checks the xfig vs. xml definition of name'
+   print >>sys.stderr, '         -x  Extract the xfig drawing of name'
+   print >>sys.stderr, '         -6  Print the graph6 representation of name'
+   print >>sys.stderr, 'Options: -v  verbose'
+   print >>sys.stderr, '         -q  quiet'
+   print >>sys.stderr, '         -C  (for -6) only print complement'
+   print >>sys.stderr, '         -CC (for -6) don\'t print complement'
+
+#---- main ----
+
+try:
+   (opts, args) = getopt.getopt(sys.argv[1:], 'cx6vqC')
+except getopt.GetoptError:
+   help()
+   sys.exit(2)
+
+for (opt, arg) in opts:
+   if opt == '-v':
+      verbose = 1
+   elif opt == '-q':
+      quiet = 1
+   elif opt == '-C':
+      complements += 1
+   elif opt == '-c':
+      action = 'c'
+   elif opt == '-x':
+      action = 'x'
+   elif opt == '-6':
+      action = '6'
+if not action:
+   help()
+   sys.exit(2)
+
+f = urllib2.urlopen("file://"+os.path.abspath(args[0]))
+p = xml.sax.make_parser()
+p.setContentHandler(SmallgraphsHandler(args[1:]))
+p.setFeature(feature_external_pes, 0)
+p.setFeature(feature_external_ges, 0)
+p.parse(f)
+f.close()
+if not quiet:
+   print handled, "graphs handled"
+
+# EOF

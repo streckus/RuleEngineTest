@@ -69,7 +69,8 @@
    <xsl:param name="g"/>
    <xsl:param name="complopt"/>
    <xsl:variable name="res" select="XsltUtil:systemOut(concat(
-         'sgt -6qC', $complopt, ' ',
+         replace(resolve-uri('sgt'), '^file:', ''),
+         ' -6qC', $complopt, ' ',
          substring-after(base-uri($theroot), ':'), ' ',
          '''', $g, ''''))"/>
    <xsl:if test="not($res)">

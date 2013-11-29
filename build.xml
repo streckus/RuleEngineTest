@@ -8,13 +8,14 @@
 
 <!-- Input and output files/dirs -->
 <property name="xsl.dir" location="scripts"/>
-<property name="distrib.dir" location="distrib"/>
-<property name="distrib.tar" location="isgci.tar.gz"/>
 <property name="build.dir" location="build"/>
 <property name="build.classes.dir" location="${build.dir}/classes"/>
 <property name="persistent.dir" location="persistent"/>
+<property name="distrib.dir" location="${build.dir}/distrib"/>
+<property name="distrib.tar" location="${build.dir}/isgci.tar.gz"/>
 
 <property name="data.dir" location="data"/>
+<property name="data.webstatic.dir" location="${data.dir}/web"/>
 <property name="build.data.dir" location="${build.dir}/data"/>
 <property name="smallgraphs.xml.in" location="${data.dir}/smallgraphs.xml"/>
 <property name="smallgraphs.xml.out" location="${build.data.dir}/smallgraphs.xml"/>
@@ -528,7 +529,7 @@
       </filterset>
    </copy>
    <copy todir="${web.dir}">
-      <fileset dir="web" includes="**"/>
+      <fileset dir="${data.webstatic.dir}" includes="**"/>
    </copy>
    <chmod perm="ugo+x">
       <fileset dir="${web.dir}" includes="*.cgi"/>
