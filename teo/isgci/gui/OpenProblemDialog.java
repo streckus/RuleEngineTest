@@ -26,11 +26,11 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 import teo.isgci.gc.*;
-import teo.isgci.db.*;
 import teo.isgci.relation.*;
 import teo.isgci.problem.*;
 import teo.isgci.grapht.*;
 import teo.isgci.util.LessLatex;
+import teo.isgci.appl.*;
 
 
 /**

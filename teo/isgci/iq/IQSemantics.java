@@ -11,8 +11,8 @@
 package teo.isgci.iq;
 
 import teo.isgci.gc.GraphClass;
-import teo.isgci.db.*;
 import java.util.ArrayList;
+import teo.isgci.appl.*;
 
 class IQSemantics extends mouse.runtime.SemanticsBase {
     /** error or null */

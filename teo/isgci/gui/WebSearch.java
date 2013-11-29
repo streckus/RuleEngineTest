@@ -17,13 +17,13 @@ import java.util.*;
 //import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import teo.isgci.db.*;
 import teo.isgci.gui.ISGCIMainFrame;
 import teo.isgci.gui.MessageDialog;
 import teo.isgci.gui.NodeList;
 import teo.isgci.util.BinaryPredicate;
 import teo.isgci.util.LessLatex;
 import teo.isgci.util.Utility;
+import teo.isgci.appl.*;
 
 
 /**

@@ -14,8 +14,8 @@ package teo.isgci.gui;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Vector;
-import teo.isgci.db.*;
 import teo.isgci.problem.*;
+import teo.isgci.appl.*;
 
 public class ProblemsMenu extends JMenu implements ActionListener {
     protected Vector items;

@@ -26,7 +26,6 @@ import org.xml.sax.SAXException;
 import org.jgrapht.VertexFactory;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
-import teo.isgci.db.*;
 import teo.isgci.relation.*;
 import teo.isgci.problem.Complexity;
 import teo.isgci.problem.Problem;
@@ -34,6 +33,7 @@ import teo.isgci.xml.GraphMLWriter;
 import teo.isgci.util.IntFunction;
 import teo.isgci.gc.GraphClass;
 import teo.isgci.grapht.GAlg;
+import teo.isgci.appl.*;
 
 /**
  * A canvas that can display an inclusion graph.

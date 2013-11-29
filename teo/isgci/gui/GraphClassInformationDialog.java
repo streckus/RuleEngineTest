@@ -28,10 +28,9 @@ import java.util.Iterator;
 import java.util.Collections;
 import java.util.ArrayList;
 import teo.isgci.problem.*;
-import teo.isgci.db.Algo;
-import teo.isgci.db.DataSet;
 import teo.isgci.gc.GraphClass;
 import teo.isgci.util.LessLatex;
+import teo.isgci.appl.*;
 
 
 /**

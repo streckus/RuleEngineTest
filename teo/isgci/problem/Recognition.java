@@ -17,7 +17,6 @@ import java.util.Iterator;
 import org.jgrapht.DirectedGraph;
 import teo.isgci.grapht.*;
 import teo.isgci.gc.*;
-import teo.isgci.db.*;
 import teo.isgci.relation.*;
 
 /**

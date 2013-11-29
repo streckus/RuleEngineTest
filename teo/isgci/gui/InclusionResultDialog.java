@@ -28,10 +28,10 @@ import teo.isgci.gui.*;
 import teo.isgci.gc.ForbiddenClass;
 import teo.isgci.gc.GraphClass;
 import teo.isgci.grapht.GAlg;
-import teo.isgci.db.*;
 import teo.isgci.relation.*;
 import teo.isgci.ref.*;
 import teo.isgci.util.LessLatex;
+import teo.isgci.appl.*;
 
 
 public class InclusionResultDialog extends JDialog implements ActionListener {

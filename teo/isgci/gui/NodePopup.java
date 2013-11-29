@@ -15,9 +15,9 @@ import java.awt.event.*;
 import java.util.Set;
 import javax.swing.*;
 import org.jgrapht.graph.DefaultEdge;
-import teo.isgci.db.DataSet;
 import teo.isgci.gc.GraphClass;
 import teo.isgci.util.Utility;
+import teo.isgci.appl.*;
 
 
 public class NodePopup extends JPopupMenu implements ActionListener {

@@ -10,8 +10,6 @@
 
 package teo.isgci.gui;
 
-import teo.isgci.db.DataSet;
-import teo.isgci.db.Algo;
 import java.io.IOException;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -22,6 +20,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.util.*;
 import java.util.Vector;
+import teo.isgci.appl.*;
 
 /**
  * The dialog the checks for an inclusion between two graphclasses.

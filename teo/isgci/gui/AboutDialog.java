@@ -17,7 +17,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Container;
 import javax.swing.*;
-import teo.isgci.db.*;
+import teo.isgci.appl.*;
 
 public class AboutDialog extends JDialog implements ActionListener {
     protected ISGCIMainFrame parent;

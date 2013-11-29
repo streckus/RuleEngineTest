@@ -18,9 +18,9 @@ import java.awt.event.*;
 import java.util.List;
 import java.util.Collections;
 import javax.swing.*;
-import teo.isgci.db.*;
 import teo.isgci.gc.GraphClass;
 import teo.isgci.util.LessLatex;
+import teo.isgci.appl.*;
 
 public class SearchDialog extends JDialog implements ActionListener {
     protected ISGCIMainFrame parent;

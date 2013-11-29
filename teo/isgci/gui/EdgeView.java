@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Vector;
 //import teo.isgci.gc.GraphClass;
-//import teo.isgci.db.Algo;
-//import teo.isgci.db.DataSet;
 import teo.isgci.xml.GraphMLWriter;
 import org.xml.sax.SAXException;
 

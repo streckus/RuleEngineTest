@@ -12,7 +12,6 @@
 package teo.isgci.gui;
 
 import teo.isgci.gc.GraphClass;
-import teo.isgci.db.*;
 import teo.isgci.relation.*;
 import teo.isgci.grapht.*;
 import java.io.IOException;
@@ -25,6 +24,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.HashSet;
 import java.util.Collection;
+import teo.isgci.appl.*;
 
 
 /**

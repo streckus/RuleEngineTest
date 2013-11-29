@@ -20,7 +20,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.net.*;
 import java.io.*;
-import teo.isgci.db.*;
 import teo.isgci.relation.*;
 import teo.isgci.problem.*;
 import teo.isgci.gc.ForbiddenClass;
@@ -31,6 +30,7 @@ import org.jgrapht.*;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import teo.isgci.grapht.*;
 import teo.isgci.xml.GraphMLWriter;
+import teo.isgci.appl.*;
 
 /*import teo.isgci.gc.GraphClass;
 import java.util.ArrayList;*/

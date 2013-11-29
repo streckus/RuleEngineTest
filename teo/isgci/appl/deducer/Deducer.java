@@ -21,7 +21,6 @@ import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.alg.FloydWarshallShortestPaths;
 import teo.isgci.gc.*;
-import teo.isgci.db.*;
 import teo.isgci.ref.*;
 import teo.isgci.relation.*;
 import teo.isgci.util.IDGenerator;

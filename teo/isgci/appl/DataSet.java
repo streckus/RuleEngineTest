@@ -8,7 +8,7 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isgci.db;
+package teo.isgci.appl;
 
 import java.util.*;
 import org.jgrapht.Graph;

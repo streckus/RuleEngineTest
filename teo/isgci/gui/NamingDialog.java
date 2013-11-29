@@ -16,7 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.*;
 import javax.swing.*;
-import teo.isgci.db.Algo;
+import teo.isgci.appl.*;
 
 public class NamingDialog extends JDialog implements ActionListener {
     protected ISGCIMainFrame parent;

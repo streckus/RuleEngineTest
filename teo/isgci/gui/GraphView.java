@@ -25,8 +25,6 @@ import java.util.List;
 import org.xml.sax.SAXException;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jgrapht.VertexFactory;
-import teo.isgci.db.DataSet;
-import teo.isgci.db.Algo;
 import teo.isgci.layout.*;
 import teo.isgci.xml.GraphMLWriter;
 import teo.isgci.util.IntFunction;
