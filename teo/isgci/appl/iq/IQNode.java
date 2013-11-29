@@ -8,7 +8,7 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isgci.iq;
+package teo.isgci.appl.iq;
 
 import java.util.Iterator;
 import java.util.ArrayList;

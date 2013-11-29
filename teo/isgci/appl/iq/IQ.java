@@ -8,7 +8,7 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isgci.iq;
+package teo.isgci.appl.iq;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -31,8 +31,8 @@
 <property name="autocache.txt" location="${persistent.dir}/autocache.txt"/>
 <property name="names.txt" location="${persistent.dir}/names.txt"/>
 
-<property name="iq.dir" value="teo/isgci/iq"/>
-<property name="iq.pkg" value="teo.isgci.iq"/>
+<property name="iq.dir" value="teo/isgci/appl/iq"/>
+<property name="iq.pkg" value="teo.isgci.appl.iq"/>
 
 <!--
   - web.dir is the path to where we write the files.
@@ -706,7 +706,7 @@
 <target name="iq"
    description="ISGCI Query">
 
-   <java classname="teo.isgci.iq.IQ" fork="true"
+   <java classname="teo.isgci.appl.iq.IQ" fork="true"
       classpathref="run.classpath">
       <arg value="file://${build.dir}/"/>
    </java>
