@@ -1,10 +1,10 @@
 .*
 !.git*
 .*.sw?
+*.pyc
 build/
 build.png
 data/keystore*
-distrib/
 families.graphml
 families.png
 scripts/grep.xsl

@@ -8,7 +8,7 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isgci.smallgraph;
+package teo.isgci.appl;
 
 import java.util.*;
 import java.net.URL;
@@ -21,6 +21,7 @@ import org.jgrapht.graph.*;
 import gnu.getopt.Getopt;
 import teo.isgci.grapht.GAlg;
 import teo.isgci.xml.*;
+import teo.isgci.smallgraph.*;
 import teo.isgci.util.Itera;
 
 public class FindISG{
