@@ -185,17 +185,19 @@ public class Generate {
         Resolver loader = new ISGCIResolver(
                 "file:"+System.getProperty("user.dir")+"/");
 
-        ISGCIReader gcr = new ISGCIReader(graph, problems);
-        xml = new XMLParser(loader.openInputSource(file),
-                gcr, loader.getEntityResolver(), new NoteFilter());
-        xml.parse();
-        relations.addAll(gcr.getRelations());
-
+        // Smallgraphs first, because we need to know them for properly
+        // resolving aliases.
         SmallGraphReader handler = new SmallGraphReader();
         xml = new XMLParser(loader.openInputSource(smallgraphfile),
                 handler, loader.getEntityResolver());
         xml.parse();
         ForbiddenClass.initRules(handler.getGraphs(), handler.getInclusions());
+
+        ISGCIReader gcr = new ISGCIReader(graph, problems);
+        xml = new XMLParser(loader.openInputSource(file),
+                gcr, loader.getEntityResolver(), new NoteFilter());
+        xml.parse();
+        relations.addAll(gcr.getRelations());
     }
 
 
