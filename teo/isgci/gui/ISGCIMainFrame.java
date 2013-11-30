@@ -10,30 +10,23 @@
 
 package teo.isgci.gui;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.net.*;
 import java.io.*;
+
+import org.jgrapht.*;
+import org.jgrapht.graph.SimpleDirectedGraph;
+
+import teo.isgci.grapht.*;
+import teo.isgci.xml.*;
+import teo.isgci.appl.*;
 import teo.isgci.relation.*;
 import teo.isgci.problem.*;
 import teo.isgci.gc.ForbiddenClass;
 import teo.isgci.gc.GraphClass;
-
-import java.awt.Color;
-import org.jgrapht.*;
-import org.jgrapht.graph.SimpleDirectedGraph;
-import teo.isgci.grapht.*;
-import teo.isgci.xml.GraphMLWriter;
-import teo.isgci.appl.*;
-
-/*import teo.isgci.gc.GraphClass;
-import java.util.ArrayList;*/
 
 
 /** The main frame of the application.
@@ -46,6 +39,7 @@ public class ISGCIMainFrame extends JFrame
     public static ISGCIMainFrame tracker; // Needed for MediaTracker (hack)
     public static LatexGraphics latex;
     public static Font font;
+    private boolean haveSmallgraphs;    // True iff smallgraphs loaded
 
     protected Loader loader;
 
@@ -74,8 +68,18 @@ public class ISGCIMainFrame extends JFrame
         this.loader = loader;
         tracker = this;
 
+        if (!haveSmallgraphs) {
+            SmallGraphReader handler = new SmallGraphReader();
+            XMLParser xr = new XMLParser(loader.getResolver().openInputSource(
+                    "data/smallgraphs.xml"),
+                    handler, loader.getResolver().getEntityResolver());
+            xr.parse();
+            ForbiddenClass.initRules(
+                    handler.getGraphs(), handler.getInclusions());
+            haveSmallgraphs = true;
+        }
+
         DataSet.init(loader.getResolver(), "data/isgci.xml");
-        ForbiddenClass.initRules(loader.getResolver(), "data/smallgraphs.xml");
         PSGraphics.init(loader);
         if (latex == null) {
             latex = new LatexGraphics();

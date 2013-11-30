@@ -696,9 +696,9 @@
 <target name="testforbidden"
    description="Manually test forbidden subgraphs">
 
-   <java classname="teo.isgci.gc.ForbiddenClass" fork="true"
+   <java classname="teo.isgci.appl.TestForbidden" fork="true"
       classpathref="run.classpath">
-      <arg file="${smallgraphs.xml.out}"/>
+      <arg value="file://${build.dir}/"/>
    </java>
 </target>
 

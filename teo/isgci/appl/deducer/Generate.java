@@ -29,7 +29,7 @@ import org.jgrapht.graph.DirectedMultigraph;
 public class Generate {
 
     static final String XMLDECL =
-        "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?>\n" +
+        "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n" +
         "<!DOCTYPE ISGCI SYSTEM \"isgci.dtd\">\n";
 
 
@@ -173,20 +173,29 @@ public class Generate {
 
 
     /**
-     * Load the ISGCI database.
+     * Load the ISGCI databases.
      */
     public static void load(String file,
+            String smallgraphfile,
             DirectedGraph<GraphClass,Inclusion> graph,
             List<Problem> problems,
             List<AbstractRelation> relations)
             throws java.net.MalformedURLException {
+        XMLParser xml;
         Resolver loader = new ISGCIResolver(
                 "file:"+System.getProperty("user.dir")+"/");
+
         ISGCIReader gcr = new ISGCIReader(graph, problems);
-        XMLParser xml = new XMLParser(loader.openInputSource(file),
+        xml = new XMLParser(loader.openInputSource(file),
                 gcr, loader.getEntityResolver(), new NoteFilter());
         xml.parse();
         relations.addAll(gcr.getRelations());
+
+        SmallGraphReader handler = new SmallGraphReader();
+        xml = new XMLParser(loader.openInputSource(smallgraphfile),
+                handler, loader.getEntityResolver());
+        xml.parse();
+        ForbiddenClass.initRules(handler.getGraphs(), handler.getInclusions());
     }
 
 
@@ -372,8 +381,9 @@ public class Generate {
         problems = new ArrayList<Problem>();
 
         Problem.setDeducing();
-        ForbiddenClass.initRules(null, args[opts.getOptind()+1]);
-        load(args[opts.getOptind()], graph, problems, relations);
+
+        load(args[opts.getOptind()], args[opts.getOptind()+1],
+                graph, problems, relations);
         deducer = new Deducer(graph,true, extrachecks);
         deducer.setGeneratorCache(autocache);
         show(graph);

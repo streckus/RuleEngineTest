@@ -11,38 +11,14 @@
 
 package teo.isgci.gc;
 
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.HashMap;
-import java.util.Collection;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Vector;
-import java.util.StringTokenizer;
-import java.util.Arrays;
-import java.io.File;
-import java.net.URL;
-import java.io.LineNumberReader;
-import java.io.InputStreamReader;
-
-import org.xml.sax.XMLReader;
-import org.xml.sax.InputSource;
+import java.util.*;
 
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.util.ArrayUnenforcedSet;
 
-import teo.isgci.grapht.GAlg;
-import teo.isgci.util.Utility;
-import teo.isgci.util.LessLatex;
-import teo.isgci.util.Pair;
-import teo.isgci.xml.*;
+import teo.isgci.grapht.*;
+import teo.isgci.util.*;
 import teo.isgci.smallgraph.*;
 
 /**
@@ -332,46 +308,27 @@ public class ForbiddenClass extends GraphClass {
      * Initialize the rule system for deriving relations between
      * ForbiddenClasses. When this function isn't called, NONE of the static
      * class variables are initialized.
-     * @param xmlfile .xml file containing the definitions of smallgraphs
+     * @param smallgraphs the smallgraphs that can be used to define
+     * ForbiddenClasses. 
+     * @param inclusions the relations between smallgraphs. Further relations
+     * are extracted automatically from the smallgraph definitions.
      */
-    public static void initRules(Resolver loader, String xmlfile) {
-
-        SmallGraphReader handler = new SmallGraphReader();
-
-        try{
-            XMLParser xr = null;
-            if (loader != null) {
-                xr = new XMLParser(loader.openInputSource(xmlfile),
-                        handler, loader.getEntityResolver());
-            } else { //FIXME: This branch should be handled by the loader
-                String path=(new File("")).getAbsolutePath();
-                path = (path.startsWith("/") ? "file:" : "file:/") + path +"/";
-                URL url=new URL(new URL(path), xmlfile);
-                InputSource input = new InputSource(url.openStream());
-                input.setSystemId(url.toString());
-                xr = new XMLParser(input, handler);
-            }
-            xr.parse();
-        }catch(Exception exml){
-            System.err.println("could not read XML file:");
-            exml.printStackTrace();
-        }
-
-        Collection<SmallGraph> readGraphs = handler.getGraphs();
+    public static void initRules(Collection<SmallGraph> smallgraphs,
+            Collection<Pair<String,String>> inclusions) {
 
         //---- Gather all the names and fill isgGraph and names
         names = new HashMap<String,SmallGraph>();
         isgGraph = new SimpleDirectedGraph<SmallGraph,DefaultEdge>(
                 DefaultEdge.class);
 
-        for (SmallGraph gr : readGraphs) {
+        for (SmallGraph gr : smallgraphs) {
             for (String s : gr.getNames())
                 names.put(s, gr);
             isgGraph.addVertex(gr);
         }
 
         //---- Cycle through all the smallgraphs and add edges in isgGraph
-        for (SmallGraph gr : readGraphs) {
+        for (SmallGraph gr : smallgraphs) {
             if (gr instanceof Family) {
                 Vector<SmallGraph> supers = null;
                 Family f = (Family) gr;
@@ -410,7 +367,7 @@ public class ForbiddenClass extends GraphClass {
             }
         }
 
-        for (Pair<String,String> e : handler.getInclusions()) {
+        for (Pair<String,String> e : inclusions) {
             SmallGraph from = names.get(e.first);
             SmallGraph to = names.get(e.second);
             if (from == null) {
@@ -580,43 +537,6 @@ public class ForbiddenClass extends GraphClass {
         return forbids(graphs, target, new ArrayList<SmallGraph>());
     }
 
-
-    public static void main(String args[]) throws IOException {
-        initRules(null, args[0]);
-        boolean again = true;
-        while (again) {
-            System.out.println(
-                    "Insert ;-separated forbidden HashSet of supposed SUB");
-            String a = (new LineNumberReader(
-                new InputStreamReader(System.in))).readLine();
-            StringTokenizer strTok1 = new StringTokenizer(a, ";");
-            System.out.println(
-                    "Insert ;-separated forbidden HashSet of supposed SUPER");
-            a = (new LineNumberReader(new InputStreamReader(System.in))).
-                readLine();
-            StringTokenizer strTok2 = new StringTokenizer(a, ";");
-            HashSet set1 = new HashSet(), set2 = new HashSet();
-            while (strTok1.hasMoreElements())
-                set1.add(strTok1.nextToken().trim());
-            while (strTok2.hasMoreElements())
-                set2.add(strTok2.nextToken().trim());
-
-            ForbiddenClass gc1 = new ForbiddenClass(set1);
-            ForbiddenClass gc2 = new ForbiddenClass(set2);
-
-            System.out.print("sub: "+ gc1.subClassOf(gc2));
-
-            StringBuilder witness = new StringBuilder();
-            boolean res = gc1.notSubClassOf(gc2, witness);
-            System.out.println(" not sub: "+ res +" "+ witness);
-            /*System.out.print("Continue? (y/n): ");
-            System.out.flush();
-            a = (new LineNumberReader(new InputStreamReader(System.in))).
-                readLine();
-            if (!a.equals("y"))
-                again = false;*/
-        }
-    }
 }
 
 /* EOF */
