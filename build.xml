@@ -29,7 +29,7 @@
 <property name="generate.trace" location="${build.data.dir}/generate.trace"/>
 <property name="relations.trace" location="${build.data.dir}/relations.trace"/>
 <property name="autocache.txt" location="${persistent.dir}/autocache.txt"/>
-<property name="names.txt" location="${persistent.dir}/names.txt"/>
+<property name="names.txt" location="${build.data.dir}/names.txt"/>
 
 <property name="iq.dir" value="teo/isgci/appl/iq"/>
 <property name="iq.pkg" value="teo.isgci.appl.iq"/>
@@ -212,15 +212,15 @@
       </manifest>
       <fileset dir="${build.classes.dir}">
          <include name="teo/**"/>
-         <exclude name="teo/isgci/smallgraph/FindISG.class"/>
+         <exclude name="teo/isgci/appl/FindISG.class"/>
+         <exclude name="teo/isgci/appl/TestForbidden.class"/>
+         <exclude name="teo/isgci/appl/XsltUtil*.class"/>
+         <exclude name="teo/isgci/appl/deducer/**"/>
+         <exclude name="teo/isgci/appl/iq/**"/>
          <exclude name="teo/isgci/smallgraph/Permutation*.class"/>
          <exclude name="teo/isgci/xml/SmallGraphWriter.class"/>
          <exclude name="teo/isgci/xml/ISGCIWriter*.class"/>
       </fileset>
-      <!-- <fileset dir="${build.classes.dir}">
-         <include name="teo/isg/GraphSet.class"/>
-         <include name="teo/isg/Graph.class"/>
-      </fileset> -->
       <fileset dir="${build.dir}">
          <include name="data/isgci.xml"/>
          <include name="data/isgci.dtd"/>
@@ -243,10 +243,6 @@
          signedjar="${web.dir}/jgrapht.jar"
          keystore="${data.dir}/keystore"
          storepass="graphclasses.org"/>
-   <!-- <signjar alias="isgci"
-         jar="${isgci.jar}"
-         keystore="${data.dir}/keystore"
-         storepass="isgciteo"/> -->
 </target>
 
 
@@ -274,7 +270,7 @@
 <target name="smallgraphs"
    description="Deduce smallgraph relations">
 
-   <java classname="teo.isgci.smallgraph.FindISG" fork="true"
+   <java classname="teo.isgci.appl.FindISG" fork="true"
       classpathref="run.classpath">
       <arg file="${smallgraphs.xml.in}"/>
       <arg file="${smallgraphs.xml.out}"/>
