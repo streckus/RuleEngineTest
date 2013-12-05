@@ -5985,6 +5985,10 @@
 	 <algo name="Maximum cut" complexity="NPC">
 	    <ref>ref_1629</ref>
 	 </algo>
+         <algo name="Recognition" complexity="NPC">
+            <ref>ref_420</ref>
+            <ref>ref_1650</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_454" type="base">
@@ -5994,7 +5998,6 @@
 	 </note>
 	 <ref>ref_1116</ref>
 	 <ref>ref_142</ref>
-	 <algo name="Recognition" complexity="NPC"/>
 	 <algo name="Colourability" complexity="Lin">
 	    <note>Trivial. Note that finding an actual colour assignment is NP-complete <ref>ref_1425</ref>.
 	    </note>
@@ -6243,7 +6246,24 @@
 	    <note>From Poljak's<ref>ref_1111</ref> construction (which is a
 	    2-subdivision). See also <ref>ref_453</ref></note>
 	 </algo>
-	 <algo name="Recognition" complexity="P"/>
+	 <algo name="Recognition" complexity="Lin">
+            <ref>ref_1648</ref>
+         </algo>
+	 <algo name="Hamiltonian cycle" complexity="Lin">
+            <ref>ref_1648</ref>
+         </algo>
+	 <algo name="Hamiltonian path" complexity="Lin">
+            <ref>ref_1648</ref>
+         </algo>
+	 <algo name="Maximum cut" complexity="NPC">
+            <ref>ref_1648</ref>
+         </algo>
+	 <algo name="Feedback vertex set" complexity="NPC">
+            <ref>ref_1648</ref>
+         </algo>
+	 <algo name="Domination" complexity="NPC">
+            <ref>ref_1648</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_473" type="forbidden">
@@ -8212,6 +8232,9 @@
 	 <algo name="Independent set" complexity="NPC">
 	    <note><graphclass>gc_675</graphclass> are precisely the <graphclass>gc_472</graphclass> graphs of <graphclass>gc_43</graphclass> graphs.</note>
 	 </algo>
+	 <algo name="Cutwidth" complexity="NPC">
+            <note>From <ref>ref_1648</ref> and <ref>ref_1509</ref>.</note>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_676" type="base">
@@ -11377,6 +11400,9 @@
 	 <note name="definition">
 	 A graph is <graphclass>gc_937</graphclass> if its vertex set can be partitioned into 3 independent sets C<sub>1</sub>, C<sub>2</sub>, C<sub>3</sub>, such that for every vertex v there is an <i>i</i> such v is adjacent to all vertices in C<sub>i</sub>.
 	 </note>
+         <note name="see-also">
+            <graphclass>gc_453</graphclass>
+         </note>
 	 <ref>ref_1443</ref>
 	 <algo name="Recognition" complexity="P">
 	    <ref>ref_1443</ref>
@@ -12969,7 +12995,10 @@
 	    <graphclass>gc_69</graphclass>
 	    <graphclass>gc_454</graphclass>
 	 </note>
-	 <algo name="Recognition" complexity="NPC"/>
+         <algo name="Recognition" complexity="NPC">
+            <ref>ref_420</ref>
+            <ref>ref_1650</ref>
+         </algo>
 	 <algo name="Weighted clique" complexity="P">
 	    <ref>trivial</ref>
 	 </algo>
@@ -13383,6 +13412,9 @@
 	 <algo name="Hamiltonian path" complexity="NPC">
 	    <ref>ref_1560</ref>
 	 </algo>
+         <algo name="Recognition" complexity="Lin">
+            <ref>trivial</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_1100" type="base">
@@ -13429,6 +13461,9 @@
 	 <algo name="Clique" complexity="P">
 	    <ref>trivial</ref>
 	 </algo>
+	 <algo name="Recognition" complexity="Lin">
+	    <ref>trivial</ref>
+	 </algo>
       </GraphClass>
 
       <GraphClass id="gc_1102" type="intersect">
@@ -13456,6 +13491,9 @@
 	 <algo name="Hamiltonian path" complexity="NPC">
 	    <ref>ref_1560</ref>
 	 </algo>
+	 <algo name="3-Colourability" complexity="NPC">
+	    <ref>ref_1649</ref>
+	 </algo>
       </GraphClass>
 
       <GraphClass id="gc_1104" type="base">
@@ -13478,6 +13516,9 @@
 	 <algo name="Clique" complexity="P">
 	    <ref>trivial</ref>
 	 </algo>
+	 <algo name="Recognition" complexity="Lin">
+	    <ref>trivial</ref>
+	 </algo>
       </GraphClass>
 
       <GraphClass id="gc_1105" type="base">
@@ -13498,6 +13539,9 @@
 	 <algo name="Hamiltonian path" complexity="NPC">
 	    <ref>ref_1560</ref>
 	 </algo>
+         <algo name="Recognition" complexity="Lin">
+            <ref>trivial</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_1106" type="intersect">
@@ -14083,7 +14127,7 @@
 	    <graphclass>gc_1104</graphclass>
 	    <graphclass>gc_1105</graphclass>
 	 </note>
-	 <algo name="Recognition" complexity="P">
+	 <algo name="Recognition" complexity="Lin">
 	    <ref>trivial</ref>
 	 </algo>
       </GraphClass>
@@ -14537,6 +14581,13 @@
 	    <graphclass>gc_453</graphclass>
 	    <graphclass>gc_69</graphclass>
 	 </note>
+         <algo name="Recognition" complexity="NPC">
+            <ref>ref_420</ref>
+            <ref>ref_1650</ref>
+         </algo>
+         <algo name="Weighted clique" complexity="P">
+            <ref>trivial</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_1183" type="intersect">
@@ -14918,6 +14969,22 @@
 	    <graphclass>gc_500</graphclass>
 	    <graphclass>gc_485</graphclass>
 	 </note>
+      </GraphClass>
+
+      <GraphClass id="gc_1211" type="forbidden">
+         <smallgraph>T_2</smallgraph>
+         <smallgraph>X_{31}</smallgraph>
+         <smallgraph>XF_2^{n+1}</smallgraph>
+         <smallgraph>XF_3^n</smallgraph>
+         <smallgraph>W_{n+4}</smallgraph>
+         <smallgraph>K_{2,3}</smallgraph>
+         <smallgraph>twin-C_5</smallgraph>
+         <smallgraph>\co{X_{37}}</smallgraph>
+         <smallgraph>\co{X_{90}}</smallgraph>
+         <smallgraph>domino</smallgraph>
+         <smallgraph>\co{C_6}</smallgraph>
+         <smallgraph>C_{n+4} \cup K_1</smallgraph>
+         <ref>ref_1647</ref>
       </GraphClass>
 
       
@@ -17015,6 +17082,7 @@
       <incl super="gc_1206" sub="gc_721" proper="y"> <ref>def</ref> </incl>
       <incl super="gc_952" sub="gc_1210"> <ref>ref_1456</ref> </incl>
       <incl super="gc_1210" sub="gc_953" proper="y"> <ref>ref_1640</ref> </incl>
+      <equ gc1="gc_1040" gc2="gc_1211"> <ref>ref_1647</ref> </equ>
 
 
 

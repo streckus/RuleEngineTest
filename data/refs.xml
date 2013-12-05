@@ -14461,6 +14461,111 @@
       </bib>
    </Ref>
 
+   <Ref id="ref_1647">
+      <bib>
+	 <authors>L.N. Grippo, M.D. Safe</authors>
+	 <title>On circular-arc graphs having a model with no three arcs covering the circle</title>
+	 <rest>Anais do XLIV Simpósio Brasileiro de Pesquisa Operacional, 4093-4104 (2012)</rest>
+         <note>Available <a href="http://www.din.uem.br/sbpo/sbpo2012/pdf/arq0518.pdf">here</a>.
+         </note>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1648">
+      <note>
+      On 2-subdivision graphs we have the following algorithms:
+      <ul>
+         <li>Cutwidth
+         <p>Two homeomorphic graphs G and H have the same cutwidth number: WLOG
+         we can assume that G can be obtained from H by deleting one vertex u
+         of degree 2 and adding a (missing) edge e between u's neighbours v and
+         w.  Then if we get a linear layout of G and subdivide edge e by vertex
+         u, placing it in the layout anywhere between v and w we get the same
+         width of all cuts.</p>
+         <p>On the other hand if we have some linear layout of vertices of H,
+         then vertex u is either between v and w or can be moved between them
+         without increasing the width of any cut. And when u is between v and w
+         it can be replaced by an edge e to get a linear layout of G with the
+         same width of all cuts.  Since any graph is homeomorphic to its
+         2-subdivision graph, we get that calculating the cutwidth of a
+         2-subdivision graph is as hard as calculating the cutwidth of a
+         general graph.</p>
+         </li>
+         <li>Domination
+         <p>To build a dominating set in the 2-subdivision graph G' of graph G
+         we need to include for each vertex v of G its neigbour in G' or the
+         vertex v itself. Since neighbourhoods in graph G' for any two vertices
+         of G are disjont we have that domination number of G' is at least
+         $|G|$. On the other hand a dominating set of size $|G|$ exists
+         consisting of all vertices of G, so the domination number of G' equals
+         $|G|$. Because the recognition algorithm above determines the nodes of
+         G, it follows that the domination number can be determined in
+         linear time.</p>
+         </li>
+         <li>Feedback vertex set
+         <p>If $G'$ is the 2-subdivision of $G$, then a feedback vertex set of
+         $G$ is also a feedback vertex set of $G'$. And if a feedback vertex set
+         of $G'$ contains a vertex not in $G$, than this vertex can be replaced
+         by a neighbour that is in $G$. Thus, a feedback vertex set in $G'$ can
+         be converted to a feedback vertex set of $G$ of the same size. It
+         follows that $G'$ contains a feedback vertex set of size $k$ iff $G$
+         does.</p>
+         </li>
+         <li>Maximum cut
+         <p>If a graph G has $m$ edges and a maximum cut of size $k$ then the
+         maximum cut size of its 2-subdivistion graph G' is at least $2m + k$:
+         Let G have a cut of size $k$ and let each edge $uv$ be replaced by a
+         path $uxyv$. Then if $uv$ is a cut edge in G, then let all edges $ux$,
+         $xy$ and $yv$ be cut edges in G'. And if $uv$ is not an edge of
+         maximum cut, then let edges $ux$ and $yv$ be edges of the cut in G'.
+         So G' has a cut of size $2m + k$.</p>
+         <p>On the other hand if G' has a cut of size $l$ then for each path
+         $uxyv$ in G' let edge $uv$ be a cut edge if and only if an odd number
+         of the edges $ux$, $xy$, and $yv$ in G' are in the cut.  Then a cut
+         exists in G that has size at least $l - 2m$.</p>
+         <p>So the maximum cut problem is NP-complete for 2-subdivision
+         graphs.</p>
+         </li>
+         <li>Hamiltonian cycle
+         <p>A 2-subdivision graph has a Hamiltonian cycle if and only if it is
+         a cycle itself, thus the problem is solvable in linear time.</p>
+         </li>
+         <li>Hamiltonian path
+         <p>A 2-subdivision graph has a Hamiltonian path if and only if it is a
+         cycle or a path, thus the problem is solvable in linear time.</p>
+         </li>
+         <li>Recognition
+         <p>Surely it can be done in linear time. Check every connected
+         component independently, because a graph is a 2-subdivision graph if
+         and only if every connected component is a 2-subdivision graph.</p>
+         <p>1. If every vertex in the connected componen has degree 2, then
+         this component is a cycle and it is 2-subdivision graph if and only if
+         it has length divisible by 3.</p>
+         <p>2. If there is at least one vertex of degree non-equal to 2, then
+         we can use one DFS to count lengths of all maximal paths with all
+         non-end vertices of degree 2. The length of every such path should be
+         divisible by 3. This condition is necessary and sufficient.</p>
+         </li>
+      </ul>(Communicated by Pavel Irzhavsky)
+      </note>
+   </Ref>
+
+   <Ref id="ref_1649">
+      <bib>
+	 <authors>D.P. Dailey</authors>
+	 <title>Uniqueness of colorability and colorability of planar 4-regular graphs are NP-complete</title>
+	 <rest>Discrete Math. 30 No.3 289-293 (1980)</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1650">
+      <bib>
+	 <authors>L. Stockmeyer</authors>
+	 <title>Planar 3-colorability is polynomial complete</title>
+	 <rest>SIGACT News 19-25 (1973)</rest>
+      </bib>
+   </Ref>
+
 
 
 </REFS>

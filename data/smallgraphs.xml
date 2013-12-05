@@ -24651,6 +24651,36 @@
    </tail>
 </hmt-grammar>
 
+<hmt-grammar type="3" name="W_{n+3}">
+   <head>
+      <nodes count="4"/>
+      <edges>
+	 0 - 2;
+         0 - 3;
+         1 - 2;
+         1 - 3;
+         2 - 3;
+      </edges>
+      <attachment>0,1,2</attachment>
+   </head>
+   <mid>
+      <nodes count="4"/>
+      <edges>
+         0 - 3;
+	 2 - 3;
+      </edges>
+      <extension>0,1,2</extension>
+      <attachment>3,1,2</attachment>
+   </mid>
+   <tail>
+      <nodes count="3"/>
+      <edges>
+	 0 - 1;
+      </edges>
+      <extension>0,1,2</extension>
+   </tail>
+</hmt-grammar>
+
 
 <hmt-grammar type="2" name="C(n+3,1)">
    <head>
@@ -25051,6 +25081,13 @@
    <subfamily>4-pan</subfamily>
    <link relay="pan"/>
    <complement name="\co{(n+4)-pan}"/>
+</family>
+
+<family type="hmt" name="W_{n+4}">
+   <use-grammar name="W_{n+3}" index="x 1 +"/>
+   <induced1>C_{n+4}</induced1>
+   <link relay="wheel"/>
+   <complement name="\co{W_{n+4}}"/>
 </family>
 
 <family type="hmt" name="C(n,1)">
