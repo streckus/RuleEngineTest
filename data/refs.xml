@@ -14473,7 +14473,7 @@
 
    <Ref id="ref_1648">
       <note>
-      On 2-subdivision graphs we have the following algorithms:
+      On 2-subdivision graphs we have the following algorithms and reductions:
       <ul>
          <li>Cutwidth
          <p>Two homeomorphic graphs G and H have the same cutwidth number: WLOG
@@ -14496,11 +14496,10 @@
          we need to include for each vertex v of G its neigbour in G' or the
          vertex v itself. Since neighbourhoods in graph G' for any two vertices
          of G are disjont we have that domination number of G' is at least
-         $|G|$. On the other hand a dominating set of size $|G|$ exists
+         $|V(G)|$. On the other hand a dominating set of size $|V(G)|$ exists
          consisting of all vertices of G, so the domination number of G' equals
-         $|G|$. Because the recognition algorithm above determines the nodes of
-         G, it follows that the domination number can be determined in
-         linear time.</p>
+         $|V(G)|$. Since $|E(G')| = 3|E(G)|$ it follows that the domination
+         number of G' is $|V(G')| - 2|E(G')|$.</p>
          </li>
          <li>Feedback vertex set
          <p>If $G'$ is the 2-subdivision of $G$, then a feedback vertex set of
@@ -14509,7 +14508,8 @@
          by a neighbour that is in $G$. Thus, a feedback vertex set in $G'$ can
          be converted to a feedback vertex set of $G$ of the same size. It
          follows that $G'$ contains a feedback vertex set of size $k$ iff $G$
-         does.</p>
+         does. Note that this reductions maintains planarity and therefore
+         holds for planar 2-subdivions graphs as well.</p>
          </li>
          <li>Maximum cut
          <p>If a graph G has $m$ edges and a maximum cut of size $k$ then the
@@ -14565,6 +14565,29 @@
 	 <rest>SIGACT News 19-25 (1973)</rest>
       </bib>
    </Ref>
+
+   <Ref id="ref_1651">
+      <bib>
+	 <authors>F.J. Soulignac</authors>
+	 <title>On proper and Helly circular-arc graphs</title>
+	 <rest>Ph.D. Thesis Universidad de Buenos Aires (2010)</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1652">
+      <note>
+      Let $u,v,w$ be the vertices of a <smallgraph>triangle</smallgraph> to
+      start the construction of a 3-tree.  Attach a vertex y1 to ${u,v,w}$ and
+      y2 to ${u,v,w}$ and y3 to ${u,v,w}$.  These are valid 3-tree
+      construction steps and results in a 3-tree with a
+      <smallgraph>K_{3,3}</smallgraph> partial subgraph, which is not planar.
+      It follows that planar partial 3-trees are a proper subclass of partial
+      3-trees.
+      (Communicated by G. Borradaile)
+      </note>
+   </Ref>
+
+
 
 
 

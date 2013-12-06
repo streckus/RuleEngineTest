@@ -3365,7 +3365,7 @@
 	    except for v<sub>i+1</sub>.
 	    </li>
 	 </ul>
-	 G is a <graphclass>gc_205</graphclass> graph if it does not contain an obstacle as an induced subgraph.
+	 G is a <graphclass>gc_205</graphclass> graph if it is a <graphclass>gc_133</graphclass> graph and does not contain an obstacle as an induced subgraph.
 	 </note>
 	 <note name="see-also">
 	    <graphclass>gc_105</graphclass>
@@ -6237,8 +6237,8 @@
 	 <name>2-subdivision</name>
 	 <note name="definition">
 	 A 2-subdivision of a graph results from inserting 2 new vertices in
-	 every edge, that is from replacing each edge uv with a
-	 <smallgraph>P_4</smallgraph> uxyv.<br/>
+	 every edge, that is from replacing each edge $uv$ with a
+	 <smallgraph>P_4</smallgraph> $uxyv$.<br/>
 	 A graph is a <graphclass>gc_472</graphclass> if it is the
 	 2-subdivision of some graph.
 	 </note>
@@ -6261,7 +6261,7 @@
 	 <algo name="Feedback vertex set" complexity="NPC">
             <ref>ref_1648</ref>
          </algo>
-	 <algo name="Domination" complexity="NPC">
+	 <algo name="Domination" complexity="Lin">
             <ref>ref_1648</ref>
          </algo>
       </GraphClass>
@@ -8234,6 +8234,9 @@
 	 </algo>
 	 <algo name="Cutwidth" complexity="NPC">
             <note>From <ref>ref_1648</ref> and <ref>ref_1509</ref>.</note>
+         </algo>
+         <algo name="Feedback vertex set" complexity="NPC">
+            <ref>ref_1648</ref>
          </algo>
       </GraphClass>
 
@@ -10870,7 +10873,7 @@
 	 Note that is stronger than requiring that the graph is both a <graphclass>gc_297</graphclass> and a <graphclass>gc_205</graphclass> graph.
 	 </note>
 	 <note name="definition">
-	 A graph is <graphclass>gc_889</graphclass> if it admits a circular arc model in which no two nor three arcs cover the circle.
+	 A graph is <graphclass>gc_889</graphclass> if it admits a proper circular arc model in which no two nor three arcs cover the circle. <ref>ref_1651</ref>.
 	 </note>
 	 <note name="see-also">
 	    <graphclass>gc_297</graphclass>
@@ -10880,6 +10883,7 @@
 	 <ref>ref_1404</ref>
 	 <ref>ref_1406</ref>
 	 <ref>ref_1483</ref>
+         <ref>ref_1651</ref>
 	 <algo name="Recognition" complexity="Lin">
 	    <ref>ref_1406</ref>
 	    <ref>ref_1483</ref>
@@ -11780,6 +11784,9 @@
 	 A graph is <graphclass>gc_974</graphclass> if it has a circular arc model that is both a unit model and Helly.<br/>
 	 Note that is stronger than requiring that the graph is both a <graphclass>gc_304</graphclass> and a <graphclass>gc_205</graphclass> graph.
 	 </note>
+	 <note name="definition">
+	 A graph is <graphclass>gc_974</graphclass> if it admits a unit circular arc model in which no two nor three arcs cover the circle. <ref>ref_1651</ref>.
+	 </note>
 	 <note name="see-also">
 	    <graphclass>gc_889</graphclass>
 	    <graphclass>gc_304</graphclass>
@@ -12584,15 +12591,18 @@
 	 <name>normal Helly circular arc</name>
 	 <hereditary type="induced-hereditary"/>
 	 <note name="definition">A graph is <graphclass>gc_1040</graphclass> if it has a circular arc model that is both normal and Helly.<br/>
-	 Note that is stronger than requiring that the graph is both a <graphclass>gc_282</graphclass> and a <graphclass>gc_205</graphclass> graph.
+	 Note that is stronger than requiring that the graph is both a <graphclass>gc_861</graphclass> and a <graphclass>gc_205</graphclass> graph.
 	 </note>
 	 <note name="definition">
 	 A dismantling of a graph G is the the subgraph of G obtained by iteratively removing a vertex which is dominated by some other vertex in the subgraph obtained so far (see also <graphclass>gc_49</graphclass>).
 	 A graph is <graphclass>gc_1040</graphclass> iff it is either <graphclass>gc_234</graphclass> or its dismantling is <graphclass>gc_947</graphclass>.
 	 </note>
+	 <note name="definition">
+	 A graph is <graphclass>gc_1040</graphclass> if it admits a normal circular arc model in which no two nor three arcs cover the circle. <ref>ref_1651</ref>.
+	 </note>
 	 <note name="see-also">
 	    <graphclass>gc_49</graphclass>
-	    <graphclass>gc_282</graphclass>
+	    <graphclass>gc_861</graphclass>
 	    <graphclass>gc_205</graphclass>
 	    <graphclass>gc_889</graphclass>
 	 </note>
@@ -17083,6 +17093,9 @@
       <incl super="gc_952" sub="gc_1210"> <ref>ref_1456</ref> </incl>
       <incl super="gc_1210" sub="gc_953" proper="y"> <ref>ref_1640</ref> </incl>
       <equ gc1="gc_1040" gc2="gc_1211"> <ref>ref_1647</ref> </equ>
+      <incl super="gc_861" sub="gc_1040" proper="y"> <ref>def</ref> </incl>
+      <incl super="gc_205" sub="gc_1040" proper="y"> <ref>def</ref> </incl>
+      <incl super="gc_199" sub="gc_1006" proper="y"> <ref>def</ref> <ref>ref_1652</ref> </incl>
 
 
 
