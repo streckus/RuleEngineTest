@@ -14587,6 +14587,92 @@
       </note>
    </Ref>
 
+   <Ref id="ref_1653">
+      <bib>
+	 <authors>C.H. Papadimitriou, U.V. Vazirani</authors>
+	 <title>On two geometric problems related to the travelling salesman problem</title>
+	 <rest>J. of Algorithms 5 No.2 231-246 (1984)</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1654">
+      <bib>
+         <authors>A.E. Feldmann, P. Widmayer</authors>
+	 <title>An O(n^4) time Algorithm to Compute the Bisection Width of Solid Grid Graphs</title>
+	 <rest>Proc. of the 19th Annual European Symposium on Algorithms (ESA) (2011)</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1655">
+      <note>
+      On star convex graphs we have the following algorithms and reductions:
+      <ul>
+      <li>Hamiltonian path
+         <p>Consider any bipartite graph $G = (X, Y, E)$ with $|X| \le |Y|$.
+         Then graph $G' = (X \cup \{x\}, Y \cup \{y\}, E \cup \{(x, z) \forall
+         z \in Y\} \cup \{(x, y)\})$ will be star convex with $T = (X \cup
+         \{x\}, \{(x, z) \forall z \in X\})$. It is easy to see now that if $G$
+         has Hamiltonian path $P$ then at least one of its ends is in $Y$ and
+         adding $x$ and $y$ to it we can get Hamiltonian path in $G'$. On the
+         other hand if there is a Hamiltonian path $P'$ in $G'$ then $y$ is one
+         of its ends and its only neighbour $x$ is next to $y$ in $P'$.
+         Removing both $x$ and $y$ we get Hamiltonian path in $G$. Therefore
+         Hamiltonian path problem remains NP-complete for star convex
+         graphs.</p>
+      </li>
+      <li>Hamiltonian cycle
+         <p>Consider any bipartite graph $G = (X, Y, E)$ with $|X| \lt |Y|$.
+         Then graph $G' = (X \cup \{x\}, Y, E \cup \{(x, z) \forall z \in Y\})$
+         will be star convex with $T = (X \cup \{x\}, \{(x, z) \forall z \in
+         X\})$ and $G'$ has Hamiltonian cycle if and only if G has Hamiltonian
+         path.</p>
+         <p>Consider any bipartite graph $G = (X, Y, E)$ with $|X| = |Y|$. Then
+         graph $G' = (X \cup \{x, u\}, Y \cup \{y, v\}, E \cup \{(x, z) \forall
+         z \in Y\} \cup \{(z, y) \forall z \in X\} \cup \{(x, y), (u, y), (x,
+         v), (u, v))$ is tree convex with $T = (X \cup \{x, u\}, \{(x, z)
+         \forall z \in X \cup \{u\}\})$ and has Hamiltonian cycle if and only
+         if $G$ has Hamiltonian path.</p>
+         <p>Therefore Hamiltonian cycle problem remains NP-complete for star
+         convex graphs.</p>
+      </li>
+      <li>Recognition
+         <p>Linear. Graph $G = (X, Y, E)$ is star convex if and only if there
+         exists vertex $x \in X$ such that $(x, y) \in E$ for all $y \in Y \mid
+         \deg(y) \ge 2$.  If there is such $x$, then $x$ can be center of star
+         $T$. If there is no such $x$ then for any center $z$ of star $T$ there
+         exists vertex $y \in Y$ such that it is adjacent to two leaves of $T$,
+         but not adjacent to the center of $T$.</p>
+      </li>
+      </ul>
+      (P. Irzhavsky)
+      </note>
+   </Ref>
+
+   <Ref id="ref_1656">
+      <note>
+         <p>It is easy to see that $H_{n,q}$ graph doesn't have Hamiltonian
+         path (and therefore cycle) for $n \ge 3$ since in case of existance of
+         Hamiltonian path the outer cycle with exception of at most one edge
+         should be part of this path because of vertices of degree 2. But there
+         are at least 4 inner vertices that should be ends of path or be
+         adjacent in Hamiltonian path with vertices of outer cycle.  In case n
+         = 2 graph is a simple cycle and in case n = 1 graph has only one
+         vertex. Both cases are trivial, so the problems are linear time
+         solvable.</p>
+         <p>Recognition is also linear. Cases of n = 1 (single vertex) and n =
+         2 (simple cycle of length 12q) are trivial, so let n be at least 3.
+         It is easy to see that graph $H_{n,q}$ has 6qn(n-1) edges.  Consider
+         maximal paths with non-end vertices of degree 2. All of them can be
+         found using one DFS. The longest such path has 6q edges. So now both n
+         and q are known (since equation n(n-1) = a has at most one positive
+         integer root). No we can try to extract all vertices of H_{n,q} from
+         the given graph, moving diagonal wave from one corner to the other.
+         </p>
+         <p>For the $F_n$ grids similar arguments apply.
+         (P. Irzhavsky)</p>
+      </note>
+   </Ref>
+
 
 
 

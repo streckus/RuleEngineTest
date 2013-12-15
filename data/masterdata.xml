@@ -309,7 +309,9 @@
 	 </tr>
 	 <tr>
 	    <td>Output:</td><td>True iff the vertices of <i>G</i> can be
-	    partitioned into two sets <i>A,B</i> of equal size such that there
+            partitioned into two sets <i>A,B</i> of equal size (or
+            |<i>A</i>|=|<i>B</i>|-1 if
+            <i>G</i> has an odd number of vertices) such that there
 	    are at least <i>k</i> edges in <i>G</i> with one endpoint in
 	    <i>A</i> and the other endpoint in <i>B</i>.</td>
 	 </tr>
@@ -328,7 +330,9 @@
 	 </tr>
 	 <tr>
 	    <td>Output:</td><td>True iff the vertices of <i>G</i> can be
-	    partitioned into two sets <i>A,B</i> of equal size such that there
+	    partitioned into two sets <i>A,B</i> of equal size (or
+            |<i>A</i>|=|<i>B</i>|-1 if
+            <i>G</i> has an odd number of vertices) such that there
 	    are at most <i>k</i> edges in <i>G</i> with one endpoint in
 	    <i>A</i> and the other endpoint in <i>B</i>.</td>
 	 </tr>
@@ -6903,12 +6907,21 @@
 	 <algo name="Cliquewidth" complexity="Unbounded">
 	    <ref>ref_1176</ref>
 	 </algo>
+         <algo name="Hamiltonian cycle" complexity="Lin">
+            <ref>ref_1656</ref>
+         </algo>
+         <algo name="Hamiltonian path" complexity="Lin">
+            <ref>ref_1656</ref>
+         </algo>
+         <algo name="Recognition" complexity="Lin">
+            <ref>ref_1656</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_527" type="base">
 	 <name>H_{n,q} grid</name>
 	 <note name="definition">
-	 An <graphclass>gc_527</graphclass> is a modification of an $n\times n$ <graphclass>gc_464</graphclass> which has unbounded cliquewidth for any fixed $q\ge 2$. See <ref>ref_1176</ref> for a precise definition; as an example, $H_{4,2}$ looks like this:<br/>
+	 An <graphclass>gc_527</graphclass> with $n\ge 4$ is a modification of an $n\times n$ <graphclass>gc_464</graphclass> which has unbounded cliquewidth for any fixed $q\ge 2$. See <ref>ref_1176</ref> for a precise definition; as an example, $H_{4,2}$ looks like this:<br/>
 	 <img src="../images/Hn,q-grid.jpg"/>
 	 </note>
 	 <note name="see-also">
@@ -6918,6 +6931,15 @@
 	 <algo name="Cliquewidth" complexity="Unbounded">
 	    <ref>ref_1176</ref>
 	 </algo>
+         <algo name="Hamiltonian cycle" complexity="Lin">
+            <ref>ref_1656</ref>
+         </algo>
+         <algo name="Hamiltonian path" complexity="Lin">
+            <ref>ref_1656</ref>
+         </algo>
+         <algo name="Recognition" complexity="Lin">
+            <ref>ref_1656</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_528" type="forbidden">
@@ -12842,6 +12864,9 @@
 	 <algo name="Hamiltonian cycle" complexity="P">
 	    <ref>ref_1538</ref>
 	 </algo>
+         <algo name="Maximum bisection" complexity="P" bounds="O(V^4)">
+            <ref>ref_1654</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_1059" type="base">
@@ -13451,6 +13476,9 @@
 	 <algo name="Feedback vertex set" complexity="P">
 	    <ref>ref_1587</ref>
 	 </algo>
+         <algo name="Recognition" complexity="Lin">
+            <ref>trivial</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_1101" type="base">
@@ -13711,6 +13739,9 @@
 	    <ref>ref_1537</ref>
 	    <ref>ref_1565</ref>
 	 </algo>
+         <algo name="Hamiltonian path" complexity="NPC">
+            <ref>ref_1653</ref>
+         </algo>
       </GraphClass>
 
       <!-- From doubtful [1565]
@@ -14172,12 +14203,21 @@
 	 <algo name="Feedback vertex set" complexity="NPC">
 	    <ref>ref_1590</ref>
 	 </algo>
+         <algo name="Hamiltonian path" complexity="NPC">
+            <ref>ref_1655</ref>
+         </algo>
+         <algo name="Hamiltonian cycle" complexity="NPC">
+            <ref>ref_1655</ref>
+         </algo>
+         <algo name="Recognition" complexity="Lin">
+            <ref>ref_1655</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_1152" type="base">
          <name>triad convex</name>
 	 <note name="definition">
-	 A <graphclass>gc_69</graphclass> graph $B=(X,Y,E)$ is <graphclass>gc_1151</graphclass> if a tree $T=(X,F)$ can be defined, such that $T$ is a <smallgraph>triad</smallgraph> and for every vertex $y\in Y$, the neighbourhood of $y$ induces a subtree in $T$.
+	 A <graphclass>gc_69</graphclass> graph $B=(X,Y,E)$ is <graphclass>gc_1152</graphclass> if a tree $T=(X,F)$ can be defined, such that $T$ is a <smallgraph>triad</smallgraph> and for every vertex $y\in Y$, the neighbourhood of $y$ induces a subtree in $T$.
 	 </note>
 	 <ref>ref_1591</ref>
 	 <note name="see-also">
