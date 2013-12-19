@@ -521,7 +521,7 @@
    <copy todir="${web.dir}" file="${data.dir}/isgci.jnlp" overwrite="yes">
       <filterset>
          <!-- HOMEURL will be set to home.url by distrib target -->
-         <filter token="HOMEURL" value="${web.dir}/"/>
+         <filter token="HOMEURL" value="file:${web.dir}/"/>
       </filterset>
    </copy>
    <copy todir="${web.dir}">

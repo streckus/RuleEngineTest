@@ -18,7 +18,7 @@
       <jar href="ISGCI.jar"/>
       <jar href="jgrapht.jar"/>
    </resources>
-   <application-desc main-class="teo.Loader">
+   <application-desc main-class="teo.isgci.gui.Loader">
       <argument>@HOMEURL@</argument>
    </application-desc>
 </jnlp>
