@@ -14665,15 +14665,67 @@
          maximal paths with non-end vertices of degree 2. All of them can be
          found using one DFS. The longest such path has 6q edges. So now both n
          and q are known (since equation n(n-1) = a has at most one positive
-         integer root). No we can try to extract all vertices of H_{n,q} from
-         the given graph, moving diagonal wave from one corner to the other.
+         integer root). Now we can try to extract all vertices of $H_{n,q}$
+         from the given graph, moving diagonal wave from one corner to the
+         other.
          </p>
          <p>For the $F_n$ grids similar arguments apply.
          (P. Irzhavsky)</p>
       </note>
    </Ref>
 
+   <Ref id="ref_1657">
+      <bib>
+	 <authors>J. Hopcroft, R. Tarjan</authors>
+	 <title>Efficient algorithms for graph manipulation</title>
+	 <rest>C.ACM 16 No.6 372-378 (1973)</rest>
+      </bib>
+   </Ref>
 
+   <Ref id="ref_1658">
+      <bib>
+	 <authors>W.-k. Shih, S. Wu, Y.S. Kuo</authors>
+	 <title>Unifying Maximum Cut and Minimum Cut of a Planar Graph</title>
+	 <rest>IEEE Transactions on Computer 39 No.5 694-697 (1990)</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1659">
+      <note><p>If, in the notation of <ref>ref_1327</ref>, the intersection
+      graph H of (C,co-A) is not chordal, then there are three arcs co-A_1,
+      co-A_2 and co-A_3 in co-A corresponding to three consecutive vertices of
+      some chordless cycle of length at least 4 in H and, consequently, A_1,
+      A_2 and A_3 together cover the circle. Therefore, a model not having
+      three arcs covering the circle satisfies (i) and (ii) of Theorem 1 of
+      <ref>ref_1327</ref> and, hence, it is Helly. To see that it is also
+      normal (i.e., has no two arcs covering the circle) is much eaiser: if one
+      is forced to cover the circle with two arcs, then the graph has at least
+      three vertices and so in any model of such a graph if there were two arcs
+      covering the circle then there would be also three arcs covering the
+      circle.</p>
+      <p>Similar reasoning applies to proper Helly circular-arc and unit Helly
+      circular arc graphs.
+      (M.D. Safe)</p>
+      </note>
+   </Ref>
+
+   <Ref id="ref_1660">
+      <note>Consider an arbitrary 2-connected, cubic, planar graph $G$ and an
+      edge $uv$ of $G$.  At first let's replace edge $uv$ by vertices $a, b, x,
+      y$ and edges $\{u, a\}, \{a, x\}, \{a, y\}, \{x, b\}, \{y, b\}, \{b,
+      v\}$. Replace replace $x$ and $y$ by <smallgraph>diamond</smallgraph>s
+      $X$ and $Y$, respectively: $x$ is replaced by $x_1, x_2, x_3, x_4$, edges
+      $\{a, x\}, \{x, b\}$ are replaced by $\{a, x_1\}, \{x_2, b\}$ and the
+      edges $\{x_1, x_3\}, \{x_1, x_4\}, \{x_3, x_2\}, \{x_4, x_2\}$ are added.
+      And the same for $y$. Now any Hamiltonian path in the
+      resulting graph $H$ starts with either the vertices of $X$ or the
+      vertices of $Y$. Without loss of generality, assume it starts with the
+      vertices of $X$. The path is of one of the forms $X,a,Y,b,v,\dots,u$; or
+      $X,b,Y,a,u,\dots,v$; or $X,b,v,\dots,u,a,Y$; or $X,a,u,\dots,v,Y$. Hence
+      a Hamiltonian path in $H$ exists iff $G$ has a Hamiltonian cycle with
+      edge $uv$. (P. Irzhavsky)
+      </note>
+   </Ref>
 
 
 

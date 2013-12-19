@@ -280,7 +280,27 @@
       </note>
    </Problem>
 
+   <Problem name="Weighted maximum cut" dir="undirected">
+      <sparse/>
+      <note>
+	 (decision variant)
+	 <table>
+	 <tr>
+            <td>Input:</td><td>A graph <i>G</i> in this class with weight
+            function on the edges and a real <i>k</i>.</td>
+	 </tr>
+	 <tr>
+	    <td>Output:</td><td>True iff the vertices of <i>G</i> can be
+            partitioned into two sets <i>A,B</i> such that the sum of weights
+            of the edges in <i>G</i> with one endpoint in <i>A</i> and the
+	    other endpoint in <i>B</i> is at least <i>k</i>.</td>
+	 </tr>
+	 </table>
+      </note>
+   </Problem>
+
    <Problem name="Maximum cut" dir="undirected">
+      <from name="Weighted maximum cut"/>
       <note>
 	 (decision variant)
 	 <table>
@@ -1044,6 +1064,9 @@
 	 <algo name="Maximum cut" complexity="P">
 	    <ref>ref_1628</ref>
 	 </algo>
+         <algo name="Weighted maximum cut" complexity="P" bounds="O(V^{3/2}\log V)">
+            <ref>ref_1658</ref>
+         </algo>
 	 <algo name="Maximum bisection" complexity="NPC">
 	    <ref>ref_1628</ref>
 	 </algo>
@@ -9374,6 +9397,10 @@
 	 <note name="definition">
 	 A graph is k-connected if it cannot be disconnected by removing less than k vertices.
 	 </note>
+         <algo name="Recognition" complexity="Lin">
+            <ref>ref_245</ref>
+            <ref>ref_1657</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_772" type="forbidden">
@@ -10897,6 +10924,9 @@
 	 <note name="definition">
 	 A graph is <graphclass>gc_889</graphclass> if it admits a proper circular arc model in which no two nor three arcs cover the circle. <ref>ref_1651</ref>.
 	 </note>
+	 <note name="definition">
+	 A graph is <graphclass>gc_889</graphclass> if it admits a proper circular arc model in which no three arcs cover the circle. <ref>ref_1659</ref>. Note that in any model on at least 3 arcs in which two arcs cover the circle, there are also three arcs that together cover the circle.
+	 </note>
 	 <note name="see-also">
 	    <graphclass>gc_297</graphclass>
 	    <graphclass>gc_205</graphclass>
@@ -11809,6 +11839,9 @@
 	 <note name="definition">
 	 A graph is <graphclass>gc_974</graphclass> if it admits a unit circular arc model in which no two nor three arcs cover the circle. <ref>ref_1651</ref>.
 	 </note>
+	 <note name="definition">
+	 A graph is <graphclass>gc_974</graphclass> if it admits a unit circular arc model in which no three arcs cover the circle. <ref>ref_1659</ref>. Note that in any model on at least 3 arcs in which two arcs cover the circle, there are also three arcs that together cover the circle.
+	 </note>
 	 <note name="see-also">
 	    <graphclass>gc_889</graphclass>
 	    <graphclass>gc_304</graphclass>
@@ -12616,11 +12649,14 @@
 	 Note that is stronger than requiring that the graph is both a <graphclass>gc_861</graphclass> and a <graphclass>gc_205</graphclass> graph.
 	 </note>
 	 <note name="definition">
-	 A dismantling of a graph G is the the subgraph of G obtained by iteratively removing a vertex which is dominated by some other vertex in the subgraph obtained so far (see also <graphclass>gc_49</graphclass>).
+	 A dismantling of a graph G is the subgraph of G obtained by iteratively removing a vertex which is dominated by some other vertex in the subgraph obtained so far (see also <graphclass>gc_49</graphclass>).
 	 A graph is <graphclass>gc_1040</graphclass> iff it is either <graphclass>gc_234</graphclass> or its dismantling is <graphclass>gc_947</graphclass>.
 	 </note>
 	 <note name="definition">
-	 A graph is <graphclass>gc_1040</graphclass> if it admits a normal circular arc model in which no two nor three arcs cover the circle. <ref>ref_1651</ref>.
+	 A graph is <graphclass>gc_1040</graphclass> if it admits a circular arc model in which no three arcs cover the circle. <ref>ref_1651</ref>
+	 </note>
+	 <note name="definition">
+	 A graph is <graphclass>gc_1040</graphclass> if it admits a circular arc model in which no three arcs cover the circle. <ref>ref_1659</ref>. Note that in any model on at least 3 arcs in which two arcs cover the circle, there are also three arcs that together cover the circle.
 	 </note>
 	 <note name="see-also">
 	    <graphclass>gc_49</graphclass>
@@ -12864,7 +12900,7 @@
 	 <algo name="Hamiltonian cycle" complexity="P">
 	    <ref>ref_1538</ref>
 	 </algo>
-         <algo name="Maximum bisection" complexity="P" bounds="O(V^4)">
+         <algo name="Minimum bisection" complexity="P" bounds="O(V^4)">
             <ref>ref_1654</ref>
          </algo>
       </GraphClass>
@@ -14114,6 +14150,9 @@
 	 A graph G is <graphclass>gc_1145</graphclass> if A is independent and for every x in A: the subgraph induced by N(x) has a dominating set of size at most 2.
 	 </note>
 	 <ref>ref_1570</ref>
+         <algo name="Recognition" complexity="P">
+            <ref>trivial</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_1146" type="intersect">
@@ -14650,6 +14689,9 @@
 	 </algo>
          <algo name="Hamiltonian cycle" complexity="NPC">
             <ref>ref_1539</ref>
+         </algo>
+         <algo name="Hamiltonian path" complexity="NPC">
+            <ref>ref_1660</ref>
          </algo>
       </GraphClass>
 
