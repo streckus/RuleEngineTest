@@ -14713,18 +14713,35 @@
       <note>Consider an arbitrary 2-connected, cubic, planar graph $G$ and an
       edge $uv$ of $G$.  At first let's replace edge $uv$ by vertices $a, b, x,
       y$ and edges $\{u, a\}, \{a, x\}, \{a, y\}, \{x, b\}, \{y, b\}, \{b,
-      v\}$. Replace replace $x$ and $y$ by <smallgraph>diamond</smallgraph>s
+      v\}$. Replace $x$ and $y$ by <smallgraph>diamond</smallgraph>s
       $X$ and $Y$, respectively: $x$ is replaced by $x_1, x_2, x_3, x_4$, edges
       $\{a, x\}, \{x, b\}$ are replaced by $\{a, x_1\}, \{x_2, b\}$ and the
-      edges $\{x_1, x_3\}, \{x_1, x_4\}, \{x_3, x_2\}, \{x_4, x_2\}$ are added.
+      edges $\{x_1, x_3\}, \{x_1, x_4\}, \{x_3, x_4\}, \{x_3, x_2\},
+      \{x_4, x_2\}$ are added.
       And the same for $y$. Now any Hamiltonian path in the
       resulting graph $H$ starts with either the vertices of $X$ or the
       vertices of $Y$. Without loss of generality, assume it starts with the
       vertices of $X$. The path is of one of the forms $X,a,Y,b,v,\dots,u$; or
-      $X,b,Y,a,u,\dots,v$; or $X,b,v,\dots,u,a,Y$; or $X,a,u,\dots,v,Y$. Hence
-      a Hamiltonian path in $H$ exists iff $G$ has a Hamiltonian cycle with
-      edge $uv$. (P. Irzhavsky)
+      $X,b,Y,a,u,\dots,v$; or $X,b,v,\dots,u,a,Y$; or $X,a,u,\dots,v,b,Y$.
+      Hence a Hamiltonian path in $H$ exists iff $G$ has a Hamiltonian cycle
+      with edge $uv$. (P. Irzhavsky)
       </note>
+   </Ref>
+
+   <Ref id="ref_1661">
+      <bib>
+	 <authors>M. Conforti, G. Cornuejols, K. Vuskovic</authors>
+	 <title>Decomposition of odd-hole-free graphs by double star cutsets and 2-joins</title>
+	 <rest>Discrete Appl. Math. 141 No.1-3 41-91 (2004)</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1662">
+      <bib>
+	 <authors>M.V.G. da Silva, K. Vuskovic</authors>
+	 <title>Decomposition of even-hole-free graphs with star cutsets and 2-joins</title>
+	 <rest>J. of Combin. Th. (B) 103 No.1 144-183 (2013)</rest>
+      </bib>
    </Ref>
 
 

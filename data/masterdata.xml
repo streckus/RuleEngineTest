@@ -2255,11 +2255,11 @@
       <GraphClass id="gc_131" type="base">
          <name>neighbourhood perfect</name>
 	 <note name="definition">
-	 A neighbourhood cover of a graph G is a set S of vertices such that every edge of G lies in N[v] for some v in S.<br/>
-	 The neighbourhood cover number \kappa<sub>N</sub>(G) is the smallest cardinality of a neighbourhood cover of G.<br/>
-	 Two edges of G are said to be neighbourhood independent if there is no vertex v such both edges lie in N[v].<br/>
-	 The neighbourhood independence number \alpha<sub>N</sub>(G) is the largest number of pairwise neighbourhood independent edges.<br/>
-	 A graph is <graphclass>gc_131</graphclass> if for each induced subgraph H: \kappa<sub>N</sub>(H) = \alpha<sub>N</sub>(H).
+	 A neighbourhood cover of a graph $G$ is a set $S$ of vertices such that every edge of $G$ lies in $N[v]$ for some $v\in S$.<br/>
+	 The neighbourhood cover number $\kappa_N(G)$ is the smallest cardinality of a neighbourhood cover of $G$.<br/>
+	 Two edges of $G$ are said to be neighbourhood independent if there is no vertex $v$ such both edges lie in $N[v]$.<br/>
+	 The neighbourhood independence number $\alpha_N(G)$ is the largest number of pairwise neighbourhood independent edges.<br/>
+	 A graph is <graphclass>gc_131</graphclass> if for each induced subgraph $$H: $\kappa_N(H) = \alpha_N(H)$.
 	 </note>
 	 <ref>ref_808</ref>
 	 <ref>ref_718</ref>
@@ -4307,6 +4307,7 @@
       <GraphClass id="gc_284" type="intersect">
          <graphclass>gc_356</graphclass>
          <graphclass>gc_43</graphclass>
+         <ref>ref_1661</ref>
       </GraphClass>
 
       <GraphClass id="gc_285" type="base">
@@ -8617,6 +8618,9 @@
 
       <GraphClass id="gc_706" type="forbidden">
 	 <smallgraph>even-cycle</smallgraph>
+         <note name="see-also">
+            <graphclass>gc_547</graphclass>
+         </note>
 	 <ref>ref_1275</ref>
 	 <ref>ref_1276</ref>
 	 <algo name="Recognition" complexity="P" bounds="O(V^{31})">
@@ -8625,6 +8629,9 @@
 	 </algo>
 	 <algo name="Recognition" complexity="P" bounds="O(V^{15})">
 	    <ref>ref_1277</ref>
+	 </algo>
+	 <algo name="Recognition" complexity="P">
+	    <ref>ref_1662</ref>
 	 </algo>
       </GraphClass>
 
@@ -12653,7 +12660,7 @@
 	 A graph is <graphclass>gc_1040</graphclass> iff it is either <graphclass>gc_234</graphclass> or its dismantling is <graphclass>gc_947</graphclass>.
 	 </note>
 	 <note name="definition">
-	 A graph is <graphclass>gc_1040</graphclass> if it admits a circular arc model in which no three arcs cover the circle. <ref>ref_1651</ref>
+	 A graph is <graphclass>gc_1040</graphclass> if it admits a circular arc model in which no two nor three arcs cover the circle. <ref>ref_1651</ref>
 	 </note>
 	 <note name="definition">
 	 A graph is <graphclass>gc_1040</graphclass> if it admits a circular arc model in which no three arcs cover the circle. <ref>ref_1659</ref>. Note that in any model on at least 3 arcs in which two arcs cover the circle, there are also three arcs that together cover the circle.
@@ -15079,6 +15086,12 @@
          <ref>ref_1647</ref>
       </GraphClass>
 
+      <GraphClass id="gc_1212" type="intersect">
+         <graphclass>gc_32</graphclass>
+         <graphclass>gc_957</graphclass>
+         <ref>ref_718</ref>
+      </GraphClass>
+
       
 
 
@@ -17178,6 +17191,7 @@
       <incl super="gc_861" sub="gc_1040" proper="y"> <ref>def</ref> </incl>
       <incl super="gc_205" sub="gc_1040" proper="y"> <ref>def</ref> </incl>
       <incl super="gc_199" sub="gc_1006" proper="y"> <ref>def</ref> <ref>ref_1652</ref> </incl>
+      <equ gc1="gc_130" gc2="gc_1212"> <ref>ref_718</ref> </equ>
 
 
 
