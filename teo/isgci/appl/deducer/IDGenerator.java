@@ -8,7 +8,7 @@
  * Email: isgci@graphclasses.org
  */
 
-package teo.isgci.util;
+package teo.isgci.appl.deducer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -23,7 +23,6 @@ import org.jgrapht.alg.FloydWarshallShortestPaths;
 import teo.isgci.gc.*;
 import teo.isgci.ref.*;
 import teo.isgci.relation.*;
-import teo.isgci.util.IDGenerator;
 import teo.isgci.util.Itera;
 import teo.isgci.util.Iterators;
 import teo.isgci.grapht.*;
@@ -273,7 +272,7 @@ public class Deducer {
 
         TraceData td = traceAnn.getEdge(e);
 
-        if (td == null  ||  "Transitivity".equals(td.desc))
+        if (td == null  ||  "Transitivity".equals(td.getDesc()))
             return 0;
 
         return 1;
@@ -354,19 +353,19 @@ public class Deducer {
             if (tr == null)
                 continue;
 
-            if ("direct".equals(tr.desc)) {
+            if ("direct".equals(tr.getDesc())) {
                 e.addRef(new Ref( graph.getEdgeTarget(e).whySubClassOf() ));
-            } else if ("addForbiddenSuper".equals(tr.desc)) {
+            } else if ("addForbiddenSuper".equals(tr.getDesc())) {
                 e.addRef(new Ref("forbidden"));
-            } else if ("addForbiddenSuperConfig".equals(tr.desc)) {
+            } else if ("addForbiddenSuperConfig".equals(tr.getDesc())) {
                 e.addRef(new Ref("forbidden"));
-            } else if ("extendForbidden".equals(tr.desc)) {
+            } else if ("extendForbidden".equals(tr.getDesc())) {
                 e.addRef(new Ref("forbidden"));
-            } else if ("complement".equals(tr.desc)) {
+            } else if ("complement".equals(tr.getDesc())) {
                 e.addRef(new Ref("complement"));
-            } else if ("probeclass".equals(tr.desc)) {
+            } else if ("probeclass".equals(tr.getDesc())) {
                 e.addRef(new Ref("basederived"));
-            } else if ("cliqueclass".equals(tr.desc)) {
+            } else if ("cliqueclass".equals(tr.getDesc())) {
                 e.addRef(new Ref("basederived"));
             }
         }
@@ -1307,7 +1306,7 @@ nextnode:
 
                 if (!containsEdge(v, to)  &&  !containsEdge(to, v)) {
                     setProper(e, newTraceData("properForbiddenSub "+
-                        from +" -> "+ to, null));
+                        from +" -> "+ to));
                     res = true;
                 }
             }
@@ -1334,7 +1333,7 @@ nextnode:
         for (CliqueClass vi : cliques) {
             if (!containsEdge(vi, clique))
                 setProper(getEdge(clique, vi),
-                        newTraceData("properCliqueDirect", null));
+                        newTraceData("properCliqueDirect"));
         }
     }
 
@@ -1349,7 +1348,7 @@ nextnode:
             basei = vi.getBase();
             if (!containsEdge(basei, vi))
                 setProper(getEdge(vi, basei),
-                        newTraceData("properProbeDirect", null));
+                        newTraceData("properProbeDirect"));
         }
     }
 
@@ -1364,7 +1363,7 @@ nextnode:
             basei = vi.getBase();
             if (!containsEdge(vi, basei))
                 setProper(getEdge(basei, vi),
-                        newTraceData("properHereditaryDirect", null));
+                        newTraceData("properHereditaryDirect"));
         }
     }
 
@@ -2045,142 +2044,13 @@ nextnode:
     /**
      * Create new tracedata, if the trace flag is set.
      */
-    public TraceData newTraceData(String desc, Inclusion a) {
+    public TraceData newTraceData(String desc, Inclusion... is) {
         if (trace)
-            return new TraceData(desc, a);
-        else
-            return null;
-    }
-
-
-    /**
-     * Create new tracedata, if the trace flag is set.
-     */
-    public TraceData newTraceData(String desc, Inclusion a, Inclusion b) {
-        if (trace)
-            return new TraceData(desc, a, b);
+            return new TraceData(desc, is);
         else
             return null;
     }
 }
 
-//============================== TraceData ==================================
-
-//TODO Use varargs
-class TraceData {
-    String desc;                        // Description.
-    ArrayList<Inclusion> prereqs;       // Prerequisite edges.
-
-    public TraceData() {
-        prereqs = new ArrayList<Inclusion>();
-    }
-
-    public TraceData(TraceData t) {
-        this.desc = t.desc;
-        this.prereqs = (ArrayList<Inclusion>) t.prereqs.clone();
-    }
-
-    public TraceData(String desc) {
-        this();
-        set(desc);
-    }
-
-    public TraceData(String desc, Inclusion a) {
-        this();
-        set(desc, a);
-    }
-
-    public TraceData(String desc, Inclusion a, Inclusion b) {
-        this();
-        set(desc, a, b);
-    }
-
-    public TraceData(String desc, Inclusion a, Inclusion b, Inclusion c) {
-        this();
-        set(desc, a, b, c);
-    }
-
-    public TraceData(String desc, Inclusion a, Inclusion b, Inclusion c,
-            Inclusion d) {
-        this();
-        set(desc, a,b,c,d);
-    }
-
-    public TraceData(String desc, ArrayList<Inclusion> v) {
-        this();
-        set(desc, v);
-    }
-
-    public TraceData set(String desc) {
-        this.desc = desc;
-        return this;
-    }
-
-    public TraceData set(String desc, Inclusion a) {
-        this.desc = desc;
-        prereqs.clear();
-        prereqs.add(a);
-        return this;
-    }
-
-    public TraceData set(String desc, Inclusion a, Inclusion b) {
-        this.desc = desc;
-        prereqs.clear();
-        prereqs.add(a);
-        prereqs.add(b);
-        return this;
-    }
-
-    public TraceData set(String desc, Inclusion a, Inclusion b, Inclusion c) {
-        this.desc = desc;
-        prereqs.clear();
-        prereqs.add(a);
-        prereqs.add(b);
-        prereqs.add(c);
-        return this;
-    }
-
-    public TraceData set(String desc, Inclusion a, Inclusion b, Inclusion c,
-            Inclusion d) {
-        this.desc = desc;
-        prereqs.clear();
-        prereqs.add(a);
-        prereqs.add(b);
-        prereqs.add(c);
-        prereqs.add(d);
-        return this;
-    }
-
-    public TraceData set(String desc, ArrayList<Inclusion> v) {
-        this.desc = desc;
-        prereqs = (ArrayList<Inclusion>) v.clone();
-        return this;
-    }
-
-    public static void print(PrintWriter writer, Inclusion e,
-            Annotation<GraphClass,Inclusion,TraceData> traceAnn) {
-        print(writer, e, traceAnn, "");
-    }
-
-    private static void print(PrintWriter writer, Inclusion edge,
-            Annotation<GraphClass,Inclusion,TraceData> traceAnn,
-            String prefix) {
-        writer.print(prefix);
-        writer.print(edge);
-        writer.print("  ");
-        TraceData td = traceAnn.getEdge(edge);
-        if (td != null) {
-            writer.print(td.desc);
-            writer.println();
-            for (Inclusion e : td.prereqs) {
-                writer.print(prefix+" ");
-                writer.println(e);
-            }
-        } else {
-            writer.print("(no tracedata)");
-            writer.println();
-        }
-    }
-}
 
 /* EOF */
