@@ -1192,6 +1192,7 @@
       1 - 2;
       3 - 4;
    </edges>
+   <alias name="hourglass"/>
    <link address="butterfly"/>
    <expl>
       <xfig file="butterfly">

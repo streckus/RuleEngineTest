@@ -7366,6 +7366,12 @@
 	 <smallgraph>claw</smallgraph>
 	 <smallgraph>W_4</smallgraph>
 	 <ref>ref_666</ref>
+         <algo name="Recognition" complexity="Lin">
+            <ref>ref_666</ref>
+         </algo>
+         <algo name="Weighted clique" complexity="P">
+            <note>The number of cliques is polynomially bounded <ref>ref_666</ref>.</note>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_567" type="connected-hereditary">
@@ -15092,6 +15098,35 @@
          <ref>ref_718</ref>
       </GraphClass>
 
+      <GraphClass id="gc_1213" type="forbidden">
+         <smallgraph>claw</smallgraph>
+         <smallgraph>butterfly</smallgraph>
+         <algo name="3-Colourability" complexity="Lin">
+            <ref>ref_1663</ref>
+         </algo>
+      </GraphClass>
+
+      <GraphClass id="gc_1214" type="forbidden">
+         <smallgraph>claw</smallgraph>
+         <smallgraph>X_{91}</smallgraph>
+         <algo name="3-Colourability" complexity="P">
+            <ref>ref_1663</ref>
+         </algo>
+      </GraphClass>
+
+      <GraphClass id="gc_1215" type="base">
+         <name>Mycielski</name>
+         <note name="definition">
+         Given a graph $G$, $M(G)$ is constructed as follows: Start with $G$ and for every vertex $v_i$ in $G$ add a vertex $u_i$. Make $u_i$ adjacent to all vertices in $N_G(v_i)$. Finally add a vertex $w$ which is adjacent to all $u_i$.<br/>
+         The <graphclass>gc_1215</graphclass> graphs are defined as follows:
+         <ul>
+            <li><smallgraph>K_2</smallgraph> is a <graphclass>gc_1215</graphclass> graph.</li>
+            <li>If $G$ is a <graphclass>gc_1215</graphclass> graph, then $M(G)$ is a <graphclass>gc_1215</graphclass> graph.</li>
+         </ul>
+         </note>
+         <ref>ref_1664</ref>
+      </GraphClass>
+
       
 
 
@@ -17192,6 +17227,7 @@
       <incl super="gc_205" sub="gc_1040" proper="y"> <ref>def</ref> </incl>
       <incl super="gc_199" sub="gc_1006" proper="y"> <ref>def</ref> <ref>ref_1652</ref> </incl>
       <equ gc1="gc_130" gc2="gc_1212"> <ref>ref_718</ref> </equ>
+      <incl super="gc_371" sub="gc_1215" proper="y"> <ref>def</ref> </incl>
 
 
 

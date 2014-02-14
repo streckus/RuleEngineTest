@@ -105,6 +105,7 @@ AUTO_1636	(2K_2,C_5,\co{C_6},net)--free
 AUTO_1644	(anti-hole,fork)--free
 AUTO_1700	(2P_3,P_4)--free
 AUTO_1710	(3K_1,C_5,\co{C_6},\co{P_6})--free
+AUTO_1728	(co-butterfly,co-claw)--free
 AUTO_202	\co{P_2 \cup P_4}--free
 AUTO_2069	(P_5,anti-hole,co-domino,co-sun)--free
 AUTO_2070	odd anti-cycle--free
@@ -211,6 +212,7 @@ AUTO_2287	(4K_1,C_7,X_{38},X_{39},\co{W_5},\co{X_{194}},\co{X_{86}},\co{X_{88}},
 AUTO_2292	(4K_1,C_7,X_{195},X_{196},X_{38},X_{39},\co{W_5},\co{X_{194}},\co{X_{86}},\co{X_{88}},\co{X_{89}},\co{X_{90}},house)--free
 AUTO_2380	\co{XC_{13}}--free
 AUTO_2390	(C_6,K_2 \cup K_3,X_{37},X_{90},\co{C_{n+4} \cup K_1},\co{T_2},\co{W_{n+4}},\co{X_{31}},co-XF_2^{n+1},co-XF_3^n,co-domino,co-twin-C_5)--free
+AUTO_2398	(\co{X_{91}},co-claw)--free
 AUTO_2758	(anti-hole,odd anti-cycle)--free
 AUTO_2760	(\co{C_{n+4}},co-claw)--free
 AUTO_2761	(S_3,\co{C_{n+4}},co-claw)--free
