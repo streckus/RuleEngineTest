@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 """ Why does a certain ISGCI deduction hold?
 Usage: why filename.trace gc_super gc_sub"""
