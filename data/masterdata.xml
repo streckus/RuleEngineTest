@@ -12142,7 +12142,7 @@
       </GraphClass>
 
       <GraphClass id="gc_1000" type="intersect">
-	 <graphclass>gc_371</graphclass>
+	 <graphclass>gc_360</graphclass>
 	 <graphclass>gc_993</graphclass>
 	 <ref>ref_1476</ref>
 	 <algo name="Weighted clique" complexity="P" bounds="O(V^2 E)">

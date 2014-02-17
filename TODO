@@ -40,6 +40,7 @@ several comparability classes according to Trotter&Moore
 bisplit (RRR 28-2002)
 create new family for cactus (new grammartype!)
 create new family for nearly bipartite (C_n \cup K_1, odd n>=3 )
+New family (HRG, not HMT) for square-3PC(.,.) [1476]
 Forbidden families for upper domination perfect [1263]
 claw-free \cap upper domination perfect [1265]
 split UEH graphs (splitUEH.pdf)
