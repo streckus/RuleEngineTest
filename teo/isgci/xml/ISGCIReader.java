@@ -419,6 +419,7 @@ public class ISGCIReader extends DefaultHandler{
             GraphClass gc = null, base2;
             HashSet<GraphClass> set2;
 
+            //---- Create class
             if (Tags.BASE.equals(type)) {
                 gc = new BaseClass(name, Tags.graphString2directed(dirtype));
             } else if (Tags.FORBID.equals(type)) {
@@ -517,6 +518,14 @@ public class ISGCIReader extends DefaultHandler{
                 gc.setHereditariness(Tags.string2hereditary(hered));
             }
 
+            //---- Check if class already exists
+            for (GraphClass other : classes.values()) {
+                if (gc.equals(other))
+                    throw new SAXException("Duplicate classses "+ id +" "+
+                        other.getID());
+            }
+            
+            //---- Complete it and add it
             gc.setSelfComplementary(selfComplementary);
             gc.setCliqueFixed(cliqueFixed);
             gc.setID(id);
