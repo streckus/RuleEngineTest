@@ -7185,6 +7185,9 @@
 
       <GraphClass id="gc_547" type="forbidden">
 	 <smallgraph>even-hole</smallgraph>
+         <note>
+         Confusion danger: The class <graphclass>gc_706</graphclass> is sometimes also called <graphclass>gc_547</graphclass>.
+         </note>
 	 <note name="see-also">
 	    <graphclass>gc_437</graphclass>
 	    <graphclass>gc_356</graphclass>
@@ -8624,6 +8627,9 @@
 
       <GraphClass id="gc_706" type="forbidden">
 	 <smallgraph>even-cycle</smallgraph>
+         <note>
+         Confusion danger: This class is sometimes called <graphclass>gc_547</graphclass>.
+         </note>
          <note name="see-also">
             <graphclass>gc_547</graphclass>
          </note>
