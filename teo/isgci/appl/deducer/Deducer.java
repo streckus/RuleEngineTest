@@ -27,7 +27,7 @@ import teo.isgci.util.Itera;
 import teo.isgci.util.Iterators;
 import teo.isgci.grapht.*;
 
-public class Deducer {
+public class Deducer implements DeducerData {
     
     /** Where we're deducing */
     CacheGraph<GraphClass,Inclusion> graph;
@@ -475,6 +475,16 @@ public class Deducer {
      */
     public void findTrivialInclusionsOneLevel() {
         int oldnodes, oldedges;
+        RClass[] classrules = new RClass[]{
+            // (A,B)-free ==> A-free \cap B-free
+            new RClassForbidden2Intersect(),
+            // A-free \cap B-free ==> (A,B)-free
+            new RClassExtendForbidden(),   // Uses inclusions!
+            // X ==> clique X for clique fixed
+            new RClassCliqueFixed(),
+            // X ==> co-X for forbidden, self-compl, union, intersect
+            new RClassComplements()
+        };
         ArrayList<GraphClass> lastnewclasses = new ArrayList<GraphClass>();
 
         newclasses = new ArrayList<GraphClass>(graph.vertexSet());
@@ -487,29 +497,13 @@ public class Deducer {
             lastnewclasses.clear();
 
             do {
-                //Vector curnodes = (Vector) nodeList.clone();
                 ArrayList<GraphClass> added = newclasses;
                 newclasses = new ArrayList<GraphClass>();
-                // Sort added classes by id
                 sortByID(added);
-                // (A,B)-free ==> A-free \cap B-free
-                nodedebugprefix = "#forbidden2intersect";
-                forbidden2Intersect(added);
-                // A-free \cap B-free ==> (A,B)-free
-                nodedebugprefix = "#extendforbidden";
-                extendForbidden();              // Uses inclusions!
-                // X ==> clique X for clique fixed
-                nodedebugprefix = "#addcliquefixed";
-                addCliqueFixed(added);
-                // X ==> co-X for forbidden and self-compl
-                nodedebugprefix = "#addcomplements1";
-                addComplements1(added);
-                // co-(A-free) ==> (co-A)-free
-                nodedebugprefix = "#correspond";
-                correspondCompAndForbidden(added);
-                // For A\c.p B add co-(A\c.p B) <==> co-A \c.p co-B
-                nodedebugprefix = "#addcomplements2";
-                addComplements2();
+
+                for (RClass r : classrules)
+                    r.run(this, added);
+                
                 lastnewclasses.addAll(added);
             } while (newclasses.size() > 0); 
             findTrivialOnce(lastnewclasses);
@@ -807,390 +801,7 @@ public class Deducer {
         addTrivialEdge(gc1, gc2, tr);
         return true;
     }
-    
 
-    public void extendForbidden() {
-        int i, k;
-        Set<GraphClass> sccVec;
-        boolean temp;
-        Set hs1, hs2;               // candidates for replaces
-        /* These two vectors contain all IntersectClasses and the set of
-         * classses whose intersection makes up this IntersectClass. interHS[i]
-         * starts from the definition of interGC[i], but as many elements as
-         * possible will be replaced by a ForbiddenClass.
-         */
-        ArrayList<IntersectClass> interGC = new ArrayList<IntersectClass>();
-        ArrayList<Set<GraphClass> > interHS =
-                new ArrayList<Set<GraphClass> >();
-        /* Contains the ForbiddenClass that we will consider replacing into
-         * interHS. */
-        ArrayList<ForbiddenClass> forbid = new ArrayList<ForbiddenClass>();
-        Map<GraphClass,Set<GraphClass> > scc = GAlg.calcSCCMap(graph);
-        HashSet hasEqForb = new HashSet();
-        
-        // Collect interGC, interHS and forbid
-        ArrayList<GraphClass> nodes =
-                new ArrayList<GraphClass>(graph.vertexSet());
-        sortByID(nodes);
-allvertices:
-        for (GraphClass gc : nodes) {
-            if (gc instanceof IntersectClass) {
-                interGC.add((IntersectClass) gc);
-                interHS.add(((IntersectClass)gc).getSet());
-            } else if (gc instanceof ForbiddenClass) {
-                if (hasEqForb.contains(gc))
-                    continue;           // Nodes in this SCC already added
-                sccVec = scc.get(gc);
-                if (sccVec.size() <= 1)
-                    continue;
-                // Only store the nicest definitions for handling
-                // Since we go through the nodes by ID and every SCC is added
-                // only once, this implies that we add the nicest class, with
-                // the lowest id.
-                for (GraphClass gc1 : sccVec) {
-                    if ( gc1 instanceof ForbiddenClass  &&
-                            ((ForbiddenClass) gc1).niceness() >
-                            ((ForbiddenClass) gc).niceness() )
-                        continue allvertices;
-                }
-
-                forbid.add((ForbiddenClass) gc);
-                hasEqForb.addAll(sccVec);
-            }
-        }
-        
-        /* Replace classes with their forbidden-equivs
-         * If there are several forbidden-equivs we use only one!
-         */
-        for (ForbiddenClass gc : forbid) {
-            sccVec = scc.get(gc);
-            for (GraphClass gc1 : sccVec) {
-                if (gc1 == gc)
-                    continue;
-                if (gc1 instanceof IntersectClass) {
-                    hs1 = ((IntersectClass)gc1).getSet();
-                } else {
-                    hs1 = new HashSet();
-                    hs1.add(gc1);
-                }
-                for (k = 0; k < interHS.size(); k++) {
-                    hs2 = interHS.get(k);
-                    if (hs2.containsAll(hs1)) {
-                        hs2 = new HashSet(hs2);
-                        hs2.removeAll(hs1);
-                        hs2.add(gc);
-                        interHS.set(k,hs2);
-                    }
-                }
-            }
-        }
-
-        //System.out.println("extend and equivs");
-        // melt forbidden
-        for(i = 0; i < interHS.size(); i++) {
-            GraphClass gc = interGC.get(i);
-            temp = temporaries.contains(gc)  ||
-                    hasEqForb.contains(gc);
-            eF(interHS.get(i), gc, temp);
-        }
-    }
-
-    
-    /** Extend the graph DAG by the equivalence between the class ic and the
-     * intersection class of icSet. In particular are those members of icSet
-     * that are characterized by forbidden subgraphs merged to produce a
-     * single, new list of forbidden subgraphs for ic.
-     * @param ic IntersectClass
-     * @param icSet the GraphClasses that insersect to make up ic
-     * @param temp should a possible new GraphClass be created temporary (true)
-     * or trivial (false)?
-     * @see IntersectClass GraphClass
-     */
-    private void eF(Set<GraphClass> icSet,GraphClass ic, boolean temp){
-        //System.out.println("hash: "+icSet);
-        //System.out.println("class: "+ic);
-        GraphClass v;
-        int cntF = 0;
-        HashSet fb = new HashSet();       // Set of forbidden subgraphs
-        // Non-forbidden GraphClasses
-        HashSet<GraphClass> gcs = new HashSet<GraphClass>();
-
-        // Divide icSet into forbiddens (fb) and others (gcs)
-        for (GraphClass gc : icSet) {
-            if (gc instanceof ForbiddenClass) {
-                fb.addAll(((ForbiddenClass)gc).getSet());
-                cntF++;
-            } else
-                gcs.add(gc);
-        }
-        
-        if (cntF<2)                      // nothing to melt with up to 1 class
-            return;
-        // found >=2 forbidden classes that are melted, so create new node
-        if (temp)
-            v = ensureTempNode(new ForbiddenClass(fb));
-        else
-            v = ensureTrivialNode(new ForbiddenClass(fb));
-        
-        if (!gcs.isEmpty()) {            // if other classes were found
-            gcs.add(v);
-            if (temp)
-                v = ensureTempNode(new IntersectClass(gcs));
-            else
-                v = ensureTrivialNode(new IntersectClass(gcs));
-        }
-        addTrivialEdge(ic, v,
-            trace ? new TraceData("extendForbidden") : null);
-        addTrivialEdge(v, ic,
-                trace ? new TraceData("extendForbidden") : null);
-    }
-   
-
-    //----------- Creating intersections for forbidden classes ----------
-
-    /**
-     * Create an intersection of forbidden subgraph-classes for every
-     * forbidden subgraph-class that allows so.
-     */
-    private void forbidden2Intersect(ArrayList<GraphClass> classes) {
-        for (GraphClass gc : classes) {
-            if (/*!temporaries.contains(gc) &&*/
-                    (gc instanceof ForbiddenClass)) {
-                if (((ForbiddenClass) gc).getSet().size() >= 2)
-                    addForbiddenSuper((ForbiddenClass) gc);
-                else
-                    addForbiddenSuperConfig((ForbiddenClass) gc);
-            }
-        }
-    }
-
-    /**
-     * For a node (A,B,..)-free add nodes A-free, B-free, ... and A-free \cap
-     * B-free \cap ...
-     * @param node ForbiddenClass node
-     */
-    private void addForbiddenSuper(ForbiddenClass node) {
-        HashSet one;
-        GraphClass sup;
-        HashSet supers = new HashSet();
-        TraceData tr = trace ? new TraceData("addForbiddenSuper") : null;
-
-        for (Object forb : node.getSet()) {
-            one = new HashSet();
-            one.add(forb);
-            sup = ensureTempNode(new ForbiddenClass(one));
-            addForbiddenSuperConfig((ForbiddenClass) sup);
-            supers.add(sup);
-            addTrivialEdge(sup, node, tr);
-        }
-
-        sup = ensureTempNode(new IntersectClass(supers));
-        addTrivialEdge(sup, node, tr);
-        addTrivialEdge(node, sup, tr);
-    }
-
-
-    /**
-     * For a node config-free add nodes config-1-free, config-2-free, ...
-     * and config-1-free \cap config-2-free \cap ...
-     * @param node ForbiddenClass node
-     */
-    private void addForbiddenSuperConfig(ForbiddenClass node) {
-        HashSet<String> one;
-        GraphClass sup;
-        HashSet<GraphClass> supers = new HashSet<GraphClass>();
-        TraceData tr = trace ? new TraceData("addForbiddenSuperConfig") : null;
-        Set<String> isgSet = node.getConfigContains();
-
-        if (isgSet.size() == 0) 
-            return;
-
-        if (isgSet.size() == 1) {
-            one = new HashSet<String>();
-            one.add(isgSet.iterator().next());
-            sup = ensureTempNode(new ForbiddenClass(one));
-        } else {
-            for (String s : isgSet) {
-                one = new HashSet<String>();
-                one.add(s);
-                sup = ensureTempNode(new ForbiddenClass(one));
-                supers.add(sup);
-                addTrivialEdge(sup, node, tr);
-            }
-            sup = ensureTempNode(new IntersectClass(supers));
-        }
-        addTrivialEdge(sup, node, tr);
-        addTrivialEdge(node, sup, tr);
-    }
-
-
-    //--------------Establishing relations between complement and -----------
-    //-------------------forbidden/union/intersect --------------------------
-
-
-    /**
-     * For every clique-fixed node X add temporary node clique X
-     */
-    private void addCliqueFixed(ArrayList<GraphClass> classes) {
-        GraphClass con;
-
-        for (GraphClass gc : classes) {
-            if (gc.isCliqueFixed()) {
-                con = ensureTempNode(new CliqueClass(gc));
-                addTrivialEdge(gc,con, new TraceData("clique-fixed"));
-                addTrivialEdge(con,gc, new TraceData("clique-fixed"));
-            }
-        }
-    }
-
-
-    /**
-     * For every node (A,B,..)-free add temporary node co-((A,B,..)-free)
-     * For every self-complementary node X add temporary node co-X
-     */
-    private void addComplements1(ArrayList<GraphClass> classes) {
-        GraphClass con;
-
-        for (GraphClass gc : classes) {
-            if (gc instanceof ForbiddenClass) {
-                ensureTempNode(new ComplementClass(gc));
-            } else if (gc.isSelfComplementary()) {
-                con = ensureTempNode(new ComplementClass(gc));
-                addTrivialEdge(gc,con, new TraceData("self-complementary"));
-                addTrivialEdge(con,gc, new TraceData("self-complementary"));
-            }
-        }
-    }
-
-
-    /**
-     * For every node A\c.p B such that co-A and co-B exists, add temporary
-     * node co-(A\c.p B) and co-A\c.p co-B.
-     */
-    private void addComplements2() {
-        ArrayList<GraphClass> classes =
-                new ArrayList<GraphClass>(graph.vertexSet());
-        sortByID(classes);
-        for (GraphClass gc : classes)
-            if (gc instanceof UnionClass  ||  gc instanceof IntersectClass)
-                doAddComplements2(gc);
-    }
-
-
-    /**
-     * For a node A\c.p B check whether co-A and co-B exists, and, if so,
-     * add temporary nodes co-(A\c.p B) and co-A\c.p co-B.
-     * Return true if the graph could be handled successfully.
-     */
-    private boolean doAddComplements2(GraphClass gc) {
-        GraphClass gcco, cogc;
-        Set<GraphClass> parts = null;
-        TraceData tr = trace ? new TraceData("addComplements2") : null;
-
-        //---- Try to create complement
-        cogc = gc.complement();
-        if (cogc instanceof SetClass)
-            parts = ((SetClass) cogc).getSet();
-        else
-            throw new IllegalArgumentException("Wrong classtype "+ gc);
-        for (GraphClass p : parts) {
-            if (!graph.containsVertex(p))
-                return false;
-        }
-
-        gcco = ensureTempNode(new ComplementClass(gc));
-        cogc = ensureTempNode(cogc);
-        addTrivialEdge(cogc, gcco, tr);
-        addTrivialEdge(gcco, cogc, tr);
-        return true;
-    }
-
-    
-    /**
-     * For every node co-((A,B,..)-free) add trivial equal node
-     * (co-A,co-B,..)-free
-     */
-    private void correspondCompAndForbidden(ArrayList<GraphClass> classes) {
-        TraceData tr = trace ?
-                new TraceData("correspondCompAndForbidden") : null;
-        GraphClass gc2, gc3;
-        for (GraphClass gc1 : classes) {
-            if (gc1 instanceof ComplementClass) {
-                gc2 = ((ComplementClass) gc1).getBase();
-                if (gc2 instanceof ForbiddenClass) {
-                    if ( temporaries.contains(gc2) )
-                        gc3 = ensureTempNode(
-                                ((ForbiddenClass)gc2).complement());
-                    else
-                        gc3 = ensureTrivialNode(
-                                ((ForbiddenClass)gc2).complement());
-                    addTrivialEdge(gc1, gc3, tr);
-                    addTrivialEdge(gc3, gc1, tr);
-                }
-            }
-        }
-    }
-
-    
-    /**
-     * For all non-temporary nodes (co-A,...)-free create an equivalent class
-     * co-X, if (A,...)-free has a non temporary basic equivalent class X.
-     * 
-     * We actually start at co-((A,..)-free) and from there find (co-A,..)-free
-     * and X.
-     *
-     * N.B. This method is currently not used.
-     * N.B.2. It also creates complements for self-complementary classes.
-     */
-    /*private void correspondCompAndForbidden2(Vector classes) {
-        TraceData tr = trace ?
-                new TraceData("correspondCompAndForbidden2") : null;
-        ISGCINode node1, node;
-        GraphClass gc1, gc2, basic;
-        Vector equ1, equ2;
-        boolean ok1, ok2;
-        int i;
-        int scc = findSCC();
-
-        Enumeration eenum = classes.elements();
-nextnode:
-        while (eenum.hasMoreElements()) {
-
-            //---- Find gc1 = co-(A-free), gc2 = A-free
-            node1 = (ISGCINode) eenum.nextElement();
-            gc1 = node1.getGraphClass();
-            if (!(gc1 instanceof ComplementClass))
-                continue;
-            gc2 = ((ComplementClass) gc1).getBase();
-            if (!(gc2 instanceof ForbiddenClass))
-                continue;
-
-            //System.out.println("found "+ gc1 +" co of: "+ gc2);
-            
-            //---- Check that gc1 has non-temp equivs
-            equ1 = (Vector) node1.getData(scc);
-            for (i = equ1.size()-1; i >= 0; i--) {
-                if ( ((Node) equ1.elementAt(i)).getData(tempIx) != temporary)
-                    break;
-                if (i == 0)
-                    continue nextnode;
-            }
-
-            //System.out.println("gc1 ok");
-            //---- Go through basic equivs of gc2 (basic implies non-temp)
-            equ2 = (Vector) ((Node) hash.get(gc2)).getData(scc);
-            for (i = equ2.size()-1; i >= 0; i--) {
-                basic = ((ISGCINode) equ2.elementAt(i)).getGraphClass();
-                if ( basic.getClass() != BaseClass.class)
-                    continue;
-                //System.out.println("gc2 ok: "+ basic);
-                node = ensureTrivialNode(basic.complement());
-                addTrivialEdge(node1, node, tr);
-                addTrivialEdge(node, node1, tr);
-            }
-        }
-        releaseData(scc);
-    }*/
 
     //------------------------ Proper inclusions ---------------------------
 
@@ -1672,7 +1283,7 @@ nextnode:
     /**
      * Sort the given list of nodes by id.
      */
-    private void sortByID(List<GraphClass> list) {
+    public void sortByID(List<GraphClass> list) {
         Collections.sort(list, new Comparator<GraphClass>() {
                 public int compare(GraphClass o1, GraphClass o2) {
                     String s1 = ( o1).getID();
@@ -1787,7 +1398,7 @@ nextnode:
     /**
      * Add a trivially deduced inclusion.
      */
-    private Inclusion addTrivialEdge(GraphClass from, GraphClass to,
+    public Inclusion addTrivialEdge(GraphClass from, GraphClass to,
             TraceData tr) {
         if (from == to  ||  containsEdge(from, to))
             return null;
@@ -1854,11 +1465,19 @@ nextnode:
 
 
     /**
+     * Return true iff gc is a temporary node.
+     */
+    public boolean isTempNode(GraphClass gc) {
+        return temporaries.contains(gc);
+    }
+
+
+    /**
      * If a node for graphclass gc exists, return it, otherwise add it as a
      * trivial node.
      * @param gc GraphClass to ensure a node for
      */
-    private GraphClass ensureTrivialNode(GraphClass gc) {
+    public GraphClass ensureTrivialNode(GraphClass gc) {
         GraphClass n = graph.findVertex(gc);
         if (n == null)
             return addTrivialNode(gc);
@@ -1873,7 +1492,7 @@ nextnode:
      * temporary node.
      * @param gc GraphClass to ensure a node for
      */
-    private GraphClass ensureTempNode(GraphClass gc) {
+    public GraphClass ensureTempNode(GraphClass gc) {
         GraphClass n = graph.findVertex(gc);
         return n == null ? addTempNode(gc) : n;
     }
