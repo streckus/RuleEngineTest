@@ -31,6 +31,20 @@ public interface DeducerData {
      */
     public void sortByID(List<GraphClass> list);
 
+    /**
+     * Return true iff the graph contains an edge between from and to.
+     */
+    public boolean containsEdge(GraphClass from, GraphClass to);
+
+    /**
+     * Look for an edge that starts at node <code>from</code> and ends at node
+     * <code>to</code>.
+     *
+     * @param from the start node
+     * @param to   the target node
+     * return an appropriate edge or <tt>null</tt> if no such edge was found
+     */
+    public Inclusion getEdge(GraphClass from, GraphClass to);
 
     /**
      * Add a trivially deduced inclusion.

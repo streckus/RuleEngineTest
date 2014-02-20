@@ -515,292 +515,57 @@ public class Deducer implements DeducerData {
 
 
     public void findTrivialOnce(ArrayList<GraphClass> classes) {
-        TraceData tr;
-        Inclusion e;
-        int i, j;
+        RSub[] rules = new RSub[]{
+            new RSubComplement(),
+            new RSubUnion(),
+            new RSubIntersect(),
+            new RSubHereditary(),
+            new RSubProbe(),
+            new RSubClique()
+        };
 
-        ArrayList<ComplementClass> complements =
-                new ArrayList<ComplementClass>();
-        ArrayList<UnionClass> unions = new ArrayList<UnionClass>();
-        ArrayList<IntersectClass> intersects = new ArrayList<IntersectClass>();
-        ArrayList<HereditaryClass> hereditaries =
-                new ArrayList<HereditaryClass>();
-        ArrayList<ProbeClass> probes = new ArrayList<ProbeClass>();
-        ArrayList<CliqueClass> cliques = new ArrayList<CliqueClass>();
+        // Maps a GraphClass type to all instances of that type in classes
+        HashMap<Class,ArrayList<GraphClass> > typedClasses = new HashMap<>();
 
-        for (GraphClass g : graph.vertexSet()) {
-            if (g instanceof ComplementClass)
-                complements.add((ComplementClass) g);
-            else if (g instanceof UnionClass)
-                unions.add((UnionClass) g);
-            else if (g instanceof IntersectClass)
-                intersects.add((IntersectClass) g);
-            else if (g instanceof HereditaryClass)
-                hereditaries.add((HereditaryClass) g);
-            else if (g instanceof ProbeClass)
-                probes.add((ProbeClass) g);
-            else if (g instanceof CliqueClass)
-                cliques.add((CliqueClass) g);
+        //---- Create the lists of typedClasses...
+        for (RSub rule : rules) {
+            RSubTyping type = rule.getClass().getAnnotation(RSubTyping.class);
+            if (type == null)
+                throw new RuntimeException("Rule without annotation: "+
+                        rule.getClass().getName());
+
+            if (!typedClasses.containsKey(type.superType()))
+                typedClasses.put(type.superType(),new ArrayList<GraphClass>());
+            if (!typedClasses.containsKey(type.subType()))
+                typedClasses.put(type.subType(), new ArrayList<GraphClass>());
         }
 
-        // find direct trivial inclusions and insert corresponding edges
+        //---- ...and fill them
+        for (GraphClass gc : graph.vertexSet()) {
+            for (Class c : typedClasses.keySet())
+                if (c.isInstance(gc))
+                    typedClasses.get(c).add(gc);
+        }
+
+        //---- Direct inclusions deserve special treatment
         System.out.println("direct");
-        tr = trace ? new TraceData("direct") : null;
         if (graph.vertexSet().size() > classes.size()) {
             // Some classes pre-existing, some new: Check all-new and new-all
-            for (GraphClass gi : classes) {
-                for (GraphClass gj : graph.vertexSet())  {
-                    if (gi == gj)
-                        continue;
-                    if (!containsEdge(gj, gi)  &&  gi.subClassOf(gj)) {
-                        if ((e = addTrivialEdge(gj, gi, tr)) != null)
-                            directs.add(e);
-                    }
-                    if (!containsEdge(gi, gj)  &&  gj.subClassOf(gi)) {
-                        if ((e = addTrivialEdge(gi, gj, tr)) != null)
-                            directs.add(e);
-                    }
-                }
-            }
-        } else {   // All classes are new
-            for (GraphClass gi : graph.vertexSet())  {
-                //System.out.println(gi.getID());
-                for (GraphClass gj : graph.vertexSet()) {
-                    if (gi == gj)
-                        continue;
-                    if (!containsEdge(gj, gi)  &&  gi.subClassOf(gj)) {
-                        //System.out.println("   "+ gj.getID() +" -> "+
-                                //gi.getID());
-                        if ((e = addTrivialEdge(gj, gi, tr)) != null)
-                            directs.add(e);
-                    }
-                }
-            }
+            new RSubDirect().run(this, graph.vertexSet(), classes);
+            new RSubDirect().run(this, classes, graph.vertexSet());
+        } else {
+            new RSubDirect().run(this, graph.vertexSet(), graph.vertexSet());
         }
 
-        // Complement must be handled specially (works in all ways)
-        System.out.println("complement");
-        for (i = complements.size()-1; i >= 0; i--) {
-            for (j = 0; j <= i; j++)    // i=j important for self-compls
-                complement(complements.get(i), complements.get(j));
-        }
-
-        // Everything works against unions
-        System.out.println("union");
-        for (UnionClass gi : unions) {
-            for (GraphClass gj : graph.vertexSet()) {
-                if (gi == gj)
-                    continue;
-                if (!containsEdge(gj, gi))
-                    union(gj, gi);
-            }
-        }
-
-        // Intersects work against everything
-        System.out.println("intersect");
-        for (IntersectClass gi : intersects) {
-            for (GraphClass gj : graph.vertexSet()) {
-                if (gi == gj)
-                    continue;
-                if (!containsEdge(gi, gj))
-                    intersect(gi, gj);
-            }
-        }
-
-        // Hereditaries work against everything
-        System.out.println("hereditary");
-        for (HereditaryClass gi : hereditaries) {
-            for (GraphClass gj : graph.vertexSet()) {
-                if (gi == gj)
-                    continue;
-                if (!containsEdge(gi, gj))
-                    hereditary(gi, gj);
-            }
-        }
-
-        // Probes work against probes
-        System.out.println("probe");
-        for (ProbeClass gi : probes) {
-            for (ProbeClass gj : probes) {
-                if (gi == gj)
-                    continue;
-                if (!containsEdge(gi, gj))
-                    probe(gi, gj);
-            }
-        }
-
-        // Cliques work against cliques
-        System.out.println("clique");
-        for (CliqueClass gi : cliques) {
-            for (CliqueClass gj : cliques) {
-                if (gi == gj)
-                    continue;
-                if (!containsEdge(gi, gj))
-                    clique(gi, gj);
-            }
+        //---- Now do all the other rules
+        for (RSub rule : rules) {
+            RSubTyping type = rule.getClass().getAnnotation(RSubTyping.class);
+            System.out.println(rule.getClass().getName());
+            rule.run(this, typedClasses.get(type.superType()),
+                    typedClasses.get(type.subType()));
         }
     }
 
-
-    public void complement(ComplementClass gc1, ComplementClass gc2){
-        GraphClass gc3 = gc1.getBase();
-        GraphClass gc4 = gc2.getBase();
-
-        if (containsEdge(gc1, gc2))
-            addTrivialEdge(gc3, gc4,
-                newTraceData("complement", getEdge(gc1, gc2)));
-        if (containsEdge(gc3, gc4))
-            addTrivialEdge(gc1, gc2,
-                newTraceData("complement", getEdge(gc3, gc4)));
-
-        if (containsEdge(gc2, gc1))
-            addTrivialEdge(gc4, gc3,
-                newTraceData("complement", getEdge(gc2, gc1)));
-        if (containsEdge(gc4, gc3))
-            addTrivialEdge(gc2, gc1,
-                newTraceData("complement", getEdge(gc4, gc3)));
-
-        if (containsEdge(gc1, gc4))
-            addTrivialEdge(gc3, gc2,
-                newTraceData("complement", getEdge(gc1, gc4)));
-        if (containsEdge(gc3, gc2))
-            addTrivialEdge(gc1, gc4,
-                newTraceData("complement", getEdge(gc3, gc2)));
-
-        if (containsEdge(gc4, gc1))
-            addTrivialEdge(gc2, gc3,
-                newTraceData("complement", getEdge(gc4, gc1)));
-        if (containsEdge(gc2, gc3))
-            addTrivialEdge(gc4, gc1,
-                newTraceData("complement", getEdge(gc2, gc3)));
-    }
-   
-
-    /**
-     * Can hereditariness properties be used to deduce that gc1 >> gc2?
-     * Add an edge accordingly.
-     */
-    public boolean hereditary(HereditaryClass gc1, GraphClass gc2) {
-        TraceData tr = null;
-        GraphClass gc3 = gc1.getBase();
-        
-        if (containsEdge(gc3,gc2)  &&  gc2.getHereditariness().compareTo(
-                gc1.getHereditariness()) >= 0) {
-            if (trace)
-                tr = new TraceData("hereditariness", getEdge(gc3,gc2));
-            addTrivialEdge(gc1, gc2, tr);
-            return true;
-        }
-        return false;
-    }
-    
-    
-    /**
-     * Can probe properties be used to deduce that v1 >> v2?
-     * Add an edge accordingly.
-     */
-    public boolean probe(ProbeClass gc1, ProbeClass gc2) {
-        TraceData tr = null;
-        GraphClass gc3 = gc1.getBase();
-        GraphClass gc4 = gc2.getBase();
-        
-        if (containsEdge(gc3,gc4)) {
-            if (trace)
-                tr = new TraceData("probeclass", getEdge(gc3,gc4));
-            addTrivialEdge(gc1, gc2, tr);
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Can clique properties be used to deduce that v1 >> v2?
-     * Add an edge accordingly.
-     */
-    public boolean clique(CliqueClass gc1, CliqueClass gc2) {
-        TraceData tr = null;
-        GraphClass gc3 = gc1.getBase();
-        GraphClass gc4 = gc2.getBase();
-        
-        if (containsEdge(gc3,gc4)) {
-            if (trace)
-                tr = new TraceData("cliqueclass", getEdge(gc3,gc4));
-            addTrivialEdge(gc1, gc2, tr);
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Can intersection rules be used to deduce gc1 >> gc2?
-     * Add an edge accordingly.
-     */
-    public boolean intersect(IntersectClass gc1, GraphClass gc2) {
-        Set<GraphClass> hs1;
-        ArrayList<Inclusion> traces = new ArrayList<Inclusion>();
-        TraceData tr = null;
-
-        hs1 = new HashSet<GraphClass>(gc1.getSet());
-        if (gc2 instanceof IntersectClass){
-            hs1.removeAll(((IntersectClass)gc2).getSet());
-        }else{
-            hs1.remove(gc2);
-        }
-        
-        //---- Check that each gc in hs1 is a superclass of v2 ----
-        
-        // for this part it's important that direct trivial inlcusions
-        // have already been found
-        for (GraphClass gc : hs1) {
-            if(!containsEdge(gc,gc2)) {
-                return false;
-            } else {
-                if (trace)
-                    traces.add(getEdge(gc,gc2));
-            }
-        }
-        if (trace)
-            tr = new TraceData("intersect", traces);
-        addTrivialEdge(gc1, gc2, tr);
-        return true;
-    }
-
-
-    /**
-     * Can union rules be used to deduce v1 >> v2?
-     * Add an edge accordingly.
-     */
-    public boolean union(GraphClass gc1, UnionClass gc2) {
-        Set<GraphClass> hs2;
-        ArrayList<Inclusion> traces = new ArrayList<Inclusion>();
-        TraceData tr = null;
-
-        hs2 = new HashSet<GraphClass>(((UnionClass)gc2).getSet());
-        if (gc1 instanceof UnionClass){
-            hs2.removeAll(((UnionClass)gc1).getSet());
-        }else{
-            hs2.remove(gc1);
-        }
-        
-        //---- Chech that each gc in hs2 is a subclass of v1 ----
-        
-        // for this part it's important that direct trivial inlcusions
-        // have already been found
-        for (GraphClass gc : hs2) {
-            if (!containsEdge(gc1,gc))
-                return false;
-            else {
-                if (trace)
-                    traces.add(getEdge(gc1,gc));
-            }
-        }
-        if (trace)
-            tr = new TraceData("union", traces);
-        addTrivialEdge(gc1, gc2, tr);
-        return true;
-    }
 
 
     //------------------------ Proper inclusions ---------------------------
