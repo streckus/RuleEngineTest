@@ -84,7 +84,8 @@ public class Deducer implements DeducerData {
         RCheck checks[] = new RCheck[]{
             new RCheckSCC(),
             new RCheckForbidden(),
-            new RCheckForbiddenNonEdge()
+            new RCheckForbiddenNonEdge(),
+            new RCheckType()
         };
 
         for (RCheck check : checks)
