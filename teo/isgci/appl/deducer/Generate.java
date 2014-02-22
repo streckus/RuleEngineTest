@@ -292,6 +292,86 @@ public class Generate {
         w.flush();
     }
 
+    /**
+     * Print statistics on the deduced relations.
+     */
+    public static void printStatistics(DeducerData d) {
+        DirectedGraph<GraphClass,Inclusion> graph = d.getGraph();
+        int nodecount = graph.vertexSet().size();
+        int edgecount = graph.edgeSet().size();
+        int total = nodecount * (nodecount-1) / 2;
+        int numproper = 0, numequal = 0;
+        int numpropereq = 0;
+
+        for (Inclusion e : graph.edgeSet()) {
+            if (e.isProper())
+                numproper++;
+            else if (d.containsEdge(graph.getEdgeTarget(e),
+                    graph.getEdgeSource(e)))
+                numequal++;
+        }
+        numpropereq = edgecount - numproper - numequal;
+
+        System.out.print("Total relations: ");
+        System.out.println(total);
+
+        System.out.print("Inclusions: ");
+        System.out.print(edgecount);
+        System.out.print(" (");
+        System.out.print((100.0 * edgecount)/total);
+        System.out.println("%)");
+
+        System.out.println("of these");
+        
+        System.out.print("   Proper inclusions: ");
+        System.out.print(numproper);
+        System.out.print(" (");
+        System.out.print((100.0 * numproper)/edgecount);
+        System.out.println("%)");
+
+        System.out.print("   Equalities: ");
+        System.out.print(numequal);
+        System.out.print(" (");
+        System.out.print((100.0 * numequal)/edgecount);
+        System.out.println("%)");
+
+        System.out.print("   Equal or proper: ");
+        System.out.print(numpropereq);
+        System.out.print(" (");
+        System.out.print((100.0 * numpropereq)/edgecount);
+        System.out.println("%)");
+
+        System.out.println("with confidence");
+
+        for (int level = Inclusion.CONFIDENCE_HIGHEST;
+                level >= Inclusion.CONFIDENCE_LOWEST;
+                level--) {
+            int count = countEdges(graph, level);
+
+            System.out.print("   ");
+            System.out.print(level);
+            System.out.print(": ");
+            System.out.print(count);
+            System.out.print(" (");
+            System.out.print((100.0 * count)/edgecount);
+            System.out.println("%)");
+        }
+    }
+
+
+    /**
+     * Return the number of edges with the given confidence level.
+     */
+    private static int countEdges(Graph<GraphClass,Inclusion> graph,int level){
+        int res = 0;
+
+        for (Inclusion e : graph.edgeSet()) {
+            if (e.getConfidence() == level)
+                res++;
+        }
+        return res;
+    }
+
 
     /**
      * Give every class a list of its complements and return it.
@@ -400,7 +480,7 @@ public class Generate {
             deducer.findTrivialInclusions();
             deducer.findTrivialPropers();
             new RCheckAbstractRelations().after(deducer, relations);
-            deducer.printStatistics();
+            printStatistics(deducer);
         }
 
         //---- Print debug info

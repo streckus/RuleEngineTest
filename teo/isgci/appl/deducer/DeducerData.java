@@ -25,7 +25,6 @@ public interface DeducerData {
      */
     public DirectedGraph<GraphClass,Inclusion> getGraph();
 
-
     /**
      * Sort the given list of nodes by id.
      */
