@@ -399,7 +399,7 @@ public class Generate {
         else {
             deducer.findTrivialInclusions();
             deducer.findTrivialPropers();
-            deducer.sanityCheckAbstractRelations(relations);
+            new RCheckAbstractRelations().after(deducer, relations);
             deducer.printStatistics();
         }
 

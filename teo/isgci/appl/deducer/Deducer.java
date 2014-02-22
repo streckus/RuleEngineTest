@@ -43,10 +43,10 @@ public class Deducer implements DeducerData {
     Annotation<GraphClass,Inclusion,TraceData> traceRelAnn;
     /** Classes added in the last run of findTrivialInclusions */
     private ArrayList<GraphClass> newclasses;
-    /** Confidence level at which we're currently deducing */
-    private int confidence;
     /** Set by setProper(), reset by findTrivialPropers() */
     private boolean newproper;
+    /** Confidence level at which we're currently deducing */
+    private int confidence;
     /** Input edges with less than certain confidence levels */
     private HashSet<Inclusion> uncertains;
     /** Generates the ids for automatically deduces classes (AUTO_*) */
@@ -414,16 +414,19 @@ public class Deducer implements DeducerData {
      * closed.
      */
     public void findTrivialInclusions() {
-        Map<GraphClass,Set<GraphClass> > sccBefore, sccAfter;
+        RCheck checks[] = new RCheck[]{
+            new RCheckSCC(),
+            new RCheckForbidden(),
+            new RCheckForbiddenNonEdge()
+        };
 
-        /*markOriginals();*/
-        //buildHash();
-        sccBefore = GAlg.calcSCCMap(graph);
+        for (RCheck check : checks)
+            check.before(this);
+
         separateUncertains();
         if (checking)
             graph.check();
         GAlg.transitiveClosure(graph);
-        //buildEdgeCache();
 
         confidence = Inclusion.CONFIDENCE_HIGHEST;
         iteration = 0;
@@ -446,17 +449,22 @@ public class Deducer implements DeducerData {
                     addUncertains() == 0);
         } while (confidence >= Inclusion.CONFIDENCE_LOWEST);
 
-        /*System.out.println("Adding complements");
-        Vector classes = (Vector) nodeList.clone();
-        correspondCompAndForbidden2(classes);
-        System.out.print("Nodes: "+countNodes());
-        System.out.println("     Edges: "+countEdges());*/
-
         tempify();
-        sccAfter = GAlg.calcSCCMap(graph);
-        sanityCheckSCC(sccBefore, sccAfter);
-        sanityCheckForbidden();
-        sanityCheckForbiddenNonEdge();
+
+        // Force error for checking the checks
+        /*{
+            GraphClass chordal = null, interval = null;
+
+            for (GraphClass gc : graph.vertexSet())
+                if ("chordal".equals(gc.toString()))
+                    chordal = gc;
+                else if ("interval".equals(gc.toString()))
+                    interval = gc;
+            addTrivialEdge(interval, chordal, newTraceData("Test"));
+        }*/
+
+        for (RCheck check : checks)
+            check.after(this);
     }
 
 
@@ -627,199 +635,7 @@ public class Deducer implements DeducerData {
             }
         } while (newproper);
 
-        sanityCheckProper();
-    }
-
-
-    //------------------------ Sanity checks ---------------------------
-    
-    /**
-     * Print SCC that have merged as a result of deducing inclusions.
-     */
-    private void sanityCheckSCC(
-            Map<GraphClass,Set<GraphClass> > before,
-            Map<GraphClass,Set<GraphClass> > after) {
-        Set<GraphClass> vecBefore1, vecAfter1, vecBefore2, vecAfter2;
-        // Maps after-SCC to beforeSCCs
-        HashMap<Set<GraphClass>, Set<Set<GraphClass> > > scc =
-                new HashMap<Set<GraphClass>, Set<Set<GraphClass> > >();
-        HashSet<Set<GraphClass> > hs;
-
-        for (GraphClass node1 : graph.vertexSet()) {
-            if (before.get(node1) == null)
-                continue;
-            vecBefore1 = before.get(node1);
-            vecAfter1 = after.get(node1);
-
-            for (GraphClass node2 : graph.vertexSet()) {
-                if (before.get(node2) == null)
-                    continue;
-                vecBefore2 = before.get(node2);
-                vecAfter2 = after.get(node2);
-
-                if (vecBefore1 != vecBefore2  &&  vecAfter1 == vecAfter2) {
-                    if (scc.containsKey(vecAfter1))
-                        scc.get(vecAfter1).add(vecBefore1);
-                    else {
-                        hs = new HashSet<Set<GraphClass> >();
-                        hs.add(vecBefore1);
-                        scc.put(vecAfter1, hs);
-                    }
-                    
-                    if (scc.containsKey(vecAfter2))
-                        scc.get(vecAfter2).add(vecBefore1);
-                    else {
-                        hs = new HashSet<Set<GraphClass> >();
-                        hs.add(vecBefore1);
-                        scc.put(vecAfter2, hs);
-                    }
-                }
-            }
-        }
-
-        System.out.println("sanityCheckSCC");
-        for (Map.Entry<Set<GraphClass>, Set<Set<GraphClass> > > entry :
-                scc.entrySet()) {
-            vecAfter1 = entry.getKey();
-            System.out.println("sccBefore: ");
-            for (Set<GraphClass> bfor : entry.getValue()) {
-                System.out.print("[");
-                for (GraphClass gc : bfor)
-                    System.out.print( gc.getID() +" ("+ gc.toString() +"), ");
-                System.out.println("]");
-            }
-            System.out.print("sccAfter:\n[");
-            for (GraphClass gc : vecAfter1)
-                System.out.print( gc.getID() +" ("+ gc.toString() +"), ");
-            System.out.println("]");
-        }
-        System.out.println("end sanityCheckSCC");
-    }
-
-
-    /**
-     * Prints inclusions between ForbiddenClasses that were derived, but can't
-     * be confirmed by ForbiddenClass.subClassOf.
-     */
-    private void sanityCheckForbidden() {
-        GraphClass from, to;
-        HashSet<GraphClass> hs = new HashSet<GraphClass>();
-        DirectedGraph<GraphClass,Inclusion> inducedSub;
-        
-        for (Inclusion e : graph.edgeSet()) {
-            from = graph.getEdgeSource(e);
-            to = graph.getEdgeTarget(e);
-            if (from instanceof ForbiddenClass && to instanceof ForbiddenClass)
-                if (!to.subClassOf(from)) {
-                    hs.add(from);
-                    hs.add(to);
-                }
-        }
-        if (hs.isEmpty())
-            return;
-            
-        //TODO
-        /*inducedSub = (ISGCIGraph) createSubgraph(hs.elements());
-        inducedSub.contractSCC();
-        inducedSub.transitiveReduction();*/
-        inducedSub = new SimpleDirectedGraph<GraphClass,Inclusion>(
-                Inclusion.class);
-        GAlg.copyInduced(graph, hs, inducedSub);
-        
-        System.out.println("sanityCheckForbidden");
-        for (Inclusion e : inducedSub.edgeSet()) {
-            from = inducedSub.getEdgeSource(e);
-            to = inducedSub.getEdgeTarget(e);
-            if (!to.subClassOf(from))
-                System.out.println(from +" ("+ from.getID()+ ") -> "+
-                    to +" ("+ to.getID() +") ");
-        }
-        System.out.println("end sanityCheckForbidden");
-    }
-
-
-    /**
-     * Prints pairs of ForbiddenClasses that have no inclusion, but no witness
-     * for this is found.
-     */
-    private void sanityCheckForbiddenNonEdge() {
-        System.out.println("begin sanityCheckForbiddenNonEdge");
-        for (GraphClass gc1 : graph.vertexSet()) {
-            if (!(gc1 instanceof ForbiddenClass))
-                continue;
-            for (GraphClass gc2 : graph.vertexSet()) {
-                if (gc2 == gc1  ||  !(gc2 instanceof ForbiddenClass)  ||
-                        containsEdge(gc1, gc2))
-                    continue;
-
-                StringBuilder s = new StringBuilder();
-                boolean b = ((ForbiddenClass) gc2).notSubClassOf(
-                        (ForbiddenClass) gc1, s);
-                if (!b)
-                    System.out.println("Unconfirmed non-inclusion "+
-                            gc1 + " ("+ gc1.getID()+ ") -> "+
-                            gc2 +" ("+ gc2.getID() +") ");
-            }
-        }
-        System.out.println("end sanityCheckForbiddenNonEdge");
-    }
-
-    
-    /**
-     * Check consistency for disjoint/incomparable relations.
-     */
-    public void sanityCheckAbstractRelations(
-            Collection<AbstractRelation> relations) {
-        System.out.println("begin sanityCheckAbstractRelations");
-        for (AbstractRelation r : relations) {
-            if (r instanceof Incomparability) {
-                if (containsEdge(r.get1(), r.get2())  ||
-                        containsEdge(r.get2(), r.get1()))
-                    System.out.println("Inclusion exists for "+ r);
-                continue;
-            }
-
-            if (!(r instanceof Disjointness))
-                throw new RuntimeException("Unknown relation"+ r);
-
-            for (GraphClass gc1 : new Itera<GraphClass>(Iterators.union(
-                    Iterators.singleton(r.get1()),
-                    GAlg.outNeighboursOf(graph, r.get1()))))
-                for (GraphClass gc2 : new Itera<GraphClass>(Iterators.union(
-                        Iterators.singleton(r.get2()),
-                        GAlg.outNeighboursOf(graph, r.get2())))) {
-                    if (containsEdge(gc1, gc2))
-                        System.out.println("Inclusion "+ getEdge(gc1, gc2) +
-                                " exists for "+ r);
-                    if (containsEdge(gc2, gc1))
-                        System.out.println("Inclusion "+ getEdge(gc2, gc1) +
-                                " exists for "+ r);
-                    if (gc1.getHereditariness() == GraphClass.Hered.INDUCED &&
-                           gc2.getHereditariness() == GraphClass.Hered.INDUCED)
-                        System.out.println("Induced-hereditary subclasses "+
-                                gc1 +" "+ gc2 +" exists for "+ r);
-                }
-        }
-        System.out.println("end sanityCheckAbstractRelations");
-    }
-
-
-    /**
-     * Proper subclasses cannot be equivalent.
-     */
-    private void sanityCheckProper() {
-        GraphClass from, to;
-
-        System.out.println("sanityCheckProper");
-        for (Inclusion e : graph.edgeSet()) {
-            if (!e.isProper())
-                continue;
-            from = graph.getEdgeSource(e);
-            to = graph.getEdgeTarget(e);
-            if (containsEdge(to, from))
-                System.out.println(e);
-        }
-        System.out.println("end sanityCheckProper");
+        new RCheckProper().after(this);
     }
 
 
