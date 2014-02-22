@@ -53,6 +53,12 @@ public interface DeducerData {
             TraceData tr);
 
     /**
+     * Set the properflag for an edge to true and do this for the transitive
+     * inclusions as well.
+     */
+    public void setProper(Inclusion e, TraceData t);
+
+    /**
      * Return true if gc is a temporary node.
      */
     public boolean isTempNode(GraphClass gc);

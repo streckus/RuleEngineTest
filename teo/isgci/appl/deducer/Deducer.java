@@ -31,9 +31,6 @@ public class Deducer implements DeducerData {
     
     /** Where we're deducing */
     CacheGraph<GraphClass,Inclusion> graph;
-    /** To keep track of derived inclusions */
-    /*Object original;
-    int orgIx;*/
     /** Contains the temporary nodes */
     HashSet<GraphClass> temporaries;
     /** Trace where the deductions come from? */
@@ -46,18 +43,14 @@ public class Deducer implements DeducerData {
     Annotation<GraphClass,Inclusion,TraceData> traceRelAnn;
     /** Classes added in the last run of findTrivialInclusions */
     private ArrayList<GraphClass> newclasses;
-    /** The edges that were deduced with subClassOf() */
-    private Set<Inclusion> directs;
     /** Confidence level at which we're currently deducing */
     private int confidence;
+    /** Set by setProper(), reset by findTrivialPropers() */
+    private boolean newproper;
     /** Input edges with less than certain confidence levels */
     private HashSet<Inclusion> uncertains;
     /** Generates the ids for automatically deduces classes (AUTO_*) */
     private IDGenerator idgenerator;
-    /** Prefix when printing newly created nodes */
-    private String nodedebugprefix;
-    /** Print new classes as they are created? */
-    private boolean printnewclasses;
     /** Iteration number */
     private int iteration;
     
@@ -68,11 +61,9 @@ public class Deducer implements DeducerData {
                 1*1000*1000, 5*1000*1000);
         graph.setChecking(checking);
         temporaries = new HashSet<GraphClass>(g.vertexSet().size());
-        directs = new HashSet<Inclusion>(1*1000*1000);
         idgenerator = null;
         this.trace = trace;
         this.checking = checking;
-        printnewclasses = true;
         if (trace) {
             traceAnn = new Annotation<GraphClass,Inclusion,TraceData>(graph);
             traceRelAnn= new Annotation<GraphClass,Inclusion,TraceData>(graph);
@@ -560,7 +551,8 @@ public class Deducer implements DeducerData {
         //---- Now do all the other rules
         for (RSub rule : rules) {
             RSubTyping type = rule.getClass().getAnnotation(RSubTyping.class);
-            System.out.println(rule.getClass().getName());
+            String name = rule.getClass().getName();
+            System.out.println(name.substring(name.lastIndexOf('.')+1));
             rule.run(this, typedClasses.get(type.superType()),
                     typedClasses.get(type.subType()));
         }
@@ -571,34 +563,13 @@ public class Deducer implements DeducerData {
     //------------------------ Proper inclusions ---------------------------
 
     /**
-     * Mark (already found) inclusions as proper.
+     * Ensure properness transitivity for the given edges
+     * The graph must already be transitively closed.
      */
-    public void findTrivialPropers() {
-        int i, j;
-        boolean newproper;
+    private void transitiveClosePropers(Iterable<Inclusion> edges) {
         ArrayList<Inclusion> propers = new ArrayList<Inclusion>();
-        ArrayList<ComplementClass> compls = new ArrayList<ComplementClass>();
-        ArrayList<ProbeClass> probes = new ArrayList<ProbeClass>();
-        ArrayList<CliqueClass> cliques = new ArrayList<CliqueClass>();
-        ArrayList<HereditaryClass> hereds = new ArrayList<HereditaryClass>();
-
-        System.out.println("findTrivialPropers");
-
-        //---- Gather classes according to type
-        for (GraphClass gi : graph.vertexSet()) {
-            if (gi instanceof ComplementClass)
-                compls.add((ComplementClass) gi);
-            else if (gi instanceof ProbeClass)
-                probes.add((ProbeClass) gi);
-            else if (gi instanceof CliqueClass)
-                cliques.add((CliqueClass) gi);
-            else if (gi instanceof HereditaryClass)
-                hereds.add((HereditaryClass) gi);
-
-        }
-
-        //---- Ensure transitivity for masterdata propers
-        for (Inclusion e : graph.edgeSet()) {
+        
+        for (Inclusion e : edges) {
             if (e.isProper())
                 propers.add(e);
         }
@@ -606,248 +577,59 @@ public class Deducer implements DeducerData {
             e.setProper(false);
             setProper(e, null);
         }
-        propers = null;         // Free memory
+    }
 
-        //---- Direct propers
-        properForbiddenDirect();
-        properCliqueDirect(cliques);
-        properProbeDirect(probes);
-        properHereditaryDirect(hereds);
+
+    /**
+     * Mark (already found) inclusions as proper.
+     */
+    public void findTrivialPropers() {
+        RProper[] rules = new RProper[]{
+            new RProperComplement(),
+            new RProperProbe(),
+            new RProperForbiddenSub()
+        };
+
+        // Maps a GraphClass type to all instances of that type in classes
+        HashMap<Class,ArrayList<GraphClass> > typedClasses = new HashMap<>();
+
+        //---- Create the lists of typedClasses...
+        for (RProper rule : rules) {
+            RProperTyping type =
+                    rule.getClass().getAnnotation(RProperTyping.class);
+            if (type == null)
+                throw new RuntimeException("Rule without annotation: "+
+                        rule.getClass().getName());
+
+            if (!typedClasses.containsKey(type.type()))
+                typedClasses.put(type.type(),new ArrayList<GraphClass>());
+        }
+
+        //---- ...and fill them
+        for (GraphClass gc : graph.vertexSet()) {
+            for (Class c : typedClasses.keySet())
+                if (c.isInstance(gc))
+                    typedClasses.get(c).add(gc);
+        }
+
+        transitiveClosePropers(graph.edgeSet());
+        new RProperDirect().run(this, graph.vertexSet());
 
         //---- Repeatedly deduce properness of inclusions
         do {
             newproper = false;
-            System.out.println("complement");
-            for (i = compls.size()-1; i >= 0; i--) {
-                for (j = 0; j <= i; j++)    // i=j important for self-compls
-                    newproper = newproper |
-                            properFromComplement(compls.get(i), compls.get(j));
+            for (RProper rule : rules) {
+                RProperTyping type =
+                        rule.getClass().getAnnotation(RProperTyping.class);
+                String name = rule.getClass().getName();
+                System.out.println(name.substring(name.lastIndexOf('.')+1));
+                rule.run(this, typedClasses.get(type.type()));
             }
-
-            System.out.println("probes");
-            newproper = newproper | properProbes(probes);
-            
-            System.out.println("forbidden");
-            newproper = newproper | properForbiddenSub();
         } while (newproper);
 
         sanityCheckProper();
     }
 
-
-    /**
-     * Mark inclusions between forbidden classes as proper if their definition
-     * warrants so.
-     */
-    private void properForbiddenDirect() {
-        GraphClass from, to;
-
-        for (Inclusion e : graph.edgeSet()) {
-            from = graph.getEdgeSource(e);
-            to = graph.getEdgeTarget(e);
-            if ( ! (from instanceof ForbiddenClass)  ||
-                    ! (to instanceof ForbiddenClass) )
-                continue;
-
-            // If the classes are equal, the reverse relation should be found
-            // from the forbidden graphs. If it doesn't exist -> proper
-            if (!containsEdge(to, from))
-                setProper(e, new TraceData("properForbiddenDirect"));
-        }
-    }
-
-
-    /**
-     * Mark A > B proper if A has a forbidden subclass that is not a subclass
-     * of B, which is itself a forbidden class.
-     * Return true iff something new was deduced.
-     */
-    private boolean properForbiddenSub() {
-        GraphClass from, to;
-        boolean res = false;
-
-        for (Inclusion e : graph.edgeSet()) {
-            from = graph.getEdgeSource(e);
-            to = graph.getEdgeTarget(e);
-
-            if (e.isProper()  ||  containsEdge(to, from)  ||
-                    from instanceof ForbiddenClass ||
-                    !(to instanceof ForbiddenClass))
-                continue;
-
-            //---- Test all forbidden subs of from
-            for (GraphClass v : GAlg.outNeighboursOf(graph, from)) {
-                if (v == to || !(v instanceof ForbiddenClass))
-                    continue;
-
-                if (!containsEdge(v, to)  &&  !containsEdge(to, v)) {
-                    setProper(e, newTraceData("properForbiddenSub "+
-                        from +" -> "+ to));
-                    res = true;
-                }
-            }
-        }
-        return res;
-    }
-
-
-    /**
-     * Mark clique X < clique unless we already know otherwise.
-     */
-    private void properCliqueDirect(List<CliqueClass> cliques) {
-        GraphClass clique = null;
-        for (GraphClass gc : graph.vertexSet()) {
-            if ("gc_141".equals(gc.getID())) {
-                if (!"clique".equals(gc.toString())) // Safety check
-                    throw new RuntimeException(
-                            "gc_141 expected to be clique graphs");
-                clique = gc;
-                break;
-            }
-        }
-
-        for (CliqueClass vi : cliques) {
-            if (!containsEdge(vi, clique))
-                setProper(getEdge(clique, vi),
-                        newTraceData("properCliqueDirect"));
-        }
-    }
-
-
-    /**
-     * Mark X < probe X unless we already know otherwise.
-     */
-    private void properProbeDirect(List<ProbeClass> probes) {
-        GraphClass basei;
-
-        for (ProbeClass vi : probes) {
-            basei = vi.getBase();
-            if (!containsEdge(basei, vi))
-                setProper(getEdge(vi, basei),
-                        newTraceData("properProbeDirect"));
-        }
-    }
-
-
-    /**
-     * Mark hereditary X < X unless we already know otherwise.
-     */
-    private void properHereditaryDirect(List<HereditaryClass> hereds) {
-        GraphClass basei;
-
-        for (HereditaryClass vi : hereds) {
-            basei = vi.getBase();
-            if (!containsEdge(vi, basei))
-                setProper(getEdge(basei, vi),
-                        newTraceData("properHereditaryDirect"));
-        }
-    }
-
-
-    /**
-     * Mark probe X < probe Y if X < Y, unless we already know otherwise.
-     * Return true iff something new was deduced.
-     */
-    private boolean properProbes(List<ProbeClass> probes) {
-        ProbeClass vi, vj;
-        int i, j;
-        boolean res = false;
-
-        for (i = 0; i < probes.size()-1; i++) {
-            vi = probes.get(i);
-            for (j = i+1; j <  probes.size(); j++) {
-                vj =  probes.get(j);
-                if (containsEdge(vi, vj))
-                    res = res | properFromProbe(vi, vj);
-                if (containsEdge(vj, vi))
-                    res = res | properFromProbe(vj, vi);
-            }
-        }
-        return res;
-    }
-
-
-    /**
-     * Mark probe X < probe Y if X < Y, unless we already know otherwise.
-     * Return true iff something new was deduced.
-     */
-    private boolean properFromProbe(ProbeClass x, ProbeClass y) {
-        GraphClass basex, basey;
-        Inclusion e, basee;
-        int i, j;
-
-        basex = x.getBase();
-        basey = y.getBase();
-        e = getEdge(x, y);
-        basee = getEdge(basex, basey);
-        if (!e.isProper()  &&  !containsEdge(y, x)  &&
-                basee != null  &&  basee.isProper()) {
-            setProper(e, newTraceData("ProperFromProbe", basee));
-            return true;
-        }
-
-        return false;
-    }
-
-
-    /**
-     * Given two complement classes v1, v2, try to deduce properness of
-     * inclusions in all possible directions.
-     * Return true iff something new was deduced.
-     */
-    public boolean properFromComplement(ComplementClass v1,
-            ComplementClass v2) {
-        GraphClass v3 = v1.getBase();
-        GraphClass v4 = v2.getBase();
-        Inclusion e, f;
-        boolean res = false;
-
-        if (containsEdge(v1, v2)  &&  (e = getEdge(v1, v2)) != null  &&
-                e.isProper()  &&  !(f = getEdge(v3, v4)).isProper()) {
-            setProper(f, newTraceData("properFromComplement", e));
-            res = true;
-        }
-        if (containsEdge(v3, v4)  &&  (e = getEdge(v3, v4)) != null  &&
-                e.isProper()  &&  !(f = getEdge(v1, v2)).isProper()) {
-            setProper(f, newTraceData("properFromComplement", e));
-            res = true;
-        }
-
-        if (containsEdge(v2, v1)  &&  (e = getEdge(v2, v1)) != null  &&
-                e.isProper()  &&  !(f = getEdge(v4, v3)).isProper()) {
-            setProper(f, newTraceData("properFromComplement", e));
-            res = true;
-        }
-        if (containsEdge(v4,v3)  &&  (e = getEdge(v4, v3)) != null  &&
-                e.isProper()  &&  !(f = getEdge(v2, v1)).isProper()) {
-            setProper(f, newTraceData("properFromComplement", e));
-            res = true;
-        }
-
-        if (containsEdge(v1, v4)  &&  (e = getEdge(v1, v4)) != null  &&
-                e.isProper()  &&  !(f = getEdge(v3, v2)).isProper()) {
-            setProper(f, newTraceData("properFromComplement", e));
-            res = true;
-        }
-        if (containsEdge(v3, v2)  &&  (e = getEdge(v3, v2)) != null  &&
-                e.isProper()  &&  !(f = getEdge(v1, v4)).isProper()) {
-            setProper(f, newTraceData("properFromComplement", e));
-            res = true;
-        }
-
-        if (containsEdge(v4, v1)  &&  (e = getEdge(v4, v1)) != null  &&
-                e.isProper()  &&  !(f = getEdge(v2, v3)).isProper()) {
-            setProper(f, newTraceData("properFromComplement", e));
-            res = true;
-        }
-        if (containsEdge(v2, v3)  &&  (e = getEdge(v2, v3)) != null  &&
-                e.isProper()  &&  !(f = getEdge(v4, v1)).isProper()) {
-            setProper(f, newTraceData("properFromComplement", e));
-            res = true;
-        }
-
-        return res;
-    }
 
     //------------------------ Sanity checks ---------------------------
     
@@ -1171,7 +953,6 @@ public class Deducer implements DeducerData {
         Inclusion e = addEdge(from, to);
         if (trace)
             traceAnn.setEdge(e, tr);
-        /*e.setData(orgIx, null);*/
 
         //---- Maintain transitivity
         Inclusion trans;
@@ -1187,7 +968,7 @@ public class Deducer implements DeducerData {
                 if (from.equals(tos[i]))
                     System.err.println("Equals: "+ from.getID() +" "+ from +
                     " = "+ tos[i].getID() +" "+ tos[i]);
-                trans = addEdge(from, tos[i])/*.setData(orgIx, null)*/;
+                trans = addEdge(from, tos[i]);
                 if (trace) {
                     traceAnn.setEdge(trans, new TraceData("Transitivity", e,
                             getEdge(to, tos[i])));
@@ -1211,7 +992,7 @@ public class Deducer implements DeducerData {
                     if (v.equals(tos[i]))
                         System.err.println("Equals: "+ v.getID() +" "+ v +
                         " = "+ tos[i].getID() +" "+ tos[i]);
-                    trans = addEdge(v, tos[i])/*.setData(orgIx, null)*/;
+                    trans = addEdge(v, tos[i]);
                     if (trace) {
                         traceAnn.setEdge(trans,
                                new TraceData("Transitivity", getEdge(v, from),
@@ -1360,6 +1141,7 @@ public class Deducer implements DeducerData {
         if (e == null  ||  e.isProper())
             return;
 
+        newproper = true;
         e.setProper(true);
         if (trace)
             traceRelAnn.setEdge(e, t);
