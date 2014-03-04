@@ -276,6 +276,16 @@ class Configuration:
 	     '</configuration>\n' % (self.name, self.name)
       return res
 
+   def toGraph6(self):
+      """Return a graph6 string representation of this graph"""
+      res = Graph(self.name, self.nodecount, self.edges).toGraph6()
+      if len(self.mayedges) > 0  and  len(self.nonedges) == 0:
+         res += ' '+ Graph('', self.nodecount, self.mayedges).toGraph6()
+      if len(self.nonedges) > 0:
+         res += ' '+ Graph('', self.nodecount, self.nonedges).toGraph6()
+      return res
+
+
 #=============================== Selections ==================================
 
 def countselections(n, k):

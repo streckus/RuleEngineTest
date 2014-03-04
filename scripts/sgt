@@ -86,10 +86,10 @@ class SmallgraphsHandler(xml.sax.ContentHandler):
                      self.nonedges = e
                   else:
                      self.optedges = e
+                  self.defgraph = graph.Configuration(self.name, self.nodes,
+                        self.edges, self.optedges, self.nonedges)
             else:
                self.defgraph = graph.Graph(self.name, self.nodes, e)
-            if action == '6' and complements != 1:
-               print self.defgraph.toGraph6()
       elif tag == 'xfig':
          if self.thisone:
             t = '\n'.join(
@@ -106,8 +106,7 @@ class SmallgraphsHandler(xml.sax.ContentHandler):
                   self.figgraph = \
                      graph.readfile(StringIO.StringIO(t), self.name)
                   if self.config  and \
-                        not isinstance(self.figgraph, graph.Configuration):
-                     self.figgraph = graph.Configuration(self.figgraph.name,
+                        not isinstance(self.figgraph, graph.Configuration): self.figgraph = graph.Configuration(self.figgraph.name,
                         self.figgraph.nodecount, self.figgraph.edges,
                         list(), list())
             except:
@@ -133,9 +132,6 @@ class SmallgraphsHandler(xml.sax.ContentHandler):
             self.complement = 0
       elif tag in ('simple', 'configuration'):
          if self.thisone:
-            if self.config:
-               self.defgraph = graph.Configuration(self.name, self.nodes,
-                     self.edges, self.optedges, self.nonedges)
             if action == 'c'  and   self.figgraph  and  \
                   not self.figgraph.isIsomorphic(self.defgraph):
                print '%s mismatch' % self.name
@@ -144,6 +140,8 @@ class SmallgraphsHandler(xml.sax.ContentHandler):
                   print self.figgraph.toXML()
                   print "xml:"
                   print self.defgraph.toXML()
+            if action == '6' and complements != 1:
+               print self.defgraph.toGraph6()
 
 
    def characters(self, data):
