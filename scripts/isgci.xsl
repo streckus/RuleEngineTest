@@ -19,6 +19,7 @@
 <xsl:key name="outedges" match="incl" use="@super"/>
 <xsl:key name="inedges" match="incl" use="@sub"/>
 <xsl:key name="seenby" match="GraphClass" use="graphclass|(note//graphclass)"/>
+<xsl:key name="reference" match="REFS/Ref" use="@id"/>
 
 <!--
   - Return the GraphClass node for the given id.
@@ -102,6 +103,9 @@
 <xsl:variable name="theroot" select="/"/>
 <!-- Document containing the links for smallgraphs -->
 <xsl:param name="graphlinks" required="yes"/>
+<!-- Document containing the refs -->
+<xsl:param name="refsinput" required="yes"/>
+<xsl:variable name="refsdoc" select="doc($refsinput)"/>
 
 <xsl:template match="ISGCI">
    <!-- Create stats include file -->
@@ -193,6 +197,7 @@
 </xsl:template>
 
 <xsl:template match="GraphClass">
+   <xsl:variable name="here" select="."/>
    <xsl:variable name="page" select="concat(@id, '.html')"/>
    <xsl:result-document href="{teo:file($classesdir,$page)}"
          method="html" indent="yes"
@@ -293,7 +298,6 @@
          </div>
       </xsl:if>
       <xsl:if test="count(note[@name='definition']|$autodef/*) > 1">
-         <xsl:variable name="here" select="."/>
          <div id="definition">
             <div class="defhdr">The following definitions are equivalent:</div>
             <ol>
@@ -342,10 +346,24 @@
          </div>
       </xsl:if>
 
-      <xsl:if test="ref">
+      <xsl:variable name="otherref" select="problem/
+            algo[not(graphclass) or graphclass/text() eq $here/@id]/
+            ref[starts-with(text(), 'ref_')]"/>
+      <xsl:if test="ref|$otherref">
          <div class="references">
             <h3>References</h3>
-            <p><xsl:apply-templates select="ref"/></p>
+            <p><xsl:apply-templates select="ref">
+               <xsl:sort select="teo:ref2int(text())"/>
+            </xsl:apply-templates></p>
+            <xsl:if test="ref and $otherref">
+               <p>;</p>
+            </xsl:if>
+            <p><xsl:for-each-group select="$otherref" group-by="text()">
+               <xsl:sort select="teo:ref2int(current-grouping-key())"/>
+               <xsl:if test="not($here/ref[text() eq current-grouping-key()])">
+                  <xsl:apply-templates select="current-group()[1]"/>
+               </xsl:if>
+            </xsl:for-each-group></p>
          </div>
       </xsl:if>
 
@@ -893,15 +911,6 @@
   - Defining references
  -->
 
-<!-- Return the number of a reference -->
-<xsl:function name="teo:refnum">
-   <xsl:param name="s"/>
-   <xsl:sequence select="
-      if (matches($s, '^[0-9]+$'))
-      then $s
-      else substring-after($s, 'ref_')"/>
-</xsl:function>
-
 <!-- Return the basenumber of a reference -->
 <xsl:function name="teo:refbasenum">
    <xsl:param name="s"/>
@@ -1062,11 +1071,35 @@
          [from the baseclasses]
       </xsl:when>
       <xsl:otherwise>
-         [<a href="{teo:refbase(.)}#{.}"><xsl:value-of select="teo:refnum(.)"/>
-         </a>]
+         <div class="tooltip">
+            [<a href="{teo:refbase(.)}#{.}"><xsl:value-of select="teo:refnum(.)"/>
+            </a>]
+            <div><xsl:apply-templates select="." mode="preview"/></div>
+         </div>
       </xsl:otherwise>
    </xsl:choose>
 </xsl:template>
+
+<!-- ref preview tooltip -->
+<xsl:template match="ref" mode="preview">
+   <xsl:if test="not(key('reference', ., $refsdoc))">
+      <xsl:message>Reference for <xsl:value-of select="."/> not found</xsl:message>
+   </xsl:if>
+   <xsl:apply-templates select="key('reference', ., $refsdoc)" mode="preview"/>
+</xsl:template>
+
+<!-- ref preview tooltip, actual contents -->
+<xsl:template match="Ref" mode="preview">
+   <xsl:if test="bib">
+      <xsl:apply-templates select="bib/authors"/>
+      <xsl:apply-templates select="bib/title"/>
+      <xsl:apply-templates select="bib/rest"/>
+   </xsl:if>
+   <xsl:if test="note">
+      (no preview available)
+   </xsl:if>
+</xsl:template>
+
 
 <!-- A graphclass IDREF
      Create a hyperlink if it doesn't refer to the active graphclass.

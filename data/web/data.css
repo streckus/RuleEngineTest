@@ -42,6 +42,7 @@ img { vertical-align: text-top; }
 }
 .tooltip div{ display: none; }
 .tooltip:hover div{
+   font-size: 80%;
    display: block;
    width: 30em;
    padding: 2px;

@@ -28,7 +28,23 @@
    <xsl:sequence select="concat($imgprefix, $s, '.gif')"/>
 </xsl:function>
 
+<!-- Return the number part of a reference -->
+<xsl:function name="teo:refnum">
+   <xsl:param name="s"/>
+   <xsl:sequence select="
+      if (matches($s, '^[0-9]+$'))
+      then $s
+      else substring-after($s, 'ref_')"/>
+</xsl:function>
+
+<!-- Turn a ref id into a number -->
+<xsl:function name="teo:ref2int" as="xs:integer">
+   <xsl:param name="ref" as="xs:string"/>
+   <xsl:sequence select="xs:integer(teo:refnum($ref))"/>
+</xsl:function>
+
 <!-- ************************* Smallgraph links ************************** -->
+
 <!-- Document containing the links for smallgraphs -->
 <!--<xsl:param name="graphlinks">build/data/graphlinks.xml</xsl:param> -->
 <xsl:variable name="smallgraphs" select="doc($graphlinks)"/>
