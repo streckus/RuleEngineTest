@@ -102,6 +102,26 @@
       </note>
    </Problem>
 
+   <Problem name="Independent dominating set" dir="undirected">
+      <from name="Cliquewidth expression"/>
+      <sparse/>
+      <note>
+	 <table>
+	 <tr>
+	    <td>Input:</td><td>A graph <i>G</i> in this class and
+	    an integer <i>k</i>.</td>
+	 </tr>
+	 <tr>
+	    <td>Output:</td><td>True iff <i>G</i> contains a set
+	    <i>S</i> of pairwise non-adjacent vertices, with
+            |<i>S</i>| &lt;= <i>k</i>, such that
+	    every vertex in <i>G</i> is either in <i>S</i> or adjacent to a
+	    vertex in <i>S</i>.</td>
+	 </tr>
+	 </table>
+      </note>
+   </Problem>
+
    <Problem name="Weighted clique" complement="Weighted independent set" dir="undirected">
       <from name="Cliquewidth expression"/>
       <note>
@@ -6985,6 +7005,12 @@
 	    <note>Contains the <graphclass>gc_472</graphclass> of graphs of max. degree 3. See also <graphclass>gc_412</graphclass>.
 	    </note>
 	 </algo>
+         <algo name="Domination" complexity="NPC">
+            <ref>ref_1666</ref>
+         </algo>
+         <algo name="Independent dominating set" complexity="NPC">
+            <ref>ref_1666</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_530" type="forbidden">
@@ -11120,10 +11146,10 @@
 	    <ref>ref_675</ref>
 	 </algo>
 	 <algo name="Clique cover" complexity="P" bounds="O(V log^{d-1} V)">
-	    <note>Assuming an intersection model is given <ref>1120</ref>.</note>
+	    <note>Assuming an intersection model is given <ref>ref_1120</ref>.</note>
 	 </algo>
 	 <algo name="Weighted independent set" complexity="P" bounds="O(V log^{d-1} V)">
-	    <note>Assume an intersection model is given <ref>1120</ref>.</note>
+	    <note>Assume an intersection model is given <ref>ref_1120</ref>.</note>
 	 </algo>
       </GraphClass>
 
@@ -14912,7 +14938,7 @@
 	 </note>
 	 <ref>ref_90</ref>
 	 <algo name="Recognition" complexity="P">
-	    <ref>ref</ref>
+	    <ref>def</ref>
 	 </algo>
       </GraphClass>
 
@@ -15131,6 +15157,15 @@
          </ul>
          </note>
          <ref>ref_1664</ref>
+      </GraphClass>
+
+      <GraphClass id="gc_1216" type="intersect">
+         <graphclass>gc_816</graphclass>
+         <graphclass>gc_43</graphclass>
+         <ref>ref_1665</ref>
+         <algo name="Independent set" complexity="P">
+            <ref>ref_1665</ref>
+         </algo>
       </GraphClass>
 
       

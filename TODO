@@ -22,6 +22,8 @@ forbidden minor: planar, partial-2/3 trees, apex, linklessly embeddable (see Wik
 forbidden convex subgraphs: almost-median (Bresar, doi 10.1016/j.ejc.2005.10.009
 )
 
+Independent set NPC in ind-here classes met bepaalde forbidden subgraphs [1666]. Nieuwe regel?
+
 cyclically reducible graphs [1574, p.3]
 
 prism-free \cap almost median [1608]

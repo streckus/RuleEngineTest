@@ -14760,6 +14760,24 @@
       </bib>
    </Ref>
 
+   <Ref id="ref_1665">
+      <bib>
+         <authors>V. Lozin, M. Milanic</authors>
+         <title>On the Maximum Independent Set Problem in Subclasses of Planar Graphs</title>
+         <rest>Journal of Graph Algorithms and Applications Vol.14 No.2 269-286 (2010)</rest>
+	 <doi>10.7155/jgaa.00207</doi>
+	 <note><a href="http://jgaa.info/">JGAA</a></note>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1666">
+      <bib>
+         <authors>I.E. Zverovich, O.I. Zverovich</authors>
+         <title>Independent Domination in hereditary classes</title>
+         <rest>Theoretical Comp. Sci. 352 215-225 (2006)</rest>
+         <doi>10.1016/j.tcs.2005.10.049</doi>
+      </bib>
+   </Ref>
 
 
 </REFS>
