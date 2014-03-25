@@ -14779,5 +14779,22 @@
       </bib>
    </Ref>
 
+   <Ref id="ref_1667">
+      <bib>
+         <author>P. Zhang</author>
+         <rest>M.Sc. Thesis, University of British Columbia</rest>
+         <note>If $G$ and $G'$ have the same <smallgraph>P_4</smallgraph>-structure, then $G$ is $P_4$-bipartite iff $G'$ is. Hence, if $C$ is a subclass of $P_4$-bipartite, then so is the class $C$-perfect. (Communicated by J. Nastos)</note>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1668">
+      <bib>
+         <authors>I.E. Zverovich</authors>
+         <title>Satgraphs and independent Domination. Part 1</title>
+         <rest>Theoretical Comp. Sci. 352 47-56 (2006)</rest>
+         <doi>10.1016/j.tcs.2005.08.038</doi>
+      </bib>
+   </Ref>
+
 
 </REFS>

@@ -440,11 +440,12 @@
 	    <ref>ref_561</ref>
 	 </algo>
 	 <algo name="Weighted clique" complexity="P" bounds="O(VE)">
-	    <ref>ref_1424</ref>
+            <note>Assuming a perfect order is given <ref>ref_1424</ref></note>
 	 </algo>
 	 <algo name="Colourability" complexity="P" bounds="O(VE)">
-	    <ref>ref_1424</ref>
-	    <ref>ref_1382</ref>
+            <note>Assuming a perfect order is given
+               <ref>ref_1424</ref>
+               <ref>ref_1382</ref></note>
 	 </algo>
       </GraphClass>
 
@@ -5368,8 +5369,7 @@
             <ref>ref_1423</ref>
          </algo>
          <algo name="Clique" complexity="Polynomial">
-            <ref>ref_229</ref>
-	    <note>Assuming the positions of the disks are given.</note>
+	    <note>Assuming the positions of the disks are given <ref>ref_229</ref>.</note>
          </algo>
 	 <algo name="Cutwidth" complexity="NPC">
 	    <ref>ref_1511</ref>
@@ -11389,6 +11389,12 @@
 	 <algo name="3-Colourability" complexity="P">
 	    <ref>ref_1431</ref>
 	 </algo>
+         <algo name="Independent dominating set" complexity="NPC">
+            <ref>ref_1668</ref>
+         </algo>
+         <algo name="Independent set" complexity="Open">
+            <ref>ref_1668</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_932" type="base">
@@ -17269,6 +17275,8 @@
       <incl super="gc_199" sub="gc_1006" proper="y"> <ref>def</ref> <ref>ref_1652</ref> </incl>
       <equ gc1="gc_130" gc2="gc_1212"> <ref>ref_718</ref> </equ>
       <incl super="gc_371" sub="gc_1215" proper="y"> <ref>def</ref> </incl>
+      <incl super="gc_5" sub="gc_20"> <ref>ref_1667</ref> </incl>
+      <incl super="gc_5" sub="gc_465"> <ref>ref_1667</ref> </incl>
 
 
 
