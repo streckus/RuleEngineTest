@@ -102,8 +102,28 @@
       </note>
    </Problem>
 
-   <Problem name="Independent dominating set" dir="undirected">
+   <Problem name="Weighted independent dominating set" dir="undirected">
       <from name="Cliquewidth expression"/>
+      <sparse/>
+      <note>
+	 <table>
+	 <tr>
+	    <td>Input:</td><td>A graph <i>G</i> in this class with
+	    weight function on the vertices and a real <i>k</i>.</td>
+	 </tr>
+	 <tr>
+	    <td>Output:</td><td>True iff <i>G</i> contains a set
+	    <i>S</i> of pairwise non-adjacent vertices, with the sum of the
+            weights of the vertices in <i>S</i> at most <i>k</i>, such that
+	    every vertex in <i>G</i> is either in <i>S</i> or adjacent to a
+	    vertex in <i>S</i>.</td>
+	 </tr>
+	 </table>
+      </note>
+   </Problem>
+
+   <Problem name="Independent dominating set" dir="undirected">
+      <from name="Weighted independent dominating set"/>
       <sparse/>
       <note>
 	 <table>
@@ -927,6 +947,9 @@
 	 <algo name="Maximum cut" complexity="NPC">
 	    <ref>ref_1629</ref>
 	 </algo>
+         <algo name="Independent dominating set" complexity="Lin">
+            <ref>ref_1669</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_33" type="isometric-hereditary">
@@ -2204,6 +2227,9 @@
 	 </algo>
 	 <algo name="Recognition" complexity="P" bounds="O(min(V^2, E \log V, aE))">
             <note>with $a$ the arboricity of the graph <ref>ref_1643</ref></note>
+         </algo>
+         <algo name="Weighted independent dominating set" complexity="P">
+            <ref>ref_374</ref>
          </algo>
       </GraphClass>
 
@@ -7759,6 +7785,9 @@
 	 <algo name="Recognition" complexity="P" bounds="O(VE)">
 	    <ref>ref_759</ref>
 	 </algo>
+         <algo name="Weighted clique" complexity="P" bounds="O(VE)">
+	    <ref>ref_759</ref>
+	 </algo>
       </GraphClass>
 
       <GraphClass id="gc_609" type="base">
@@ -7892,9 +7921,6 @@
 	 <smallgraph>butterfly</smallgraph>
 	 <smallgraph>W_4</smallgraph>
 	 <smallgraph>W_5</smallgraph>
-	 <note>
-	 The neighbourhood of every vertex induces a <graphclass>gc_39</graphclass> graph.
-	 </note>
       </GraphClass>
 
       <GraphClass id="gc_626" type="intersect">
@@ -15174,6 +15200,83 @@
          </algo>
       </GraphClass>
 
+      <GraphClass id="gc_1217" type="forbidden">
+         <smallgraph>C_5</smallgraph>
+         <smallgraph>K_{2,3}</smallgraph>
+         <smallgraph>butterfly</smallgraph>
+         <smallgraph>W_4</smallgraph>
+         <smallgraph>2P_3</smallgraph>
+         <smallgraph>K_3 \cup P_3</smallgraph>
+         <smallgraph>X_{84}</smallgraph>
+         <smallgraph>C_6</smallgraph>
+         <smallgraph>\co{X_{98}}</smallgraph>
+         <smallgraph>X_{95}</smallgraph>
+         <smallgraph>2K_3</smallgraph>
+         <smallgraph>2K_3 + e</smallgraph>
+         <smallgraph>fish</smallgraph>
+         <smallgraph>\co{X_5}</smallgraph>
+         <smallgraph>co-domino</smallgraph>
+         <smallgraph>co-fish</smallgraph>
+         <smallgraph>\co{A}</smallgraph>
+         <smallgraph>\co{C_6}</smallgraph>
+         <smallgraph>\co{P_6}</smallgraph>
+         <smallgraph>\co{P_2 \cup P_4}</smallgraph> <!-- contains W_4 -->
+         <smallgraph>C_7</smallgraph>
+         <ref>ref_1668</ref>
+      </GraphClass>
+
+      <GraphClass id="gc_1218" type="base">
+         <name>hereditary sat</name>
+         <note name="definition">
+         A graph $G$ is a <graphclass>gc_1218</graphclass> if its vertex set can be partitioned into two sets $A$ and $B$ (both possibly empty), such that $G[A]$ is a clique, every vertex in $G[B]$ has degree at most 1 and in $G$ there is no <smallgraph>triangle</smallgraph> with one vertex in $A$ and two in $B$.
+         </note>
+         <ref>ref_1668</ref>
+         <algo name="Independent dominating set" complexity="NPC">
+            <ref>ref_1668</ref>
+         </algo>
+         <algo name="Recognition" complexity="P">
+            <ref>ref_1668</ref>
+         </algo>
+      </GraphClass>
+
+      <GraphClass id="gc_1219" type="base">
+         <name>locally split</name>
+         <note name="definition">
+         A graph is <graphclass>gc_1219</graphclass> if the open neighbourhood of each vertex induces a <graphclass>gc_39</graphclass> graph.
+         </note>
+         <ref>ref_1668</ref>
+      </GraphClass>
+
+      <GraphClass id="gc_1220" type="base">
+         <name>(1,2)-split</name>
+	 <hereditary type="induced-hereditary"/>
+         <note name="definition">
+         A graph $G$ is <graphclass>gc_1220</graphclass> iff its vertex set can be partitioned into two sets $A, B$, such that $G[A]$ is a clique and $G[B]$ is <graphclass>gc_371</graphclass>.
+         </note>
+         <note name="see-also">
+            <graphclass>gc_665</graphclass>
+            <graphclass>gc_39</graphclass>
+         </note>
+	 <note name="open-problem">
+	 Give a forbidden subgraph characterisation of <graphclass>gc_1220</graphclass> graphs. <ref>ref_1670</ref>
+	 </note>
+         <ref>ref_1670</ref>
+      </GraphClass>
+
+      <GraphClass id="gc_1221" type="base">
+         <name>(p,q)-split</name>
+	 <hereditary type="induced-hereditary"/>
+         <note name="definition">
+         A graph $G$ is ($p$,$q$)-split iff its vertex set can be partitioned into two sets $A, B$, such that the largest independent set in $A$ has at most $p$ vertices and the largest clique in $B$ has at most $q$ vertices.<br/>
+         </note>
+         <note name="see-also">
+            <graphclass>gc_500</graphclass>
+            <graphclass>gc_1220</graphclass>
+            <graphclass>gc_39</graphclass>
+         </note>
+         <ref>ref_1670</ref>
+      </GraphClass>
+
       
 
 
@@ -17277,6 +17380,11 @@
       <incl super="gc_371" sub="gc_1215" proper="y"> <ref>def</ref> </incl>
       <incl super="gc_5" sub="gc_20"> <ref>ref_1667</ref> </incl>
       <incl super="gc_5" sub="gc_465"> <ref>ref_1667</ref> </incl>
+
+      <incl super="gc_1220" sub="gc_665" proper="y"> <ref>def</ref> </incl>
+      <equ gc1="gc_1218" gc2="gc_1217"> <ref>ref_1668</ref> </equ>
+      <equ gc1="gc_625" gc2="gc_1219"> <ref>def</ref> </equ>
+      <incl super="gc_1220" sub="gc_764" proper="y"> <ref>def</ref> </incl>
 
 
 

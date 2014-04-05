@@ -106,6 +106,7 @@ AUTO_1644	(anti-hole,fork)--free
 AUTO_1700	(2P_3,P_4)--free
 AUTO_1710	(3K_1,C_5,\co{C_6},\co{P_6})--free
 AUTO_1728	(co-butterfly,co-claw)--free
+AUTO_1735	(A,C_5,C_6,K_2 \cup K_3,K_{3,3},K_{3,3}+e,K_{3,3}-e,P_6,X_5,X_{98},\co{2P_3},\co{C_6},\co{C_7},\co{W_4},\co{X_{84}},\co{X_{95}},co-butterfly,co-fish,domino,fish)--free
 AUTO_202	\co{P_2 \cup P_4}--free
 AUTO_2069	(P_5,anti-hole,co-domino,co-sun)--free
 AUTO_2070	odd anti-cycle--free

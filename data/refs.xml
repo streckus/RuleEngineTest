@@ -14796,5 +14796,23 @@
       </bib>
    </Ref>
 
+   <Ref id="ref_1669">
+      <bib>
+         <authors>M. Farber</authors>
+         <title>Independent domination in chordal graphs</title>
+         <rest>Operations Research Lett. 1 No.4 134-138 (1982)</rest>
+         <doi>10.1016/0167-6377(82)90015-3</doi>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1670">
+      <bib>
+         <authors>A. Gyarfas</authors>
+         <title>Generalized split graphs and Ramsey numbers</title>
+         <rest>J. of Combin. Th. (A) 81 255-261 (1998)</rest>
+      </bib>
+   </Ref>
+
+
 
 </REFS>
