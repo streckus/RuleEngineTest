@@ -14813,6 +14813,22 @@
       </bib>
    </Ref>
 
+   <Ref id="ref_1671">
+      <bib>
+         <authors>D.V. Andrade, L.H. de Figueiredo</authors>
+         <title>Good Approximations for the Relative Neighbourhood Graph</title>
+	 <rest>Proc. of the 13th Canadian Conference on Computation Geometry CCCG'01 25-28 (2001)</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1672">
+      <bib>
+         <authors>J.W. Jaromczyk, G.T. Toussaint</authors>
+         <title>Relative Neighborhood Graphs and Their Relatives</title>
+	 <rest>Proc. of the IEEE 80 No.9 1502-1517 (1992)</rest>
+      </bib>
+   </Ref>
+
 
 
 </REFS>

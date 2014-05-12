@@ -11439,6 +11439,9 @@
          <algo name="Recognition" complexity="P" bounds="O(VE)">
             <ref>def</ref>
          </algo>
+         <algo name="Recognition" complexity="P" bounds="O(aE)">
+            <note>with $a$ the arboricity of the graph <ref>ref_1643</ref>.</note>
+         </algo>
 	 <algo name="Clique" complexity="NPC">
 	    <ref>ref_1506</ref>
 	 </algo>
@@ -14249,6 +14252,13 @@
 	 A Delaunay triangulation is a triangulation D(P) such that no point in P is inside the circumference of any triangle in D(P).<br/>
 	 A graph is a <graphclass>gc_1147</graphclass> graph if it is the Delaunay triangulation of some set of points in the plane.
 	 </note>
+         <note>
+         For a fixed set of points we have the following relations between edges:
+         <graphclass>gc_1224</graphclass> $\subseteq$
+         <graphclass>gc_1223</graphclass> $\subseteq$
+         <graphclass>gc_1222</graphclass> $\subseteq$
+         <graphclass>gc_1147</graphclass>
+         </note>
 	 <ref>ref_1571</ref>
 	 <algo name="Recognition" complexity="P">
 	    <ref>ref_1572</ref>
@@ -15245,6 +15255,9 @@
          A graph is <graphclass>gc_1219</graphclass> if the open neighbourhood of each vertex induces a <graphclass>gc_39</graphclass> graph.
          </note>
          <ref>ref_1668</ref>
+         <algo name="Recognition" complexity="P" bounds="O(aE)">
+            <note>with $a$ the arboricity of the graph <ref>ref_1643</ref>.</note>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_1220" type="base">
@@ -15275,6 +15288,70 @@
             <graphclass>gc_39</graphclass>
          </note>
          <ref>ref_1670</ref>
+      </GraphClass>
+
+      <GraphClass id="gc_1222" type="base">
+	 <name>Gabriel</name>
+	 <note name="definition">
+	 Let $P$ be a set of points in the plane. In the Gabriel graph of $P$ there is an edge between $p$ and $q$ iff the circle having $pq$ as a diameter contains no other point of $P$.<br/>
+         A graph is a <graphclass>gc_1222</graphclass> graph if it is the Gabriel graph of some set of points in the plane.
+	 </note>
+         <note>
+         For a fixed set of points we have the following relations between edges:
+         <graphclass>gc_1224</graphclass> $\subseteq$
+         <graphclass>gc_1223</graphclass> $\subseteq$
+         <graphclass>gc_1222</graphclass> $\subseteq$
+         <graphclass>gc_1147</graphclass>
+         </note>
+         <note name="see-also">
+            <graphclass>gc_1147</graphclass>
+            <graphclass>gc_1223</graphclass>
+            <graphclass>gc_1224</graphclass>
+         </note>
+	 <ref>ref_1671</ref>
+      </GraphClass>
+
+      <GraphClass id="gc_1223" type="base">
+	 <name>Urquhart</name>
+	 <note name="definition">
+	 Let $P$ be a set of points in the plane and let $T$ be a <graphclass>gc_1147</graphclass> triangulation of $P$. The Urquhart graph of $P$ is obtained by removing the longest edge of every triangle in $T$.
+	 A graph is a <graphclass>gc_1223</graphclass> graph if it is the Urquhart graphs of some set of points in the plane.
+	 </note>
+         <note>
+         For a fixed set of points we have the following relations between edges:
+         <graphclass>gc_1224</graphclass> $\subseteq$
+         <graphclass>gc_1223</graphclass> $\subseteq$
+         <graphclass>gc_1222</graphclass> $\subseteq$
+         <graphclass>gc_1147</graphclass>
+         </note>
+         <note name="see-also">
+            <graphclass>gc_1147</graphclass>
+            <graphclass>gc_1222</graphclass>
+            <graphclass>gc_1224</graphclass>
+         </note>
+	 <ref>ref_1671</ref>
+      </GraphClass>
+
+      <GraphClass id="gc_1224" type="base">
+	 <name>relative neighbourhood graph</name>
+	 <note name="definition">
+	 Let $P$ be a set of points in the plane. In the <graphclass>gc_1224</graphclass> of $P$ there is an edge between $p$ and $q$ iff there is no point $r\in P$ such that $r$ is closer to both $p$ and $q$ than they are to each other: $d(p,q) \le \max\{d(p,r), d(q,r)\}$.
+	 A graph is a <graphclass>gc_1224</graphclass> if it is the <graphclass>gc_1224</graphclass> of some set of points in the plane.
+	 </note>
+         <note>
+         For a fixed set of points we have the following relations between edges:
+         <graphclass>gc_1224</graphclass> $\subseteq$
+         <graphclass>gc_1223</graphclass> $\subseteq$
+         <graphclass>gc_1222</graphclass> $\subseteq$
+         <graphclass>gc_1147</graphclass>
+         </note>
+         <note name="see-also">
+            <graphclass>gc_1147</graphclass>
+            <graphclass>gc_1222</graphclass>
+            <graphclass>gc_1223</graphclass>
+         </note>
+	 <ref>ref_1671</ref>
+	 <ref>ref_1672</ref>
       </GraphClass>
 
       
@@ -17385,6 +17462,9 @@
       <equ gc1="gc_1218" gc2="gc_1217"> <ref>ref_1668</ref> </equ>
       <equ gc1="gc_625" gc2="gc_1219"> <ref>def</ref> </equ>
       <incl super="gc_1220" sub="gc_764" proper="y"> <ref>def</ref> </incl>
+      <incl super="gc_43" sub="gc_1222" proper="y"> <ref>def</ref> </incl>
+      <incl super="gc_43" sub="gc_1223" proper="y"> <ref>def</ref> </incl>
+      <incl super="gc_43" sub="gc_1224" proper="y"> <ref>def</ref> </incl>
 
 
 
