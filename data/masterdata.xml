@@ -8697,6 +8697,9 @@
 	 <algo name="Recognition" complexity="P">
 	    <ref>ref_1662</ref>
 	 </algo>
+	 <algo name="Recognition" complexity="P" bounds="O(E^2V^7)">
+	    <ref>ref_1674</ref>
+	 </algo>
       </GraphClass>
 
       <GraphClass id="gc_707" type="base">

@@ -14837,6 +14837,14 @@
       </bib>
    </Ref>
 
+   <Ref id="ref_1674">
+      <bib>
+         <authors>H.-C. Chang, H.-I. Lu</authors>
+         <title>A faster algorithm to recognize even-hole-free graphs</title>
+	 <rest>Proceedings of the 23rd Annual ACM-SIAM Symposium on Discrete Algorithms (SODA'12), 1286-1297, (2012)</rest>
+      </bib>
+   </Ref>
+
 
 
 </REFS>
