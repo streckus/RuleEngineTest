@@ -400,6 +400,20 @@
       </note>
    </Problem>
 
+   <Problem name="Graph isomorphism">
+      <sparse/>
+      <note>
+	 <table>
+	 <tr>
+	    <td>Input:</td><td>Graphs <i>G</i> and <i>H</i> in this class</td>
+	 </tr>
+	 <tr>
+	    <td>Output:</td><td>True iff <i>G</i> and <i>H</i> are isomorphic.</td>
+	 </tr>
+	 </table>
+      </note>
+   </Problem>
+
    <GraphClasses>
       <GraphClass id="gc_1" type="forbidden">
          <smallgraph>2K_2</smallgraph>
@@ -4506,6 +4520,9 @@
 	 <algo name="Colourability" complexity="P">
 	    <ref>ref_1430</ref>
 	 </algo>
+         <algo name="Graph isomorphism" complexity="Lin">
+            <ref>ref_1646</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_298" type="base">
@@ -5681,6 +5698,9 @@
 	 <algo name="Domination" complexity="NPC">
 	    <ref>ref_1564</ref>
 	 </algo>
+         <algo name="Graph isomorphism" complexity="GIC">
+            <ref>ref_1564</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_416" type="base">
@@ -6337,6 +6357,9 @@
          </algo>
 	 <algo name="Domination" complexity="Lin">
             <ref>ref_1648</ref>
+         </algo>
+         <algo name="Graph isomorphism" complexity="GIC">
+            <ref>ref_1675</ref>
          </algo>
       </GraphClass>
 
@@ -15355,6 +15378,32 @@
          </note>
 	 <ref>ref_1671</ref>
 	 <ref>ref_1672</ref>
+      </GraphClass>
+
+      <GraphClass id="gc_1225" type="forbidden">
+         <name>girth >=9</name>
+         <smallgraph>C_3</smallgraph>
+         <smallgraph>C_4</smallgraph>
+         <smallgraph>C_5</smallgraph>
+         <smallgraph>C_6</smallgraph>
+         <smallgraph>C_7</smallgraph>
+         <smallgraph>C_8</smallgraph>
+         <note name="definition">
+         A graph has <graphclass>gc_1225</graphclass> if it has no cycles with less than 9 vertices.
+         </note>
+         <algo name="Hamiltonian cycle" complexity="NPC">
+            <ref>ref_1675</ref>
+         </algo>
+      </GraphClass>
+
+      <GraphClass id="gc_1226" type="intersect">
+         <graphclass>gc_1225</graphclass>
+         <graphclass>gc_43</graphclass>
+         <graphclass>gc_69</graphclass>
+         <graphclass>gc_720</graphclass>
+         <algo name="Hamiltonian cycle" complexity="NPC">
+            <ref>ref_1675</ref>
+         </algo>
       </GraphClass>
 
       
