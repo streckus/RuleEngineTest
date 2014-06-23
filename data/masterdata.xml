@@ -15394,6 +15394,9 @@
          <algo name="Hamiltonian cycle" complexity="NPC">
             <ref>ref_1675</ref>
          </algo>
+         <algo name="Hamiltonian path" complexity="NPC">
+            <ref>ref_1675</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_1226" type="intersect">
@@ -15402,6 +15405,9 @@
          <graphclass>gc_69</graphclass>
          <graphclass>gc_720</graphclass>
          <algo name="Hamiltonian cycle" complexity="NPC">
+            <ref>ref_1675</ref>
+         </algo>
+         <algo name="Hamiltonian path" complexity="NPC">
             <ref>ref_1675</ref>
          </algo>
       </GraphClass>
