@@ -17376,10 +17376,6 @@
       <incl super="gc_1093" sub="gc_1095" proper="y"> <ref>ref_1555</ref> <ref>ref_1557</ref> </incl>
       <incl super="gc_1093" sub="gc_1096" proper="y"> <ref>ref_1555</ref> <ref>ref_1557</ref> </incl>
       <incl super="gc_1093" sub="gc_1097" proper="y"> <ref>ref_1555</ref> <ref>ref_1558</ref> </incl>
-      <incl super="gc_1099" sub="gc_1100" proper="y"> <ref>def</ref> </incl>
-      <incl super="gc_1099" sub="gc_1101" proper="y"> <ref>def</ref> </incl>
-      <incl super="gc_1099" sub="gc_1104" proper="y"> <ref>def</ref> </incl>
-      <incl super="gc_1099" sub="gc_1105" proper="y"> <ref>def</ref> </incl>
       <incl super="gc_720" sub="gc_1100" proper="y"> <ref>def</ref> </incl>
       <incl super="gc_717" sub="gc_1101" proper="y"> <ref>def</ref> </incl>
       <incl super="gc_1090" sub="gc_1104" proper="y"> <ref>def</ref> </incl>
@@ -17542,6 +17538,11 @@
       <incl super="gc_205" sub="gc_487"> counter example: \co{3K_2}
       <incl super="gc_141" sub="gc_889" proper="y"> <ref>ref_1406</ref> </incl>
 	 contradicts [1483]
+      the following 4 lines mix normal and meta classes
+      <incl super="gc_1099" sub="gc_1100" proper="y"> <ref>def</ref> </incl>
+      <incl super="gc_1099" sub="gc_1101" proper="y"> <ref>def</ref> </incl>
+      <incl super="gc_1099" sub="gc_1104" proper="y"> <ref>def</ref> </incl>
+      <incl super="gc_1099" sub="gc_1105" proper="y"> <ref>def</ref> </incl>
       -->
 
       <!-- From doubtful 1565
