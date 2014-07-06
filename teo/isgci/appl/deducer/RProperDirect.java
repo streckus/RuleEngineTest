@@ -73,7 +73,7 @@ public class RProperDirect extends RProper<GraphClass> {
         GraphClass clique = null;
         for (GraphClass gc : d.getGraph().vertexSet()) {
             if ("gc_141".equals(gc.getID())) {
-                if (!"clique".equals(gc.toString())) // Safety check
+                if (!"clique graphs".equals(gc.toString())) // Safety check
                     throw new RuntimeException(
                             "gc_141 expected to be clique graphs");
                 clique = gc;

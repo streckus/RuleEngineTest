@@ -14850,6 +14850,31 @@
       </note>
    </Ref>
 
+   <Ref id="ref_1676">
+      <bib>
+         <authors>M. Kaminski</authors>
+         <title>Max-cut and containment relations in graphs</title>
+	 <rest>Proceedings of WG 2010, Lecture Notes in Computer Science 6410, 15-26 (2010)</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1677">
+      <bib>
+         <authors>F. Barahona</authors>
+         <title>The max-cut problem on graphs not contractible to $K_5$</title>
+	 <rest>Oper. Res. Lett. 2 No.3 107-111 (1983)</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1678">
+      <bib>
+         <authors>V. Guruswami</authors>
+         <title>Maximum cut on line and total graphs</title>
+	 <rest>Discrete Appl. Math. 92 217-221 (1999)</rest>
+         <doi>10.1016/S0166-218X(99)00056-6</doi>
+      </bib>
+   </Ref>
+
 
 
 </REFS>

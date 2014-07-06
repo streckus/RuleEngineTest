@@ -58,7 +58,7 @@ public class LandMark {
         landmarks.add(DataSet.getClass("threshold"));
         landmarks.add(DataSet.getClass("tree"));
         landmarks.add(DataSet.getClass("cograph"));
-        landmarks.add(DataSet.getClass("clique"));
+        landmarks.add(DataSet.getClass("clique graphs"));
         landmarks.add(DataSet.getClass("proper interval"));
         landmarks.add(DataSet.getClass("even-hole--free"));
         return landmarks;

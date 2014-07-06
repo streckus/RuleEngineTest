@@ -2546,13 +2546,13 @@
       </GraphClass>
 
       <GraphClass id="gc_141" type="base">
-         <name>clique</name>
+         <name>clique graphs</name>
 	 <note name="definition">
 	 The clique graph of a graph G is the intersection graph of the maximal complete subgraphs (cliques) in G.<br/>
-	 A graph is a <graphclass>gc_141</graphclass> graph if it is the clique graph of some graph.<br/>
+	 A graph is in <graphclass>gc_141</graphclass> if it is the clique graph of some graph.<br/>
 	 </note>
 	 <note name="definition">
-	 A graph G is a <graphclass>gc_141</graphclass> graph if there is a family of complete subgraphs of G that covers all edges of G and has the Helly property (see <graphclass>gc_105</graphclass>).
+	 A graph G is in <graphclass>gc_141</graphclass> if there is a family of complete subgraphs of G that covers all edges of G and has the Helly property (see <graphclass>gc_105</graphclass>).
 	 </note>
 	 <ref>ref_910</ref>
 	 <ref>ref_1387</ref>
@@ -3919,6 +3919,9 @@
 	 <algo name="Hamiltonian cycle" complexity="NPC">
 	    <ref>ref_1521</ref>
 	 </algo>
+         <algo name="Maximum cut" complexity="P">
+            <ref>ref_1678</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_250" type="forbidden">
@@ -5578,6 +5581,9 @@
          <smallgraph>P_3</smallgraph>
          <algo name="Weighted independent set" complexity="Lin">
             <note>trivial</note><!--<ref>ref_1110</ref>-->
+         </algo>
+         <algo name="Weighted maximum cut" complexity="NPC">
+            <ref>ref_1676</ref>
          </algo>
       </GraphClass>
 
@@ -14771,6 +14777,9 @@
 	 <algo name="Recognition" complexity="Lin">
 	    <ref>ref_1620</ref>
 	 </algo>
+         <algo name="Maximum cut" complexity="NPC">
+            <ref>ref_1676</ref><ref>ref_1677</ref>
+         </algo>
       </GraphClass>
 
       <GraphClass id="gc_1182" type="base">
@@ -15409,6 +15418,23 @@
          </algo>
          <algo name="Hamiltonian path" complexity="NPC">
             <ref>ref_1675</ref>
+         </algo>
+         <algo name="Domination" complexity="NPC">
+            <ref>ref_1096</ref>
+         </algo>
+         <algo name="Independent dominating set" complexity="NPC">
+            <ref>ref_1096</ref>
+         </algo>
+      </GraphClass>
+
+      <GraphClass id="gc_1227" type="forbidden">
+         <smallgraph>2K_1</smallgraph>
+         <clique-fixed/>
+         <note name="definition">
+         A graph is <graphclass>gc_1227</graphclass> iff it is a <smallgraph>complete graph</smallgraph>.
+         </note>
+         <algo name="Weighted maximum cut" complexity="NPC">
+            <ref>ref_1676</ref>
          </algo>
       </GraphClass>
 
