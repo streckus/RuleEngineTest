@@ -50,7 +50,7 @@ public abstract class GraphClass {
     /** Is this class marked in the input as clique-fixed (K(C)=C)? */
     protected boolean cliqueFixed;
     /** ID ("gc_*") of this class */
-    protected String id;
+    protected Integer id;
     /** The references for this class */
     protected Collection refs;
     
@@ -143,11 +143,11 @@ public abstract class GraphClass {
     /**
      * Get/Set ID
      */
-    public String getID() {
+    public Integer getID() { //intID
         return id;
     }
 
-    public void setID(String id) {
+    public void setID(Integer id) { //intID
         this.id = id;
     }
 

@@ -16,8 +16,9 @@
   - name="see-also", a single conjecture in "conjecture" and a single open
   - problem in "open-problem". Do not use problem in masterdata.xml.
  -->
+<!-- Replaced ID to CDATA after id two lines down. -->
 <!ELEMENT GraphClass (name?,(graphclass*|smallgraph*),hereditary?,self-complementary?,clique-fixed?,(ref|note)*,(problem|algo)*)>
-<!ATTLIST GraphClass id ID #REQUIRED
+<!ATTLIST GraphClass id CDATA #REQUIRED 
     type (base|intersect|union|forbidden|induced-hereditary|connected-hereditary|isometric-hereditary|complement|probe|clique) #REQUIRED
     dir (directed) #IMPLIED>
 <!ELEMENT name (#PCDATA)>
@@ -78,17 +79,17 @@
  -->
 <!ELEMENT Inclusions ((incl|equ|disjoint|incmp)*)>
 <!ELEMENT incl (ref*)>
-<!ATTLIST incl super IDREF #REQUIRED sub IDREF #REQUIRED
+<!ATTLIST incl super CDATA #REQUIRED sub CDATA #REQUIRED
    proper CDATA #IMPLIED
    confidence (unpublished) #IMPLIED>
 <!ELEMENT equ (ref*)>
-<!ATTLIST equ gc1 IDREF #REQUIRED gc2 IDREF #REQUIRED
+<!ATTLIST equ gc1 CDATA #REQUIRED gc2 CDATA #REQUIRED
    confidence (unpublished) #IMPLIED>
 <!ELEMENT disjoint (ref*)>
-<!ATTLIST disjoint gc1 IDREF #REQUIRED gc2 IDREF #REQUIRED
+<!ATTLIST disjoint gc1 CDATA #REQUIRED gc2 CDATA #REQUIRED
    confidence (unpublished) #IMPLIED>
 <!ELEMENT incmp (ref*)>
-<!ATTLIST incmp gc1 IDREF #REQUIRED gc2 IDREF #REQUIRED
+<!ATTLIST incmp gc1 CDATA #REQUIRED gc2 CDATA #REQUIRED
    confidence (unpublished) #IMPLIED>
 
 <!-- *******************************************************************
@@ -118,10 +119,10 @@
   - Refering to stuff
  -->
 
-<!-- A reference IDREF or one of def,trivial,forbidden,complement,
+<!-- A reference CDATA or one of def,trivial,forbidden,complement,
   - hereditary, basederived -->
 <!ELEMENT ref (#PCDATA)>
-<!-- A graphclass IDREF -->
+<!-- A graphclass CDATA -->
 <!ELEMENT graphclass (#PCDATA)>
 <!-- Name of a small graph -->
 <!ELEMENT smallgraph (#PCDATA)>

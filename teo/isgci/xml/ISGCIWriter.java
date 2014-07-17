@@ -135,7 +135,7 @@ public class ISGCIWriter {
 
         for (GraphClass gc : nodes) {
             // Header
-            atts.addAttribute(Tags.ID, gc.getID());
+            atts.addAttribute(Tags.ID, gc.getID().toString()); //intID -> toString
             atts.addAttribute(Tags.TYPE, Tags.graphClassType(gc));
             if (gc.isDirected())
                 atts.addAttribute(Tags.DIRTYPE, Tags.DIRECTED);
@@ -163,7 +163,7 @@ public class ISGCIWriter {
                         writeClassesSet( ((DerivedClass) gc).getBase() );
                     else
                         throw new RuntimeException(
-                                "Unknown class for node "+gc.getID());
+                                "Unknown class for node "+gc.getID().toString());//intID
                     writer.characters("\n");
                 }
                 // Hereditariness, Complements, references and notes
@@ -201,8 +201,8 @@ public class ISGCIWriter {
             String tag = r instanceof Disjointness ? Tags.DISJOINT :
                     Tags.INCOMPARABLE;
 
-            atts.addAttribute(Tags.GC1, r.get1().getID());
-            atts.addAttribute(Tags.GC2, r.get2().getID());
+            atts.addAttribute(Tags.GC1, r.get1().getID().toString()); //intID -> toString();
+            atts.addAttribute(Tags.GC2, r.get2().getID().toString());
             confidence = r.getConfidence();
             if (confidence < Inclusion.CONFIDENCE_HIGHEST) {
                 atts.addAttribute(Tags.CONFIDENCE,
@@ -225,8 +225,8 @@ public class ISGCIWriter {
         SimpleAttributes atts = new SimpleAttributes();
 
         for (Inclusion e : g.edgeSet()) {
-            atts.addAttribute(Tags.SUPER, g.getEdgeSource(e).getID());
-            atts.addAttribute(Tags.SUB, g.getEdgeTarget(e).getID());
+            atts.addAttribute(Tags.SUPER, g.getEdgeSource(e).getID().toString());//intID
+            atts.addAttribute(Tags.SUB, g.getEdgeTarget(e).getID().toString());
             if (e.isProper()) {
                 atts.addAttribute(Tags.PROPER, "y");
             }
@@ -259,8 +259,15 @@ public class ISGCIWriter {
      * @param set the graphclasses to write
      */
     private void writeClassesSet(Iterable<GraphClass> set) throws SAXException{
-        for (GraphClass gc : set)
-            writer.dataElement(Tags.GCREF, gc.getID());
+        for (GraphClass gc : set){
+        	if(gc.getID()==null){
+        		System.out.println("missing ID at: " +gc);//intID
+        		gc.setID(Integer.MAX_VALUE);//intID
+        		//IDGenerator temp = new IDGenerator(1, cachefile) //is AUTO !
+        		//wie soll ich fehlende ID fixen? ... IDGenerator übergeben?
+        	}
+            writer.dataElement(Tags.GCREF, gc.getID().toString());//intID
+        }
     }
 
     /**
@@ -268,7 +275,7 @@ public class ISGCIWriter {
      * @param gc the graphclass to write
      */
     private void writeClassesSet(GraphClass gc) throws SAXException {
-        writer.dataElement(Tags.GCREF, gc.getID());
+        writer.dataElement(Tags.GCREF, gc.getID().toString());//intID
     }
 
 
@@ -382,7 +389,7 @@ public class ISGCIWriter {
                 atts.addAttribute(Tags.BOUNDS, a.getTimeBounds());
             writer.startElement("", Tags.ALGO, "", atts);
                 if (a.getGraphClass() != null)
-                    writer.dataElement(Tags.GCREF, a.getGraphClass().getID());
+                    writer.dataElement(Tags.GCREF, a.getGraphClass().getID().toString());//intID
                 writeRefs(a.getRefs());
             writer.endElement(Tags.ALGO);
             writer.characters("\n");

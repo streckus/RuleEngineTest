@@ -19,9 +19,9 @@ import java.util.BitSet;
 
 public class IDGenerator {
     /** The id strings start with this */
-    private String prefix;
+    private Integer prefix;  //intID String -> Integer
     /** Maps graph class names to ids (from the cache file) */
-    private HashMap<String,String> cache;
+    private HashMap<String,Integer> cache; //intID String -> Integer
     /** Every true bit is a number that is handed out either in the cache file
      * or while running.
      */
@@ -31,9 +31,9 @@ public class IDGenerator {
      * Create a new IDGenerator using the given prefix, reading the ids from
      * the given cachefile.
      */
-    public IDGenerator(String prefix, String cachefile) {
+    public IDGenerator(Integer prefix, String cachefile) {
         this.prefix = prefix;
-        cache = new HashMap<String,String>();
+        cache = new HashMap<String,Integer>();
         used = new BitSet();
 
         if (cachefile == null)
@@ -54,14 +54,17 @@ public class IDGenerator {
      * Return the node id to use for classname. If classname exists in the
      * cache file, the same id is used, otherwise a new, unused id is returned.
      */
-    public String getID(String classname) {
-        String res = cache.get(classname);
+    public Integer getID(String classname) { //intID String -> Integer
+        Integer res = cache.get(classname);
         if (res != null)
             return res;
 
         int id = used.nextClearBit(1);          // AUTO_0 not used
+        while((id&prefix)!= prefix){			//maybe better go for the biggest and then increment?
+        	id = used.nextClearBit(id+1);		//1 = AUTO, 0 = USER
+        }
         used.set(id);
-        return prefix + String.valueOf(id);
+        return id;
     }
 
 
@@ -69,7 +72,7 @@ public class IDGenerator {
      * Fill the cache from the given file. File format is "id\tclassname" per
      * line.
      */
-    public void readCache(String filename) throws
+    public void readCache(String filename) throws //intID everything
             FileNotFoundException, IOException{
         String line;
         int sep;
@@ -77,12 +80,13 @@ public class IDGenerator {
 
         while ((line = in.readLine()) != null) {
             String[] parts = line.split("\t", 2);
-            if (cache.put(parts[1], parts[0]) != null)
+            Integer tempID = Integer.parseInt(parts[0]);
+            if (cache.put(parts[1], tempID) != null)
                 throw new Error("Duplicate key "+ parts[1] +
                         "in name cache file.");
-            if (!parts[0].startsWith(prefix))
-                throw new Error("Cached name doesn't start with "+ prefix);
-            used.set(Integer.parseInt(parts[0].substring(prefix.length())));
+            if (!((tempID & prefix)==prefix))
+                throw new Error("Cached name doesn't end with "+ prefix);
+            used.set(tempID);
         }
         in.close();
     }

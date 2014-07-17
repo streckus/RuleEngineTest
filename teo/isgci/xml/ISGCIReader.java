@@ -37,7 +37,7 @@ public class ISGCIReader extends DefaultHandler{
     DirectedGraph<GraphClass,Inclusion> graph;
 
     /* Graphclasses */
-    private HashMap<String,GraphClass> classes;         // key = id, obj = gc
+    private HashMap<Integer,GraphClass> classes;         // key = id, obj = gc   //intID
     private List<GraphClassWrapper> todo;// Save Wrappers that are not yet done
     private GraphClassWrapper curClass;
 
@@ -77,7 +77,7 @@ public class ISGCIReader extends DefaultHandler{
         this.graph = g;
         this.problems = problems;
         problemNames = new Hashtable();
-        classes = new HashMap<String,GraphClass>();
+        classes = new HashMap<Integer,GraphClass>(); //intID
         todo = new ArrayList<GraphClassWrapper>();
         algos = new ArrayList<AlgoWrapper>();
         reductionsTodo = new ArrayList<ReductionWrapper>();
@@ -159,7 +159,7 @@ public class ISGCIReader extends DefaultHandler{
         
         //---- GraphClass ----
         if (Tags.GRAPHCLASS.equals(qName)) {
-            curClass = new GraphClassWrapper(atts.getValue(Tags.ID),
+            curClass = new GraphClassWrapper(Integer.parseInt(atts.getValue(Tags.ID)), //intID parseInt
                     atts.getValue(Tags.TYPE), atts.getValue(Tags.DIRTYPE));
         } else if (Tags.HERED.equals(qName)) {
             curClass.hered = atts.getValue(Tags.TYPE);
@@ -171,10 +171,11 @@ public class ISGCIReader extends DefaultHandler{
 
         //---- Inclusion/relation ----
         if (Tags.INCLUSION.equals(qName)  || Tags.EQU.equals(qName)) {
-            GraphClass gcsuper = classes.get(atts.getValue(
-                    Tags.INCLUSION.equals(qName) ? Tags.SUPER : Tags.GC1));
-            GraphClass gcsub = classes.get(atts.getValue(
-                    Tags.INCLUSION.equals(qName) ? Tags.SUB : Tags.GC2));
+   
+        	GraphClass gcsuper = classes.get(Integer.parseInt(
+                    Tags.INCLUSION.equals(qName) ? atts.getValue(Tags.SUPER) : atts.getValue(Tags.GC1)));//intID
+        	GraphClass gcsub = classes.get(Integer.parseInt(
+                    Tags.INCLUSION.equals(qName) ? atts.getValue(Tags.SUB) : atts.getValue(Tags.GC2)));
 
             if (gcsuper == gcsub)
                 throw new SAXException("super = sub = "+ gcsuper.getID());
@@ -199,8 +200,8 @@ public class ISGCIReader extends DefaultHandler{
             if (atts.getValue(Tags.GC1) == atts.getValue(Tags.GC2))
                 throw new SAXException("gc1 = gc2 = "+
                         atts.getValue(Tags.GC1));
-            GraphClass gc1 = classes.get(atts.getValue(Tags.GC1));
-            GraphClass gc2 = classes.get(atts.getValue(Tags.GC2));
+            GraphClass gc1 = classes.get(Integer.parseInt(atts.getValue(Tags.GC1))); //intID
+            GraphClass gc2 = classes.get(Integer.parseInt(atts.getValue(Tags.GC2))); //intID
             if (gc1.getDirected() != gc2.getDirected())
                 throw new SAXException("Relation with unmatched directedness "+
                         gc1.getID() +" -> "+ gc2.getID());
@@ -382,7 +383,8 @@ public class ISGCIReader extends DefaultHandler{
     
     //-------------------------- GraphClassWrapper -------------------------
     private class GraphClassWrapper {
-        String type, name, id, dirtype;
+        String type, name, dirtype;
+        Integer id;				//intID
         String base;            // base class id for complement/hereditary
         HashSet<String> set;    // set for union/intersect/forbidden
         String hered;
@@ -391,7 +393,7 @@ public class ISGCIReader extends DefaultHandler{
         List<ProblemWrapper> complexities;
         List refs, prevrefs;
         
-        public GraphClassWrapper(String id, String type, String dirtype) {
+        public GraphClassWrapper(Integer id, String type, String dirtype) { //intID
             name = null;
             base = null;
             set = null;
@@ -423,13 +425,13 @@ public class ISGCIReader extends DefaultHandler{
             if (Tags.BASE.equals(type)) {
                 gc = new BaseClass(name, Tags.graphString2directed(dirtype));
             } else if (Tags.FORBID.equals(type)) {
-                gc = new ForbiddenClass(set); // still uses strings
+                gc = new ForbiddenClass(set); // still uses strings 
                 gc.setName(name);
             } else if (Tags.COMPL.equals(type)) {
                 if (base == null)
                     throw new SAXException(
                         "base class required for complement class "+id);
-                base2 = classes.get(base);
+                base2 = classes.get(Integer.parseInt(base)); //intID
                 if (base2 == null) {
                     return false;
                 }
@@ -439,7 +441,7 @@ public class ISGCIReader extends DefaultHandler{
                 if (base == null)
                     throw new SAXException(
                         "base class required for hereditary class "+id);
-                base2 = classes.get(base);
+                base2 = classes.get(Integer.parseInt(base)); //intID
                 if (base2 == null) {
                     return false;
                 }
@@ -449,7 +451,7 @@ public class ISGCIReader extends DefaultHandler{
                 if (base == null)
                     throw new SAXException(
                         "base class required for hereditary class "+id);
-                base2 = classes.get(base);
+                base2 = classes.get(Integer.parseInt(base)); //intID
                 if (base2 == null) {
                     return false;
                 }
@@ -459,7 +461,7 @@ public class ISGCIReader extends DefaultHandler{
                 if (base == null)
                     throw new SAXException(
                         "base class required for hereditary class "+id);
-                base2 = classes.get(base);
+                base2 = classes.get(Integer.parseInt(base)); //intID
                 if (base2 == null) {
                     return false;
                 }
@@ -468,9 +470,9 @@ public class ISGCIReader extends DefaultHandler{
             } else if (Tags.INTER.equals(type)) {
                 set2 = new HashSet<GraphClass>();
                 for (String s : set) {
-                    base2 = classes.get(s);
+                    base2 = classes.get(Integer.parseInt(s));  //Hier war der fehler intID
                     if (base2 == null) {
-                        return false;
+                        return false;    
                     }
                     set2.add(base2);
                 }
@@ -480,7 +482,7 @@ public class ISGCIReader extends DefaultHandler{
             } else if (Tags.UNION.equals(type)) {
                 set2 = new HashSet<GraphClass>();
                 for (String s : set) {
-                    base2 = classes.get(s);
+                    base2 = classes.get(Integer.parseInt(s)); //intID
                     if (base2 == null) {
                         return false;
                     }
@@ -492,7 +494,7 @@ public class ISGCIReader extends DefaultHandler{
                 if (base == null)
                     throw new SAXException(
                         "base class required for probe class "+id);
-                base2 = classes.get(base);
+                base2 = classes.get(Integer.parseInt(base)); //intID
                 if (base2 == null) {
                     return false;
                 }
@@ -502,7 +504,7 @@ public class ISGCIReader extends DefaultHandler{
                 if (base == null)
                     throw new SAXException(
                         "base class required for clique class "+id);
-                base2 = classes.get(base);
+                base2 = classes.get(Integer.parseInt(base)); //intID
                 if (base2 == null) {
                     return false;
                 }
@@ -546,13 +548,13 @@ public class ISGCIReader extends DefaultHandler{
 
     //-------------------------- AlgoWrapper -------------------------
     private class AlgoWrapper {
-        String id;                      // graphclass id
+        Integer id;                      // graphclass id
         String bounds;
         Problem problem;
         Complexity complexity;
         List refs, prevrefs;
 
-        public AlgoWrapper(String id, String name, String complexity,
+        public AlgoWrapper(Integer id, String name, String complexity,
                 String bounds) throws SAXException {
             this.id = id;
             this.bounds = bounds;

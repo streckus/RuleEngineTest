@@ -37,10 +37,10 @@ public class CliqueClass extends DerivedClass {
     public boolean subClassOf(GraphClass gc) {
         if (super.subClassOf(gc))
             return true;
-        if ("gc_141".equals(gc.getID())) {
+        if (1128 ==gc.getID()) { //intID
             if (!"clique graphs".equals(gc.toString())) // Safety check
                 throw new RuntimeException(
-                        "gc_141 expected to be clique graphs");
+                        "1128 expected to be clique graphs");
             return true;
         }
         return false;

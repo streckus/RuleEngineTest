@@ -174,10 +174,10 @@ public class ISGCIMainFrame extends JFrame
                         false);
             w.startDocument();
             for (GraphClass gc : g.vertexSet()) {
-                w.writeNode(gc.getID(), gc.toString(), Color.WHITE);
+                w.writeNode(gc.getID().toString(), gc.toString(), Color.WHITE);//intID
             }
             for (Inclusion e : g.edgeSet()) {
-                w.writeEdge(e.getSuper().getID(), e.getSub().getID(),
+                w.writeEdge(e.getSuper().getID().toString(), e.getSub().getID().toString(),//intID
                         e.isProper());
             }
             w.endDocument();

@@ -70,7 +70,7 @@ public class Deducer implements DeducerData {
      * Must be called before start of deductions.
      */
     public void setGeneratorCache(String filename) {
-        idgenerator = new IDGenerator("AUTO_", filename);
+        idgenerator = new IDGenerator(1, filename);
     }
 
 
@@ -560,10 +560,10 @@ public class Deducer implements DeducerData {
     public void sortByID(List<GraphClass> list) {
         Collections.sort(list, new Comparator<GraphClass>() {
                 public int compare(GraphClass o1, GraphClass o2) {
-                    String s1 = ( o1).getID();
-                    String s2 = ( o2).getID();
-                    boolean orig1 = s1.startsWith("gc");
-                    boolean orig2 = s2.startsWith("gc");
+                    Integer s1 = ( o1).getID();
+                    Integer s2 = ( o2).getID();
+                    boolean orig1 = (s1&0)==0;
+                    boolean orig2 = (s1&0)==0;
                     if (orig1  &&  !orig2)
                         return -1;
                     if (orig2  &&  !orig1)
@@ -863,7 +863,7 @@ public class Deducer implements DeducerData {
         for (ForbiddenClass ni : v) {
             if (temporaries.contains(ni))
                 temp.add(ni);
-            else if (ni.getID().startsWith("AUTO"))
+            else if ((ni.getID()&1)==1) //intID AUTO
                 auto.add(ni);
             else
                 orig.add(ni);
