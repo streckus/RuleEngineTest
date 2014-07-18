@@ -33,6 +33,12 @@ public class ISGCIReader extends DefaultHandler{
     private StringBuffer chunks;
     private Locator locator;
     
+    // Only for testing purposes
+    // Generates random confirmation states for classes as long as not connected 
+    // to the database
+    private final Random rand = new Random();
+    private boolean conf;
+    
     /* ISGCI */
     DirectedGraph<GraphClass,Inclusion> graph;
 
@@ -532,6 +538,9 @@ public class ISGCIReader extends DefaultHandler{
             gc.setCliqueFixed(cliqueFixed);
             gc.setID(id);
             gc.setRefs(refs);
+            conf = rand.nextBoolean();
+            gc.setConfirmed(conf);
+            System.out.println("Adding new graphclass with status " + conf);
             graph.addVertex(gc);
             for (ProblemWrapper w : complexities) {
                 w.problem.setComplexity(gc, w.complexity);
