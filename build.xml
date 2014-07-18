@@ -306,6 +306,7 @@
 
 
 <target name="deductions"
+   depends="compile"
    description="Deduce graphclass relations">
 
    <java classname="teo.isgci.appl.deducer.Generate" fork="true"
