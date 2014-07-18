@@ -8,12 +8,12 @@
 
 package teo.isgci.appl.deducer;
 
-import java.io.*;
-import java.util.*;
-import teo.isgci.gc.*;
-import teo.isgci.ref.*;
-import teo.isgci.relation.*;
-import teo.isgci.grapht.*;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import teo.isgci.gc.GraphClass;
+import teo.isgci.grapht.Annotation;
+import teo.isgci.relation.Inclusion;
 
 
 /**
