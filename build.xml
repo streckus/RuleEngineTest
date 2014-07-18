@@ -177,6 +177,7 @@
    <javac srcdir="."
          destdir="${build.classes.dir}"
          includeantruntime="false"
+         encoding="utf-8"
          debug="yes">
       <classpath refid="compile.classpath"/>
       <!-- <compilerarg value="-Xlint:unchecked"/> -->
