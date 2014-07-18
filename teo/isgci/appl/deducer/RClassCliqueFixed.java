@@ -8,9 +8,11 @@
 
 package teo.isgci.appl.deducer;
 
-import java.util.*;
-import teo.isgci.gc.*;
-import teo.isgci.grapht.*;
+import java.util.Collection;
+
+import teo.isgci.gc.CliqueClass;
+import teo.isgci.gc.GraphClass;
+import teo.isgci.relation.Inclusion;
 
 class RClassCliqueFixed implements RClass {
 
@@ -19,12 +21,15 @@ class RClassCliqueFixed implements RClass {
      */
     public void run(DeducerData d, Collection<GraphClass> classes) {
         GraphClass con;
+        Inclusion i;
 
         for (GraphClass gc : classes) {
             if (gc.isCliqueFixed()) {
                 con = d.ensureTempNode(new CliqueClass(gc));
-                d.addTrivialEdge(gc,con, d.newTraceData("clique-fixed"));
-                d.addTrivialEdge(con,gc, d.newTraceData("clique-fixed"));
+                i = d.addTrivialEdge(gc,con, d.newTraceData("clique-fixed"));
+                i.setConfirmed(gc.getConfirmed());
+                i = d.addTrivialEdge(con,gc, d.newTraceData("clique-fixed"));
+                i.setConfirmed(gc.getConfirmed());
             }
         }
     }

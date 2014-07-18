@@ -18,6 +18,7 @@ import teo.isgci.gc.GraphClass;
  */
 public abstract class AbstractRelation extends RelationData {
     protected GraphClass gc1, gc2;
+    protected boolean confirmed;
 
     public AbstractRelation(GraphClass gc1, GraphClass gc2) {
         if (gc1.getDirected() != gc2.getDirected())
@@ -30,6 +31,7 @@ public abstract class AbstractRelation extends RelationData {
             this.gc1 = gc2;
             this.gc2 = gc1;
         }
+        confirmed = gc1.getConfirmed() & gc2.getConfirmed();
     }
 
     public GraphClass get1() {

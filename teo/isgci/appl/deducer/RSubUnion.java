@@ -44,8 +44,9 @@ public class RSubUnion extends RSub<GraphClass,UnionClass> {
                 return;
             traces.add(d.getEdge(gc1,gc));
         }
-        d.addTrivialEdge(gc1, gc2,
+        Inclusion i = d.addTrivialEdge(gc1, gc2, 
                 d.newTraceData("union", traces.toArray(new Inclusion[0])));
+        i.setConfirmed(gc1.getConfirmed() & gc2.getConfirmed());
     }
 }
 

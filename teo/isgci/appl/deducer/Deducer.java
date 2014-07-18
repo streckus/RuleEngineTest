@@ -10,15 +10,33 @@
 package teo.isgci.appl.deducer;
 
 import java.io.PrintWriter;
-import java.util.*;
-import org.jgrapht.*;
-import org.jgrapht.graph.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.jgrapht.DirectedGraph;
+import org.jgrapht.WeightedGraph;
 import org.jgrapht.alg.FloydWarshallShortestPaths;
-import teo.isgci.gc.*;
-import teo.isgci.ref.*;
-import teo.isgci.relation.*;
-import teo.isgci.util.*;
-import teo.isgci.grapht.*;
+
+import teo.isgci.gc.ForbiddenClass;
+import teo.isgci.gc.GraphClass;
+import teo.isgci.gc.IntersectClass;
+import teo.isgci.gc.SetClass;
+import teo.isgci.grapht.Annotation;
+import teo.isgci.grapht.AsWeightedDirectedGraph;
+import teo.isgci.grapht.BFSWalker;
+import teo.isgci.grapht.CacheGraph;
+import teo.isgci.grapht.GAlg;
+import teo.isgci.grapht.GraphWalker;
+import teo.isgci.ref.Ref;
+import teo.isgci.relation.Inclusion;
 
 public class Deducer implements DeducerData {
     
@@ -907,6 +925,9 @@ public class Deducer implements DeducerData {
      */
     private Inclusion addEdge(GraphClass src, GraphClass dest) {
         Inclusion e = graph.addEdge(src, dest);
+        boolean conf = src.getConfirmed() & dest.getConfirmed();
+        System.out.println("Added new edge with status " + conf);
+        e.setConfirmed(conf);
         e.setConfidence(confidence);
         return e;
     }

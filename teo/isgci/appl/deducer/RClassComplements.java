@@ -62,6 +62,9 @@ class RClassComplements implements RClass {
                     else
                         gc3 = d.ensureTrivialNode(
                                 ((ForbiddenClass)gc2).complement());
+                    // Question: Do a class and it's base class always have 
+                    // the same confirmation state?
+                    gc3.setConfirmed(gc1.getConfirmed() & gc2.getConfirmed());	
                     d.addTrivialEdge(gc1, gc3, tr);
                     d.addTrivialEdge(gc3, gc1, tr);
                 }

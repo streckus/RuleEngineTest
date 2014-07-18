@@ -138,17 +138,23 @@ allvertices:
         if (cntF<2)                      // nothing to melt with up to 1 class
             return;
         // found >=2 forbidden classes that are melted, so create new node
-        if (temp)
+        if (temp) {
             v = d.ensureTempNode(new ForbiddenClass(fb));
-        else
+        }
+        else {
             v = d.ensureTrivialNode(new ForbiddenClass(fb));
+        }
+        v.setConfirmed(ic.getConfirmed());
         
         if (!gcs.isEmpty()) {            // if other classes were found
             gcs.add(v);
-            if (temp)
+            if (temp) {
                 v = d.ensureTempNode(new IntersectClass(gcs));
-            else
+            }
+            else {
                 v = d.ensureTrivialNode(new IntersectClass(gcs));
+            }
+            v.setConfirmed(ic.getConfirmed());
         }
         d.addTrivialEdge(ic, v, d.newTraceData("extendForbidden"));
         d.addTrivialEdge(v, ic, d.newTraceData("extendForbidden"));

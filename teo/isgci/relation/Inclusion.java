@@ -23,10 +23,12 @@ public class Inclusion extends org.jgrapht.graph.DefaultEdge
 
     private boolean isProper;       // True if this incl is proper
     private RelationData rel;
+    private boolean confirmed;
 
     public Inclusion() {
         isProper = false;
         rel = new RelationData();
+        confirmed = false;
     }
 
     /*public boolean equals(Object other) {
@@ -71,6 +73,14 @@ public class Inclusion extends org.jgrapht.graph.DefaultEdge
 
     public void setConfidence(int c) {
         rel.setConfidence(c);
+    }
+    
+    public void setConfirmed(boolean b) {
+    	confirmed = b;
+    }
+    
+    public boolean getConfirmed() {
+    	return confirmed;
     }
 
     public void setRefs(List v) {

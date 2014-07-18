@@ -54,6 +54,9 @@ public abstract class GraphClass {
     /** The references for this class */
     protected Collection refs;
     
+    /** Has the class been confirmed as correct by a moderator? */
+    protected boolean confirmed;
+    
     /** Name of this GraphClass. */
     protected String name;
     /** Is the name set explicitly? */
@@ -187,7 +190,32 @@ public abstract class GraphClass {
         name = s;
         nameExplicit = true;
     }
+    
+    /**
+     * Returns the confirmation state of this graph class
+     * @return
+     */
+    public boolean getConfirmed() {
+    	return confirmed;
+    }
+    
+    /*
+     * Sets the confirmed value of this class
+     * Only needed for auto classes, state of user classes shouldn't be changed
+     * here but on the database (i.e. via the web interface)!
+     * @param b
+     */
 
+    /**
+     * Sets the confirmed value of this class
+     * Only needed for auto classes, state of user classes shouldn't be changed
+     * here but on the database (i.e. via the web interface)!
+     * 
+     * @param b
+     */
+    public void setConfirmed(boolean b) {
+    	confirmed = b;
+    }
 
     /**
      * Is the name set explicitly or constructed automatically from its
