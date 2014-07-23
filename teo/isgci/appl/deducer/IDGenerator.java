@@ -59,9 +59,15 @@ public class IDGenerator {
         if (res != null)
             return res;
 
-        int id = used.nextClearBit(1);          // AUTO_0 not used
-        while((id&prefix)!= prefix){			//maybe better go for the biggest and then increment?
-        	id = used.nextClearBit(id+1);		//1 = AUTO, 0 = USER
+        int id = used.length()-1;          // AUTO_0 not used
+
+        if(id <= 0){
+        	System.out.println(classname);
+        	id=(1 << 3)|prefix;
+        }else if((~(id^prefix)&7) == 7){
+        	id += 8;
+        } else {
+        	System.out.println("Something went wrong with IDs in System."+classname);//intID Exception?
         }
         used.set(id);
         return id;

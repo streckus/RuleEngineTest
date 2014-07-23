@@ -562,8 +562,8 @@ public class Deducer implements DeducerData {
                 public int compare(GraphClass o1, GraphClass o2) {
                     Integer s1 = ( o1).getID();
                     Integer s2 = ( o2).getID();
-                    boolean orig1 = (s1&0)==0;
-                    boolean orig2 = (s1&0)==0;
+                    boolean orig1 = (~(s1^0)&7) == 7; //intID
+                    boolean orig2 = (~(s2^0)&7) == 7; //intID
                     if (orig1  &&  !orig2)
                         return -1;
                     if (orig2  &&  !orig1)
