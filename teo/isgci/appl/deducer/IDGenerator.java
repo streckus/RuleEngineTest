@@ -19,7 +19,7 @@ import java.util.BitSet;
 
 public class IDGenerator {
     /** The id strings start with this */
-    private Integer prefix;  //intID String -> Integer
+    private int prefix;  //intID String -> Integer
     /** Maps graph class names to ids (from the cache file) */
     private HashMap<String,Integer> cache; //intID String -> Integer
     /** Every true bit is a number that is handed out either in the cache file
@@ -59,11 +59,13 @@ public class IDGenerator {
         if (res != null)
             return res;
 
-        int id = used.nextClearBit(1);          // AUTO_0 not used
-        while((id&prefix)!= prefix){			//maybe better go for the biggest and then increment?
-        	id = used.nextClearBit(id+1);		//1 = AUTO, 0 = USER
+        int id = used.length();          // AUTO_0 not used
+        if(id==0){
+        id = ((id+1) << 3)|1;
+        } else {
+        	id = id + 8;
         }
-        used.set(id);
+        used.set(id-1);
         return id;
     }
 

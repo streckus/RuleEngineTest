@@ -322,6 +322,38 @@
       <arg file="${isgci.full.xml.out}"/>
       <arg file="${isgci.xml.out}"/>
       <arg file="${names.txt}"/>
+      <arg file="${build.dir}/wTemps.xml"/>
+   </java>
+   <copy todir="${build.data.dir}">
+      <fileset dir="${data.dir}" includes="isgci.dtd"/>
+   </copy>
+   <exec executable="bash">
+      <arg value="-c"/>
+      <arg value="echo Auto classes not present anymore:;
+            diff --old-line-format='%L' --new-line-format='' --unchanged-line-format='' &lt;(sort ${autocache.txt}) &lt;(sort ${names.txt});
+            true"/> <!-- true to prevent ant result message -->
+   </exec>
+</target>
+	
+<target name="deductions.temp"
+   description="Deduce graphclass relations">
+   <java classname="teo.isgci.appl.deducer.Generate" fork="true"
+     maxmemory="3500M"
+     classpathref="run.classpath">
+      <!-- <jvmarg value="-agentlib:hprof=cpu=samples,depth=8,interval=100"/> -->
+      <!-- <arg value="-C"/> -->
+      <!-- <arg value="-x"/> -->
+      <arg value="-a"/><arg file="${autocache.txt}"/>
+      <arg value="-l"/><arg file="${generate.trace}"/>
+      <arg value="-r"/><arg file="${relations.trace}"/>
+      <arg value="-s"/><arg file="${isgci.sage.xml.out}"/>
+   	  <arg value="-t"/>
+      <arg file="${isgci.full.xml.out}"/>
+      <arg file="${smallgraphs.xml.out}"/>
+      <arg file="${isgci.full.xml.out}"/>
+      <arg file="${isgci.xml.out}"/>
+      <arg file="${names.txt}"/>
+      <arg file="${build.dir}/wTemps.xml"/>
    </java>
    <copy todir="${build.data.dir}">
       <fileset dir="${data.dir}" includes="isgci.dtd"/>

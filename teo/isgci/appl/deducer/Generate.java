@@ -43,6 +43,7 @@ public class Generate {
         List<Problem> problems;
         RCheck checkReachability = new RCheckReachability();
 
+        boolean loadTemps = false;
         boolean notrivial = false;
         boolean extrachecks = false;
         String debugout = null;
@@ -53,7 +54,7 @@ public class Generate {
         Map<GraphClass,Set<GraphClass> > compls;
         List<AbstractRelation> relations = new ArrayList<AbstractRelation>();
 
-        Getopt opts = new Getopt("Generate", args, "Cxa:l:r:s:h");
+        Getopt opts = new Getopt("Generate", args, "Cxa:l:r:s:th"); //temps
         opts.setOpterr(false);
         while ((i = opts.getopt()) != -1) {
             switch (i) {
@@ -75,23 +76,32 @@ public class Generate {
                 case 's':
                     sageout = opts.getOptarg();
                     break;
+                case 't': //temps
+                	loadTemps = true;
+                	break;
                 case '?':
                 case 'h':
                     usage();
                     System.exit(1);
             }
         }
-        if (args.length - opts.getOptind() < 5) {
-            usage();
-            System.exit(1);
+        for(int k = 0; k < args.length; k++){ //temps
+        System.out.println(k + ": "+args[k].toString()+"\n");
         }
+        System.out.print(loadTemps+" GetOptsID: " + opts.getOptind());
+        //if (args.length - opts.getOptind() < 8) {
+        //    usage();
+        //    System.exit(1);
+        //}
 
         //---- Load everything
         // Performance optimization: We only add edges that do not exist yet,
         // so the underlying graph does not need to check this.
+        
+        
         graph = new DirectedMultigraph<GraphClass,Inclusion>(Inclusion.class);
         problems = new ArrayList<Problem>();
-
+        
         Problem.setDeducing();
 
         load(args[opts.getOptind()], args[opts.getOptind()+1],
@@ -99,7 +109,6 @@ public class Generate {
         deducer = new Deducer(graph,true, extrachecks);
         deducer.setGeneratorCache(autocache);
         showNodeStats(graph);
-
         ArrayList<Inclusion> originals =
                 new ArrayList<Inclusion>(graph.edgeSet());
 
@@ -112,7 +121,7 @@ public class Generate {
             new RCheckAbstractRelations().after(deducer, relations);
             showRelationStats(deducer);
         }
-
+        
         //---- Export debug info
         if (debugout != null) {
             writer = new PrintWriter(
@@ -153,8 +162,14 @@ public class Generate {
 
         //---- Export data
         deducer.addRefs();
+        long start_time = System.currentTimeMillis();//temp
         exportApp(graph, problems, relations, compls,args[opts.getOptind()+3]);
+        start_time = System.currentTimeMillis() - start_time;
+        System.out.println("exportApp: " + start_time*1000);
+        start_time = System.currentTimeMillis();//temp
         exportSage(graph, problems, relations, compls, sageout);
+        start_time = System.currentTimeMillis() - start_time;
+        System.out.println("sageOut: " + start_time*1000);
 
         deducer.deleteSuperfluousEdgesFull();
         if (extrachecks) {
