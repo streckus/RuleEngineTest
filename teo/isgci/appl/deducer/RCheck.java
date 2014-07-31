@@ -8,8 +8,7 @@
 
 package teo.isgci.appl.deducer;
 
-import java.util.*;
-import teo.isgci.gc.*;
+import java.io.PrintWriter;
 
 /**
  * A check on the deduction results. Errors found are printed to System.out.
@@ -17,9 +16,9 @@ import teo.isgci.gc.*;
  */
 public abstract class RCheck {
     /** Run at the beginning of the deductions process */
-    public void before(DeducerData d) {}
+    public void before(DeducerData d, PrintWriter w) {}
     /** Run at the end of the deductions process */
-    public void after(DeducerData d) {}
+    public void after(DeducerData d, PrintWriter w) {}
 }
 
 /* EOF */

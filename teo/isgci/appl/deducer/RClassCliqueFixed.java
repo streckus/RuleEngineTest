@@ -27,9 +27,11 @@ class RClassCliqueFixed implements RClass {
             if (gc.isCliqueFixed()) {
                 con = d.ensureTempNode(new CliqueClass(gc));
                 i = d.addTrivialEdge(gc,con, d.newTraceData("clique-fixed"));
-                i.setConfirmed(gc.getConfirmed());
+                if (i != null)
+                	i.setConfirmed(gc.getConfirmed());
                 i = d.addTrivialEdge(con,gc, d.newTraceData("clique-fixed"));
-                i.setConfirmed(gc.getConfirmed());
+                if (i != null)
+                	i.setConfirmed(gc.getConfirmed());
             }
         }
     }

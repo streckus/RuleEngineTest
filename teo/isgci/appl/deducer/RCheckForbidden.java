@@ -8,12 +8,16 @@
 
 package teo.isgci.appl.deducer;
 
-import java.util.*;
-import org.jgrapht.*;
-import org.jgrapht.graph.*;
-import teo.isgci.grapht.*;
-import teo.isgci.gc.*;
-import teo.isgci.relation.*;
+import java.io.PrintWriter;
+import java.util.HashSet;
+
+import org.jgrapht.DirectedGraph;
+import org.jgrapht.graph.SimpleDirectedGraph;
+
+import teo.isgci.gc.ForbiddenClass;
+import teo.isgci.gc.GraphClass;
+import teo.isgci.grapht.GAlg;
+import teo.isgci.relation.Inclusion;
 
 /**
  * Prints inclusions between ForbiddenClasses that were derived, but can't
@@ -23,8 +27,9 @@ public class RCheckForbidden extends RCheck {
 
 
     /** Run at the end of the deductions process */
-    public void after(DeducerData d) {
-        System.out.println("RCheckForbidden");
+    public void after(DeducerData d, PrintWriter w) {
+    	StringBuffer s = new StringBuffer();
+        s.append("RCheckForbidden\n");
 
         boolean err = false;
         GraphClass from, to;
@@ -56,12 +61,17 @@ public class RCheckForbidden extends RCheck {
             to = inducedSub.getEdgeTarget(e);
             if (!to.subClassOf(from)) {
                 err = true;
-                System.out.println(from +" ("+ from.getID()+ ") -> "+
-                    to +" ("+ to.getID() +") ");
+                s.append(from +" ("+ from.getID()+ ") -> "+
+                    to +" ("+ to.getID() +")\n");
             }
         }
-        if (err)
-            System.out.println("end RCheckForbidden");
+        if (err) {
+            s.append("end RCheckForbidden");
+            String all = s.toString();
+            
+            System.out.println(all);
+            w.println(all);
+        }
     }
 }
 

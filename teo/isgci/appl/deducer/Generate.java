@@ -59,6 +59,8 @@ public class Generate {
         DirectedGraph<GraphClass,Inclusion> graph;
         List<Problem> problems;
         RCheck checkReachability = new RCheckReachability();
+        
+        PrintWriter pw = new PrintWriter(System.err);
 
         boolean notrivial = false;
         boolean extrachecks = false;
@@ -115,6 +117,7 @@ public class Generate {
                 graph, problems, relations);
         deducer = new Deducer(graph,true, extrachecks);
         deducer.setGeneratorCache(autocache);
+        deducer.setPrintWriter(pw);
         showNodeStats(graph);
 
         ArrayList<Inclusion> originals =
@@ -126,7 +129,7 @@ public class Generate {
         else {
             deducer.findTrivialInclusions();
             deducer.findTrivialPropers();
-            new RCheckAbstractRelations().after(deducer, relations);
+            new RCheckAbstractRelations().after(deducer, relations, pw);
             showRelationStats(deducer);
         }
 
@@ -157,13 +160,13 @@ public class Generate {
         showNodeStats(graph);
         showProblemStats(graph, problems);
         
-        checkReachability.before(deducer);
+        checkReachability.before(deducer, pw);
         int nc = graph.vertexSet().size();               // For Safety check
         int ec = graph.edgeSet().size();
 
         deducer.deleteSuperfluousEdges();
         if (extrachecks) {
-            checkReachability.after(deducer);
+            checkReachability.after(deducer, pw);
         }
 
         showNodeStats(graph);
@@ -175,7 +178,7 @@ public class Generate {
 
         deducer.deleteSuperfluousEdgesFull();
         if (extrachecks) {
-            checkReachability.after(deducer);
+            checkReachability.after(deducer, pw);
         }
 
         exportWeb(graph,problems, relations, compls, args[opts.getOptind()+2]);

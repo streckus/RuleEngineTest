@@ -8,13 +8,10 @@
 
 package teo.isgci.appl.deducer;
 
-import java.util.*;
-import org.jgrapht.*;
-import org.jgrapht.graph.*;
-import teo.isgci.grapht.*;
-import teo.isgci.gc.*;
-import teo.isgci.relation.*;
-import teo.isgci.util.*;
+import java.io.PrintWriter;
+
+import teo.isgci.gc.GraphClass;
+import teo.isgci.relation.Inclusion;
 
 /**
  * Proper subclasses cannot be equivalent.
@@ -22,11 +19,13 @@ import teo.isgci.util.*;
 public class RCheckProper extends RCheck {
 
     /** Run at the end of the deductions process */
-    public void after(DeducerData d) {
+    public void after(DeducerData d, PrintWriter w) {
         GraphClass from, to;
         boolean err = false;
+        
+        StringBuffer s = new StringBuffer();
 
-        System.out.println("RCheckProper");
+        s.append("RCheckProper\n");
         for (Inclusion e : d.getGraph().edgeSet()) {
             if (!e.isProper())
                 continue;
@@ -34,12 +33,17 @@ public class RCheckProper extends RCheck {
             to = d.getGraph().getEdgeTarget(e);
             if (d.containsEdge(to, from)) {
                 err = true;
-                System.out.println(e);
+                s.append(e.toString() + "\n");
             }
         }
 
-        if (err)
-            System.out.println("end RCheckProper");
+        if (err) {
+            s.append("end RCheckProper");
+            
+            String all = s.toString();
+            w.println(all);
+            System.out.println(all);
+        }
     }
 }
 

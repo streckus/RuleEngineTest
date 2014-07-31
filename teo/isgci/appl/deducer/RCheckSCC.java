@@ -8,10 +8,14 @@
 
 package teo.isgci.appl.deducer;
 
-import java.util.*;
-import org.jgrapht.*;
-import teo.isgci.grapht.*;
-import teo.isgci.gc.*;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import teo.isgci.gc.GraphClass;
+import teo.isgci.grapht.GAlg;
 
 /**
  * Print SCC that have merged as a result of deducing inclusions.
@@ -26,9 +30,9 @@ public class RCheckSCC extends RCheck {
 
 
     /** Run at the end of the deductions process */
-    public void after(DeducerData d) {
+    public void after(DeducerData d, PrintWriter w) {
         sccAfter = GAlg.calcSCCMap(d.getGraph());
-        sanityCheckSCC(d, sccBefore, sccAfter);
+        sanityCheckSCC(d, sccBefore, sccAfter, w);
     }
 
 
@@ -37,8 +41,11 @@ public class RCheckSCC extends RCheck {
      */
     private void sanityCheckSCC(DeducerData d,
             Map<GraphClass,Set<GraphClass> > before,
-            Map<GraphClass,Set<GraphClass> > after) {
-        System.out.println("RCheckSCC");
+            Map<GraphClass,Set<GraphClass> > after,
+            PrintWriter w) {
+    	StringBuffer s = new StringBuffer();
+
+        s.append("RCheckSCC\n");
         Set<GraphClass> vecBefore1, vecAfter1, vecBefore2, vecAfter2;
         // Maps after-SCC to beforeSCCs
         HashMap<Set<GraphClass>, Set<Set<GraphClass> > > scc =
@@ -83,19 +90,24 @@ public class RCheckSCC extends RCheck {
         for (Map.Entry<Set<GraphClass>, Set<Set<GraphClass> > > entry :
                 scc.entrySet()) {
             vecAfter1 = entry.getKey();
-            System.out.println("sccBefore: ");
+            s.append("sccBefore: ");
             for (Set<GraphClass> bfor : entry.getValue()) {
-                System.out.print("[");
+                s.append("[");
                 for (GraphClass gc : bfor)
-                    System.out.print( gc.getID() +" ("+ gc.toString() +"), ");
-                System.out.println("]");
+                    s.append( gc.getID() +" ("+ gc.toString() +"), ");
+                s.append("]\n");
             }
-            System.out.print("sccAfter:\n[");
+            s.append("sccAfter:\n[");
             for (GraphClass gc : vecAfter1)
-                System.out.print( gc.getID() +" ("+ gc.toString() +"), ");
-            System.out.println("]");
+                s.append( gc.getID() +" ("+ gc.toString() +"), ");
+            s.append("]\n");
         }
-        System.out.println("end RCheckSCC");
+        s.append("end RCheckSCC");
+        
+        String all = s.toString();
+        
+        System.out.println(all);
+        w.println(all);
     }
 }
 

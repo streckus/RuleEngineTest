@@ -8,11 +8,12 @@
 
 package teo.isgci.appl.deducer;
 
-import java.util.*;
-import org.jgrapht.*;
-import teo.isgci.grapht.*;
-import teo.isgci.gc.*;
-import teo.isgci.relation.*;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import teo.isgci.grapht.GAlg;
+import teo.isgci.relation.Inclusion;
 
 /**
  * Check whether for every pair (from, to) in the list there is a path in
@@ -27,19 +28,26 @@ public class RCheckReachability extends RCheck {
     }
 
     /** Run at the end of the deductions process */
-    public void after(DeducerData d) {
-        System.out.println("RCheckReachability");
+    public void after(DeducerData d, PrintWriter w) {
+    	StringBuffer s = new StringBuffer();
+
+        s.append("RCheckReachability\n");
         boolean err = false;
 
         for (Inclusion e :  edges) {
             if (GAlg.getPath(d.getGraph(), e.getSuper(), e.getSub()) == null) {
                 err = true;
-                System.out.println(e);
+                s.append(e + "\n");
             }
         }
 
-        if (err)
-            System.out.println("end RCheckReachability");
+        if (err) {
+            s.append("end RCheckReachability");
+            String all = s.toString();
+            
+            System.out.println(all);
+            w.println(all);
+        }
     }
 }
 

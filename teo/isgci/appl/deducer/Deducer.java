@@ -65,6 +65,8 @@ public class Deducer implements DeducerData {
     /** Iteration number */
     private int iteration;
     
+    private PrintWriter pw;
+    
     
     public Deducer(DirectedGraph<GraphClass,Inclusion> g, boolean trace,
             boolean checking) {
@@ -80,6 +82,7 @@ public class Deducer implements DeducerData {
             traceRelAnn= new Annotation<GraphClass,Inclusion,TraceData>(graph);
         }
         newclasses = null;
+        pw = new PrintWriter(System.err);
     }
 
 
@@ -107,7 +110,7 @@ public class Deducer implements DeducerData {
         };
 
         for (RCheck check : checks)
-            check.before(this);
+            check.before(this, pw);
 
         separateUncertains();
         if (checking)
@@ -150,7 +153,7 @@ public class Deducer implements DeducerData {
         }*/
 
         for (RCheck check : checks)
-            check.after(this);
+            check.after(this, pw);
     }
 
 
@@ -303,7 +306,7 @@ public class Deducer implements DeducerData {
             }
         } while (newproper);
 
-        new RCheckProper().after(this);
+        new RCheckProper().after(this, pw);
     }
 
 
@@ -909,6 +912,15 @@ public class Deducer implements DeducerData {
         }
     }
 
+    //------------------ Public deducer internals methods -----------------
+    
+    /**
+     * Setter for the print writer to use in the check classes
+     * @param p
+     */
+    public void setPrintWriter(PrintWriter p) {
+    	pw = p;
+    }
 
     //----------------------- Private node/edge methods -------------------
 

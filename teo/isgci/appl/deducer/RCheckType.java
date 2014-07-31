@@ -8,13 +8,9 @@
 
 package teo.isgci.appl.deducer;
 
-import java.util.*;
-import org.jgrapht.*;
-import org.jgrapht.graph.*;
-import teo.isgci.grapht.*;
-import teo.isgci.gc.*;
-import teo.isgci.relation.*;
-import teo.isgci.util.*;
+import java.io.PrintWriter;
+
+import teo.isgci.relation.Inclusion;
 
 /**
  * Check that we have no relations between directed and undirected classes.
@@ -22,18 +18,25 @@ import teo.isgci.util.*;
 public class RCheckType extends RCheck {
 
     /** Run at the end of the deductions process */
-    public void after(DeducerData d) {
+    public void after(DeducerData d, PrintWriter w) {
         boolean err = false;
-        System.out.println("RCheckType");
+        StringBuffer s = new StringBuffer();
+
+        s.append("RCheckType\n");
         for (Inclusion e : d.getGraph().edgeSet()) {
             if (e.getSuper().getDirected() != e.getSub().getDirected()) {
                 err = true;
-                System.out.println(e);
+                s.append(e + "\n");
             }
         }
 
-        if (err)
-            System.out.println("end RCheckType");
+        if (err) {
+            s.append("end RCheckType\n");
+            String all = s.toString();
+            
+            System.out.println(all);
+            w.println(all);
+        }
     }
 }
 
