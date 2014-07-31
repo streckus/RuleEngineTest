@@ -540,7 +540,7 @@ public class ISGCIReader extends DefaultHandler{
             gc.setRefs(refs);
             conf = rand.nextBoolean();
             gc.setConfirmed(conf);
-            System.out.println("Adding new graphclass with status " + conf);
+            //System.out.println("Adding new graphclass with status " + conf);
             graph.addVertex(gc);
             for (ProblemWrapper w : complexities) {
                 w.problem.setComplexity(gc, w.complexity);

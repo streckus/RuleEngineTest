@@ -926,7 +926,7 @@ public class Deducer implements DeducerData {
     private Inclusion addEdge(GraphClass src, GraphClass dest) {
         Inclusion e = graph.addEdge(src, dest);
         boolean conf = src.getConfirmed() & dest.getConfirmed();
-        System.out.println("Added new edge with status " + conf);
+        //System.out.println("Added new edge with status " + conf);
         e.setConfirmed(conf);
         e.setConfidence(confidence);
         return e;
