@@ -24,7 +24,7 @@ public class RCheckSCC extends RCheck {
     private Map<GraphClass,Set<GraphClass> > sccBefore, sccAfter;
 
     /** Run at the beginning of the deductions process */
-    public void before(DeducerData d) {
+    public void before(DeducerData d, PrintWriter pw) {
         sccBefore = GAlg.calcSCCMap(d.getGraph());
     }
 

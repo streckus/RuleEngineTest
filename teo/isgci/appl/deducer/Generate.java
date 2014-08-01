@@ -60,7 +60,7 @@ public class Generate {
         List<Problem> problems;
         RCheck checkReachability = new RCheckReachability();
         
-        PrintWriter pw = new PrintWriter(System.err);
+        PrintWriter pw = new PrintWriter("log.txt");
 
         boolean notrivial = false;
         boolean extrachecks = false;
@@ -188,6 +188,9 @@ public class Generate {
         GAlg.transitiveClosure(graph);
         if (graph.vertexSet().size() != nc  ||  graph.edgeSet().size() != ec)
             System.err.println("Error in deleteSuperfluousEdges?!");
+        
+        pw.flush();
+        pw.close();
     }
 
 
@@ -349,6 +352,8 @@ public class Generate {
             System.out.print((100.0 * count)/edgecount);
             System.out.println("%)");
         }
+        
+        
     }
 
 

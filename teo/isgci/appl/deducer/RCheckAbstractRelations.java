@@ -53,12 +53,14 @@ public class RCheckAbstractRelations {
 
                     if (d.containsEdge(gc1, gc2)) {
                         err = true;
-                        s.append("Inclusion "+ d.getEdge(gc1, gc2) +
+                        //s.append("Inclusion "+ d.getEdge(gc1, gc2) +
+                                //" exists for "+ r + "\n");
+                        s.append(r + " Inclusion "+ d.getEdge(gc1, gc2) +
                                 " exists for "+ r + "\n");
                     }
                     if (d.containsEdge(gc2, gc1)) {
                         err = true;
-                        s.append("Inclusion "+ d.getEdge(gc2, gc1) +
+                        s.append(r + "Inclusion "+ d.getEdge(gc2, gc1) +
                                 " exists for "+ r + "\n");
                     }
                     if (gc1.getHereditariness() == GraphClass.Hered.INDUCED &&
