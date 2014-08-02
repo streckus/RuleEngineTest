@@ -114,7 +114,7 @@ class Tags {
     public static GraphClass.Directed graphString2directed(String s) {
         if (DIRECTED.equals(s))
             return GraphClass.Directed.DIRECTED;
-        else if (s == null  ||  s.isEmpty())
+        else if (s == null  ||  s.isEmpty() || s.equals(UNDIRECTED)) //TODO changed this
             return GraphClass.Directed.UNDIRECTED;
         else
             throw new RuntimeException("Unknown directedness "+s);

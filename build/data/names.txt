@@ -104,7 +104,7 @@
 1096	(claw,net)--free
 1104	Hamiltonian hereditary
 1112	claw--free $\cap$ perfect
-1128	clique
+1128	clique graphs
 1136	clique separable
 1144	preperfect
 1152	co--bithreshold
@@ -1091,6 +1091,18 @@
 9704	(butterfly,claw)--free
 9712	(X_{91},claw)--free
 9720	Mycielski
+9728	E--free $\cap$ planar
+9736	(2K_3,2K_3 + e,2P_3,C_5,C_6,C_7,K_{2,3},K_3 \cup P_3,W_4,X_{84},X_{95},\co{A},\co{C_6},\co{P_6},\co{X_5},\co{X_{98}},butterfly,co-domino,co-fish,fish)--free
+9744	hereditary sat
+9752	locally split
+9760	(1,2)-split
+9768	(p,q)-split
+9776	Gabriel
+9784	Urquhart
+9792	relative neighbourhood graph
+9800	girth >=9
+9808	bipartite $\cap$ girth >=9 $\cap$ maximum degree 3 $\cap$ planar
+9816	2K_1--free
 5744	linear domino $\cap$ maximum degree 4
 5128	concave-round
 4536	dominating pair
@@ -1262,10 +1274,10 @@
 12033	(bull,co-fork,co-gem)--free
 12025	(P,P_5,co-fork)--free
 12017	(P_5,bull,co-fork)--free
+12361	(2K_2,C_4,C_5,sun)--free
 12009	(2K_2,4K_1,co-claw,co-diamond)--free
 12001	(C_4,co-claw)--free
 11993	(co-claw,co-paw)--free
-12361	(2K_2,C_4,C_5,sun)--free
 11985	(C_5,P,co-fork,fork,gem,house)--free
 11977	(C_5,P,\co{P},bull,co-fork,gem,house)--free
 11969	(P,co-gem,house)--free
@@ -1281,6 +1293,7 @@
 16937	(\co{W_4},co-gem)--free
 11881	(K_2 \cup K_3,P_5,\co{X_{37}},\co{X_{38}},co-diamond,co-domino,co-twin-C_5)--free
 11873	(P_5,\co{X_{38}},co-gem)--free
+11865	(2K_3,2P_3,C_4,K_3 \cup P_3,P_4)--free
 11857	(K_2 \cup K_3,co-diamond)--free
 11849	(3K_1,co-fork)--free
 11841	(3K_1,co-cross)--free
@@ -1309,6 +1322,7 @@
 11657	(bull,hole,odd anti-hole)--free
 11649	(C_5,P_5,\co{A},\co{C_6},\co{P_6},co-domino)--free
 11641	(P_4,triangle)--free
+11633	(K_2 \cup K_3,P_4,butterfly)--free
 11625	(co-butterfly,co-gem)--free
 11617	(2K_2,3K_1)--free
 11609	(3K_1,\co{2P_3})--free
@@ -1329,8 +1343,13 @@
 13081	(3K_1,\co{C_6})--free
 13089	(2K_2,C_5,\co{C_6},net)--free
 13153	(anti-hole,fork)--free
+13601	(2P_3,P_4)--free
 13681	(3K_1,C_5,\co{C_6},\co{P_6})--free
 13825	(co-butterfly,co-claw)--free
+13881	(A,C_5,C_6,K_2 \cup K_3,K_{3,3},K_{3,3}+e,K_{3,3}-e,P_6,X_5,X_{98},\co{2P_3},\co{C_6},\co{C_7},\co{W_4},\co{X_{84}},\co{X_{95}},co-butterfly,co-fish,domino,fish)--free
+13961	(2K_2,3K_1,C_5,\co{C_6},\co{C_7},\co{C_8})--free
+13913	(C_4,C_6,C_8,K_{1,4},odd-cycle)--free
+13921	(C_4,C_6,C_8,K_{1,4},odd-cycle)--free $\cap$ planar
 16561	odd anti-cycle--free
 16577	(P_5,anti-hole,co-bicycle,co-domino)--free
 16553	(P_5,anti-hole,co-domino,co-sun)--free
@@ -1431,6 +1450,7 @@
 19041	\co{XC_{13}}--free
 19121	(C_6,K_2 \cup K_3,X_{37},X_{90},\co{C_{n+4} \cup K_1},\co{T_2},\co{W_{n+4}},\co{X_{31}},co-XF_2^{n+1},co-XF_3^n,co-domino,co-twin-C_5)--free
 19185	(\co{X_{91}},co-claw)--free
+19353	K_2--free
 22289	(\co{C_{n+4}},net)--free
 22281	(S_3,\co{C_{n+4}},net)--free
 22273	(\co{C_{n+4}},odd co-sun)--free
@@ -1467,6 +1487,7 @@
 23977	(C_{n+6},T_2,X_2,X_3,X_{30},X_{31},X_{32},X_{33},X_{34},X_{35},X_{36},XF_2^{n+1},XF_3^n,XF_4^n,anti-hole,co-XF_1^{2n+3},co-XF_5^{2n+3},co-XF_6^{2n+2})--free
 23985	(X_{34},X_{36},XF_2^{n+1},XF_3^n,\co{C_{n+4}},co-XF_1^{2n+3},co-XF_6^{2n+2})--free
 25673	(2K_2,C_4,C_5,co-sun)--free
+29225	(2K_2,\co{C_6},\co{C_8},\co{K_{1,4}},odd anti-cycle)--free
 28681	(C_{n+6},T_2,X_2,X_3,X_{30},X_{31},X_{32},X_{33},X_{34},X_{36},XF_1^{2n+3},XF_2^{n+1},XF_3^n,XF_4^n,XF_5^{2n+3},XF_6^{2n+2},\co{C_{n+6}},\co{T_2},\co{X_2},\co{X_3},\co{X_{30}},\co{X_{31}},\co{X_{32}},\co{X_{33}},\co{X_{34}},\co{X_{36}},co-XF_1^{2n+3},co-XF_2^{n+1},co-XF_3^n,co-XF_4^n,co-XF_5^{2n+3},co-XF_6^{2n+2},odd anti-hole)--free
 28753	(C_{n+6},T_2,X_2,X_3,X_{30},X_{31},X_{32},X_{33},X_{34},X_{36},XF_1^{2n+3},XF_2^{n+1},XF_3^n,XF_4^n,XF_5^{2n+3},XF_6^{2n+2},\co{C_{n+6}},\co{T_2},\co{X_2},\co{X_3},\co{X_{30}},\co{X_{31}},\co{X_{32}},\co{X_{33}},\co{X_{34}},\co{X_{36}},co-XF_1^{2n+3},co-XF_2^{n+1},co-XF_3^n,co-XF_4^n,co-XF_5^{2n+3},co-XF_6^{2n+2},odd-hole)--free
 28817	(C_5,XZ_{11},XZ_{12},XZ_{13},XZ_{14},XZ_6,XZ_7,XZ_8,XZ_9,\co{XZ_{11}},\co{XZ_{12}},\co{XZ_{13}},\co{XZ_{14}},\co{XZ_6},\co{XZ_7},\co{XZ_8},\co{XZ_9})--free

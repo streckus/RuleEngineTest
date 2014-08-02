@@ -82,6 +82,7 @@
    <path refid="compile.classpath"/>
    <pathelement location="${jarlib.dir}/saxon.jar"/>
    <pathelement location="${build.classes.dir}"/>
+   <pathelement location="${jarlib.dir}/mysql-connector-java-5.1.31-bin.jar"/>
 </path>
 
 <!-- Targets -->

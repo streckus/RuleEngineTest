@@ -11,10 +11,14 @@
 package teo.isgci.xml;
  
 import org.xml.sax.*;
+
+import java.sql.SQLException;
 import java.util.*;
 import java.io.*;
+
 import teo.isgci.smallgraph.*;
 import teo.isgci.smallgraph.HMTGrammar.HMTGraph;  //FIXME
+
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
@@ -36,6 +40,21 @@ public class SmallGraphWriter {
             Vector gram, Vector famil, Vector config,
             DirectedGraph<Graph,DefaultEdge> incls)
             throws SAXException{
+        //Fill Database with Smallgraphdata
+        try {
+            SQLWriter s = new SQLWriter("jdbc:mySQL://localhost/Spectre", "root", "", "", false);
+            SmallGraphSQLExporter exp = new SmallGraphSQLExporter(s);
+            exp.writeSmallGraphs(smallGraphs, gram, famil, 
+                                 config, incls);
+            } catch (SQLException e) {
+            System.out.println("Problems with sql");
+            e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+            System.out.println("Problems with property/complexity tables");
+            e.printStackTrace();
+      }   
+        
+        
         if (xmldecl == null)
             writer.startDocument();
         else

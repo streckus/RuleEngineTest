@@ -90,7 +90,7 @@ public class IDGenerator {
             if (cache.put(parts[1], tempID) != null)
                 throw new Error("Duplicate key "+ parts[1] +
                         "in name cache file.");
-            if (!((tempID & prefix)==prefix))
+            if (!((~(tempID^prefix)&7) == 7))
                 throw new Error("Cached name doesn't end with "+ prefix);
             used.set(tempID);
         }

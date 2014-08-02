@@ -25,6 +25,7 @@ import org.xml.sax.InputSource;
 import org.jgrapht.Graph;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DirectedMultigraph;
+import java.sql.SQLException;
 
 public class Generate {
 
@@ -35,7 +36,7 @@ public class Generate {
     /**
      * Main
      */
-    public static void main(String args[]) throws Exception {
+    public static void is(String args[]) throws Exception {
         int i;
 
         Deducer deducer;
@@ -210,6 +211,20 @@ public class Generate {
                 gcr, loader.getEntityResolver(), new NoteFilter());
         xml.parse();
         relations.addAll(gcr.getRelations());
+		
+		//TODO right now, still using ISGCIReader
+        /*
+        SQLReader sqr = null;
+        try{
+                sqr = new SQLReader("jdbc:mySQL://localhost/Spectre", "root", 
+                                   "", "", graph, problems);
+                sqr.readDatabase();
+        }catch(SQLException e){
+                e.printStackTrace();
+        }
+        relations.addAll(sqr.getRelations());
+        */
+		
     }
 
 
