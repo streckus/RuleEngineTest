@@ -75,6 +75,7 @@
 <path id="compile.classpath">
    <pathelement location="${jarlib.dir}/getopt.jar"/>
    <pathelement location="${jarlib.dir}/mouse.jar"/>
+   <pathelement location="${jarlib.dir}/google-gson-2.2.4/gson-2.2.4.jar"/>
    <pathelement location="${jgrapht.jar}"/>
 </path>
 
