@@ -10,6 +10,8 @@
 package teo.isgci.appl.deducer;
 
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -544,6 +546,15 @@ public class Deducer implements DeducerData {
             TraceData.print(writer, e, traceAnn);
     }
 
+    /**
+     * Add a trace for the given edge to the given statement.
+     * @throws SQLException 
+     */
+    public void sqlPrintTrace(PreparedStatement stat, Inclusion e) throws SQLException {
+        if (trace)
+            TraceData.sqlPrint(stat, e, traceAnn);
+    }
+
 
     /**
      * Print a trace for the given edge to writer.
@@ -551,6 +562,15 @@ public class Deducer implements DeducerData {
     public void printRelationTrace(PrintWriter writer, Inclusion e) {
         if (trace  &&  e.isProper())
             TraceData.print(writer, e, traceRelAnn);
+    }
+
+    /**
+     * Add a trace for the given edge to the gien statement.
+     * @throws SQLException 
+     */
+    public void sqlPrintRelationTrace(PreparedStatement stat, Inclusion e) throws SQLException {
+        if (trace  &&  e.isProper())
+            TraceData.sqlPrint(stat, e, traceRelAnn);
     }
 
 

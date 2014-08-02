@@ -9,7 +9,13 @@
 package teo.isgci.appl.deducer;
 
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import teo.isgci.gc.GraphClass;
 import teo.isgci.grapht.Annotation;
@@ -77,9 +83,38 @@ class TraceData {
                 writer.println(e);
             }
         } else {
-            writer.print("(no tracedata)");
+            writer.print("(no tracedata)"); 
             writer.println();
         }
+    }
+    
+    public static void sqlPrint(PreparedStatement statement, Inclusion edge,
+    		Annotation<GraphClass, Inclusion, TraceData> traceAnn) throws SQLException {
+    	// 1: Sub
+    	// 2: Super
+    	// 3: Type
+    	// 4: Dependencies
+    	// Set sub class
+    	int sub = edge.getSub().getID();
+    	statement.setInt(1, sub);
+    	// Set super class
+    	int sup = edge.getSuper().getID();
+    	statement.setInt(2, sup);
+    	// Set type
+    	statement.setString(3, traceAnn.getEdge(edge).desc);
+    	
+    	JsonArray arr = new JsonArray();
+
+    	for (Inclusion e : traceAnn.getEdge(edge).prereqs) {
+    		JsonObject dep = new JsonObject();
+    		dep.addProperty("sub", e.getSub().getID());
+    		dep.addProperty("sup", e.getSuper().getID());
+    		arr.add(dep);
+    	}
+    	
+    	statement.setString(4, arr.getAsString());
+    	
+    	statement.addBatch();
     }
 }
 

@@ -16,6 +16,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -135,10 +139,19 @@ public class Generate {
 
         //---- Export debug info
         if (debugout != null) {
-            writer = new PrintWriter(
+            if (true) {
+            	Class.forName("");
+            	Connection conn = DriverManager.getConnection("127.0.0.1:3306/ISGCI", "root", "root");
+            	sqlExportNames(graph, conn);
+            	sqlExportDebug(deducer, conn);
+            	conn.close();
+            }
+            else {
+            	writer = new PrintWriter(
                     new BufferedWriter(new FileWriter(debugout), 64*1024));
-            exportNames(graph, writer);
-            exportDebug(deducer, writer);
+            	exportNames(graph, writer);
+            	exportDebug(deducer, writer);
+            }
         }
             
         if (debugrelout != null) {
@@ -491,12 +504,12 @@ public class Generate {
      */
     private static void exportDebug(Deducer d, PrintWriter w) {
         w.println("\n==== Start debug ==================================");
-        for (Inclusion e : d.getGraph().edgeSet())
+        for (Inclusion e : d.getGraph().edgeSet()) {
             d.printTrace(w, e);
+        }
         w.println("==== End debug =====================================");
         w.flush();
     }
-
 
     /**
      * Print relation debug info gathered in the deducer d to the given writer.
@@ -519,6 +532,46 @@ public class Generate {
         w.flush();
     }
 
+    //-------------------------- Output to database---------------------------
+
+    /**
+     * Write debug info gathered in the deducer d to the database given in the
+     * connection object
+     * @throws SQLException 
+     */
+    private static void sqlExportDebug(Deducer d, Connection conn) throws SQLException {
+    	String sql = "INSERT INTO TraceData VALUES (?,?,?,?)";
+        PreparedStatement stat = conn.prepareStatement(sql);
+    	int i = 0;
+        for (Inclusion e : d.getGraph().edgeSet()) {
+        	if (i == 500) {
+        		stat.executeBatch();
+        		stat.close();
+        		stat = conn.prepareStatement(sql);
+        		i = 0;
+        	}
+            d.sqlPrintTrace(stat, e);
+            i++;
+        }
+        stat.executeBatch();
+        stat.close();
+    }
+
+    /**
+     * Write a list of gc-numbers and names to the database
+     * @throws SQLException 
+     */
+    private static void sqlExportNames(
+            DirectedGraph<GraphClass,Inclusion> dg, Connection conn) throws SQLException {
+    	PreparedStatement stat = conn.prepareStatement("INSERT INTO TraceNames VALUES (?,?)");
+        for (GraphClass v : dg.vertexSet()) {
+        	stat.setInt(1, v.getID());
+        	stat.setString(2, v.toString());
+        	stat.addBatch();
+        }
+        stat.executeBatch();
+        stat.close();
+    }
 
     //------------------------------- Misc ---------------------------------
 
@@ -549,6 +602,4 @@ public class Generate {
         }
         return compls;
     }
-
-
 }
