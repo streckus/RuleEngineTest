@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -100,19 +101,26 @@ class TraceData {
     	// Set super class
     	int sup = edge.getSuper().getID();
     	statement.setInt(2, sup);
-    	// Set type
-    	statement.setString(3, traceAnn.getEdge(edge).desc);
     	
-    	JsonArray arr = new JsonArray();
-
-    	for (Inclusion e : traceAnn.getEdge(edge).prereqs) {
-    		JsonObject dep = new JsonObject();
-    		dep.addProperty("sub", e.getSub().getID());
-    		dep.addProperty("sup", e.getSuper().getID());
-    		arr.add(dep);
+    	
+    	TraceData td = traceAnn.getEdge(edge);
+    	if (td != null) {
+    		statement.setString(3, td.desc);
+    	
+    		JsonArray arr = new JsonArray();
+    		for (Inclusion e : td.prereqs) {
+    			JsonObject dep = new JsonObject();
+    			dep.addProperty("sub", e.getSub().getID());
+    			dep.addProperty("sup", e.getSuper().getID());
+    			arr.add(dep);
+    		}
+    		Gson g = new Gson();
+    		statement.setString(4, g.toJson(arr));
     	}
-    	
-    	statement.setString(4, arr.getAsString());
+    	else {
+    		statement.setString(3, "(no tracedata)");
+    		statement.setString(4, "[]");
+    	}
     	
     	statement.addBatch();
     }

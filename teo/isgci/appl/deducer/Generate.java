@@ -140,8 +140,10 @@ public class Generate {
         //---- Export debug info
         if (debugout != null) {
             if (true) {
-            	Class.forName("");
-            	Connection conn = DriverManager.getConnection("127.0.0.1:3306/ISGCI", "root", "root");
+            	Class.forName("com.mysql.jdbc.Driver");
+            	Connection conn = DriverManager
+                        .getConnection("jdbc:mysql://localhost:3306/isgci?"
+                            + "user=root&password=root");
             	sqlExportNames(graph, conn);
             	sqlExportDebug(deducer, conn);
             	conn.close();
