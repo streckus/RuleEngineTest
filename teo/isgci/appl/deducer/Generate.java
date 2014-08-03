@@ -545,9 +545,11 @@ public class Generate {
      * @throws SQLException
      */
     private static void truncateTraceDataDatabase(Connection conn) throws SQLException {
-    	String sql = "TRUNCATE TraceData; TRUNCATE TraceNames";
+    	String sql = "TRUNCATE TraceData; ";
+    	String sql2 = "TRUNCATE TraceNames;";
     	Statement stat = conn.createStatement();
     	stat.execute(sql);
+    	stat.execute(sql2);
     	stat.close();
     }
 
