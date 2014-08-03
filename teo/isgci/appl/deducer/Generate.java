@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -144,6 +145,7 @@ public class Generate {
             	Connection conn = DriverManager
                         .getConnection("jdbc:mysql://localhost:3306/isgci?"
                             + "user=root&password=root");
+            	truncateTraceDataDatabase(conn);
             	sqlExportNames(graph, conn);
             	sqlExportDebug(deducer, conn);
             	conn.close();
@@ -535,6 +537,19 @@ public class Generate {
     }
 
     //-------------------------- Output to database---------------------------
+    
+    
+    /**
+     * Truncates both TraceData tables 
+     * @param conn
+     * @throws SQLException
+     */
+    private static void truncateTraceDataDatabase(Connection conn) throws SQLException {
+    	String sql = "TRUNCATE TraceData; TRUNCATE TraceNames";
+    	Statement stat = conn.createStatement();
+    	stat.execute(sql);
+    	stat.close();
+    }
 
     /**
      * Write debug info gathered in the deducer d to the database given in the
