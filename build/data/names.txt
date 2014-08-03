@@ -1236,6 +1236,9 @@
 6585	(XC_{11},odd-cycle)--free
 6593	(XC_{11},odd-cycle)--free $\cap$ planar
 8601	(P_5,anti-hole,co-domino)--free
+12361	(2K_2,C_4,C_5,sun)--free
+13913	(C_4,C_6,C_8,K_{1,4},odd-cycle)--free
+13921	(C_4,C_6,C_8,K_{1,4},odd-cycle)--free $\cap$ planar
 12305	(P_5,\co{P},anti-hole)--free
 12297	(S_3,co-claw)--free
 12289	(2K_2,C_4,C_5,S_3,net,rising sun)--free
@@ -1274,7 +1277,6 @@
 12033	(bull,co-fork,co-gem)--free
 12025	(P,P_5,co-fork)--free
 12017	(P_5,bull,co-fork)--free
-12361	(2K_2,C_4,C_5,sun)--free
 12009	(2K_2,4K_1,co-claw,co-diamond)--free
 12001	(C_4,co-claw)--free
 11993	(co-claw,co-paw)--free
@@ -1348,8 +1350,6 @@
 13825	(co-butterfly,co-claw)--free
 13881	(A,C_5,C_6,K_2 \cup K_3,K_{3,3},K_{3,3}+e,K_{3,3}-e,P_6,X_5,X_{98},\co{2P_3},\co{C_6},\co{C_7},\co{W_4},\co{X_{84}},\co{X_{95}},co-butterfly,co-fish,domino,fish)--free
 13961	(2K_2,3K_1,C_5,\co{C_6},\co{C_7},\co{C_8})--free
-13913	(C_4,C_6,C_8,K_{1,4},odd-cycle)--free
-13921	(C_4,C_6,C_8,K_{1,4},odd-cycle)--free $\cap$ planar
 16561	odd anti-cycle--free
 16577	(P_5,anti-hole,co-bicycle,co-domino)--free
 16553	(P_5,anti-hole,co-domino,co-sun)--free
@@ -1451,6 +1451,7 @@
 19121	(C_6,K_2 \cup K_3,X_{37},X_{90},\co{C_{n+4} \cup K_1},\co{T_2},\co{W_{n+4}},\co{X_{31}},co-XF_2^{n+1},co-XF_3^n,co-domino,co-twin-C_5)--free
 19185	(\co{X_{91}},co-claw)--free
 19353	K_2--free
+22297	(2K_2,3K_1,C_5,\co{C_6},\co{C_7},\co{C_8},\co{H},\co{K_{1,4}},\co{X_{85}})--free
 22289	(\co{C_{n+4}},net)--free
 22281	(S_3,\co{C_{n+4}},net)--free
 22273	(\co{C_{n+4}},odd co-sun)--free
@@ -1480,18 +1481,17 @@
 22713	(3K_2,E,P_2 \cup P_4,net,odd anti-hole,odd-hole)--free
 22065	(anti-hole,odd anti-cycle)--free
 24649	(\co{XC_{11}},odd anti-cycle)--free
-22297	(2K_2,3K_1,C_5,\co{C_6},\co{C_7},\co{C_8},\co{H},\co{K_{1,4}},\co{X_{85}})--free
 23921	(2K_2,C_4,C_5,H,S_3,X_{160},\co{X_{159}},net,rising sun)--free
 24401	(3K_2,A,C_4 \cup 2K_1,E,P_2 \cup P_3,R,\co{K_5 - e},co-claw,net,odd anti-hole,twin-house)--free
 23953	(A,C_4 \cup 2K_1,P_2 \cup P_3,R,\co{K_5 - e},co-claw,odd anti-hole,twin-house)--free
 23977	(C_{n+6},T_2,X_2,X_3,X_{30},X_{31},X_{32},X_{33},X_{34},X_{35},X_{36},XF_2^{n+1},XF_3^n,XF_4^n,anti-hole,co-XF_1^{2n+3},co-XF_5^{2n+3},co-XF_6^{2n+2})--free
 23985	(X_{34},X_{36},XF_2^{n+1},XF_3^n,\co{C_{n+4}},co-XF_1^{2n+3},co-XF_6^{2n+2})--free
-25673	(2K_2,C_4,C_5,co-sun)--free
 29225	(2K_2,\co{C_6},\co{C_8},\co{K_{1,4}},odd anti-cycle)--free
+25673	(2K_2,C_4,C_5,co-sun)--free
 28681	(C_{n+6},T_2,X_2,X_3,X_{30},X_{31},X_{32},X_{33},X_{34},X_{36},XF_1^{2n+3},XF_2^{n+1},XF_3^n,XF_4^n,XF_5^{2n+3},XF_6^{2n+2},\co{C_{n+6}},\co{T_2},\co{X_2},\co{X_3},\co{X_{30}},\co{X_{31}},\co{X_{32}},\co{X_{33}},\co{X_{34}},\co{X_{36}},co-XF_1^{2n+3},co-XF_2^{n+1},co-XF_3^n,co-XF_4^n,co-XF_5^{2n+3},co-XF_6^{2n+2},odd anti-hole)--free
 28753	(C_{n+6},T_2,X_2,X_3,X_{30},X_{31},X_{32},X_{33},X_{34},X_{36},XF_1^{2n+3},XF_2^{n+1},XF_3^n,XF_4^n,XF_5^{2n+3},XF_6^{2n+2},\co{C_{n+6}},\co{T_2},\co{X_2},\co{X_3},\co{X_{30}},\co{X_{31}},\co{X_{32}},\co{X_{33}},\co{X_{34}},\co{X_{36}},co-XF_1^{2n+3},co-XF_2^{n+1},co-XF_3^n,co-XF_4^n,co-XF_5^{2n+3},co-XF_6^{2n+2},odd-hole)--free
 28817	(C_5,XZ_{11},XZ_{12},XZ_{13},XZ_{14},XZ_6,XZ_7,XZ_8,XZ_9,\co{XZ_{11}},\co{XZ_{12}},\co{XZ_{13}},\co{XZ_{14}},\co{XZ_6},\co{XZ_7},\co{XZ_8},\co{XZ_9})--free
-29465	(3K_2,C_5,P_2 \cup P_4,XZ_{11},XZ_{12},XZ_{13},XZ_{14},XZ_6,XZ_7,XZ_8,XZ_9,\co{XZ_{11}},\co{XZ_{12}},\co{XZ_{13}},\co{XZ_{14}},\co{XZ_6},\co{XZ_7},\co{XZ_8},\co{XZ_9},net)--free
 29489	(C_5,S_3,XZ_{11},XZ_{12},XZ_{13},XZ_{14},XZ_6,XZ_7,XZ_8,XZ_9,\co{3K_2},\co{P_2 \cup P_4},\co{XZ_{11}},\co{XZ_{12}},\co{XZ_{13}},\co{XZ_{14}},\co{XZ_6},\co{XZ_7},\co{XZ_8},\co{XZ_9})--free
 30617	(3P_3,C_{n+4},P_3 \cup P_4,P_5,X_{102},X_{180},X_{181},X_{182},X_{183},\co{A})--free
+29465	(3K_2,C_5,P_2 \cup P_4,XZ_{11},XZ_{12},XZ_{13},XZ_{14},XZ_6,XZ_7,XZ_8,XZ_9,\co{XZ_{11}},\co{XZ_{12}},\co{XZ_{13}},\co{XZ_{14}},\co{XZ_6},\co{XZ_7},\co{XZ_8},\co{XZ_9},net)--free
 30849	(A,\co{3P_3},\co{C_{n+4}},\co{P_3 \cup P_4},\co{X_{102}},\co{X_{180}},\co{X_{181}},\co{X_{182}},\co{X_{183}},house)--free

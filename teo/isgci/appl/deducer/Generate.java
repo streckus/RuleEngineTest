@@ -36,7 +36,7 @@ public class Generate {
     /**
      * Main
      */
-    public static void is(String args[]) throws Exception {
+    public static void main(String args[]) throws Exception {
         int i;
 
         Deducer deducer;

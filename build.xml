@@ -462,6 +462,7 @@
       <param name="statsfile" expression="${build.data.dir}/status.inc"/>
       <param name="classeshrefsfile" expression="${search.cgi.data}"/>
       <param name="graphlinks" expression="${graphlinks.xml.out}"/>
+      <param name="refsinput" expression="${refs.xml.in}"/>
    </xslt>
    <concat destfile="${search.cgi.out}">
       <fileset file="${search.cgi.in}"/>
@@ -479,6 +480,7 @@
       <param name="rooturl" expression="${root.url}"/>
       <param name="classesdir" expression="${web.classes.rel}"/>
       <param name="graphlinks" expression="${graphlinks.xml.out}"/>
+      <param name="refsinput" expression="${refs.xml.in}"/>
    </xslt>
    <xslt style="${xsl.dir}/mkkeywords.xsl"
       in="${isgci.full.xml.out}"

@@ -71,9 +71,9 @@ public class ISGCIWriter {
 		  String databaseAccountPassword = ""; 
 		*/
 		if(mode == MODE_WEB){
-			String databaseAdress = "";
-			String databaseAccountName = "";
-			String databaseAccountPassword = "";
+			String databaseAdress = null;
+			String databaseAccountName = null;
+			String databaseAccountPassword = null;
 			try {
 				if((databaseAdress != null) && (databaseAccountName != null) && (databaseAccountPassword != null))
 				{
