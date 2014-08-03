@@ -1,44 +1,26 @@
-#!/usr/bin/python2
+#!/usr/bin/php
+<?php
 
-""" Why does a certain ISGCI deduction hold?
-Usage: why filename.trace gc_super gc_sub"""
+function printwhy($mysqli, $sub, $super, $prefix = "") {
+    $sql = "SELECT * FROM TraceData WHERE sub = '$sub' AND super = '$super'";
+    $result = $mysqli->query($sql);
+    $row = $result->fetch_assoc();
 
-import sys
+    //$res = $prefix . $row['sub'] . " -> " . $row['super'] . "    " . $row['type'] . "\n";
+    echo $prefix . $row['sub'] . " -> " . $row['super'] . "    " . $row['type'] . "\n";
+    
+    $dependencies = json_decode($row['dependencies']);
+    foreach ($dependencies as $dependency) {
+        //$res .= printwhy($mysqli, $dependency->sub, $dependency->sup, $prefix . "    ");
+        echo printwhy($mysqli, $dependency->sub, $dependency->sup, $prefix . "    ");
+    }
+    //return $res;
+}
 
-def printwhy(fname, sup, sub, prefix):
-   """Read in the trace file fname why sup is a superclass of sub and print
-   this. Every output line is preceded by prefix."""
+$mysqli = new mysqli("127.0.0.1", "root", "root", "ISGCI", 3306);
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+    die;
+}
 
-   pattern = sup +" -> "+ sub
-   nodes = dict()
-   f = open(fname)
-
-   try:
-      # Read the nodes
-      while 1:
-         line = f.readline()
-         data = line.split('\t')        # This keeps the newline after the name
-         if len(data) != 2:
-            break
-         nodes[data[0]] = data[1]
-
-      # Find the inclusion
-      while not line.startswith(pattern):
-         line = f.readline()
-
-      print prefix + pattern
-      print prefix + nodes[sup],
-      print prefix + "->"
-      print prefix + nodes[sub],
-      print prefix + line[len(pattern):].strip()
-      sys.stdout.flush()
-      line = f.readline()
-      while line.startswith(" "):
-         data = line.split()
-         printwhy(fname, data[0], data[2], prefix+"   ")
-         line = f.readline()
-
-   finally:
-      f.close()
-
-printwhy(sys.argv[1], sys.argv[2], sys.argv[3], "")
+echo printwhy($mysqli, 16, 3160, "");
