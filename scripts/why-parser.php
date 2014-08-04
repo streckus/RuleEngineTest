@@ -121,8 +121,7 @@
 </head>
 <body>
 <?php
-require 'why';
-error_reporting(E_ALL);
+require 'why.php';
 
 $handle = fopen("../log.txt", "r");
 if ($handle) {
@@ -136,7 +135,7 @@ if ($handle) {
         preg_match('/(?P<id1>\d+) -> (?P<id2>\d+)(?P<rest>.*)/', $line, $matches);
         $id1 = $matches['id1'];
         $id2 = $matches['id2'];
-        echo $id1 . " -> " . $id2 . " " . $matches['rest'] . " <span onClick='triggerScript($id1,$id2)' style='margin-left:80px' data-toggle='modal' data-backdrop='static' data-target='#myModal' style='cursor:pointer'>>></span><br />\n";
+        echo $id1 . " -> " . $id2 . " " . $matches['rest'] . " <span class='glyphicon glyphicon-question-sign' onClick='triggerScript($id1,$id2, 0)' style='margin-left:80px' data-toggle='modal' data-backdrop='static' data-target='#myModal' style='cursor:pointer'></span><br />\n";
         //echo $matches['id2'] . "<br />\n";
         //echo $line . "<br />\n";
     }
@@ -184,7 +183,8 @@ function startsWith($haystack, $needle) {
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" onClick='runAgain()' id="run_again" class="btn btn-info" >Run again with names</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -198,19 +198,22 @@ function nl2br (str, is_xhtml) {
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
 }
 function saveSpaces(str) {
-    return (str + '').replace(/\s/g, '&nbsp;');
+    return (str + '').replace(/ /g, '&nbsp;&nbsp;');
 }
 
 var circles = " <div class='spinner'> <div class='spinner-container container1'> <div class='circle1'></div> <div class='circle2'></div> <div class='circle3'></div> <div class='circle4'></div> </div> <div class='spinner-container container2'> <div class='circle1'></div> <div class='circle2'></div> <div class='circle3'></div> <div class='circle4'></div> </div> <div class='spinner-container container3'> <div class='circle1'></div> <div class='circle2'></div> <div class='circle3'></div> <div class='circle4'></div> </div> </div>";
-function triggerScript(id1, id2) {
+function triggerScript(id1, id2, names) {
+    $('#run_again').data('id1', id1).data('id2', id2); 
     console.log(id1, id2);
     $('.modal-body').html(circles);
+    $('.modal-header').html('<h4>Why? Results for ' + id1 + ' and ' + id2 + '</h4>');
     $.ajax({ 
         type: "POST", 
         url: "why-ajax.php", 
         data: { 
             id_1: id1, 
-            id_2: id2 
+            id_2: id2,
+            name: names
         } 
     })
     .done(function(msg) {
@@ -219,6 +222,15 @@ function triggerScript(id1, id2) {
     .error(function(msg) {
         $('.modal-body').html('An error occured: ' + msg);
     });
+}
+
+function runAgain() {
+    var b = $('#run_again');
+    var id1 = b.data('id1');
+    var id2 = b.data('id2');
+    if (id1 === "" || id2 === "")
+        return
+    triggerScript(id1, id2, 1);
 }
 </script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
