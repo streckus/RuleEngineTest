@@ -1,0 +1,142 @@
+Buildfile: /home/ivo/workspace/RuleEngineTest/build.xml
+
+iqparser.full:
+
+compile:
+
+deductions:
+     [java] Trying loading /home/ivo/workspace/RuleEngineTest/build/data/smallgraphs.xml from server
+     [java] Trying loading /home/ivo/workspace/RuleEngineTest/data/masterdata.xml from server
+     [java] Nodes: 1179     Edges: 1601
+     [java] confidence level: 0
+     [java] Nodes: 1179     Edges: 25758
+     [java] direct
+     [java] RSubComplement
+     [java] RSubUnion
+     [java] RSubIntersect
+     [java] RSubHereditary
+     [java] RSubProbe
+     [java] RSubClique
+     [java] Nodes: 5262     Edges: 4693162
+     [java] direct
+     [java] RSubComplement
+     [java] RSubUnion
+     [java] RSubIntersect
+     [java] RSubHereditary
+     [java] RSubProbe
+     [java] RSubClique
+     [java] Nodes: 5286     Edges: 4743753
+     [java] direct
+     [java] RSubComplement
+     [java] RSubUnion
+     [java] RSubIntersect
+     [java] RSubHereditary
+     [java] RSubProbe
+     [java] RSubClique
+     [java] Nodes: 5286     Edges: 4743753
+     [java] confidence level: -1
+     [java] Nodes: 5286     Edges: 4778585
+     [java] direct
+     [java] RSubComplement
+     [java] RSubUnion
+     [java] RSubIntersect
+     [java] RSubHereditary
+     [java] RSubProbe
+     [java] RSubClique
+     [java] Nodes: 5330     Edges: 4852190
+     [java] direct
+     [java] RSubComplement
+     [java] RSubUnion
+     [java] RSubIntersect
+     [java] RSubHereditary
+     [java] RSubProbe
+     [java] RSubClique
+     [java] Nodes: 5330     Edges: 4852190
+     [java] Tempified 37105 (XC_{12},odd-cycle)--free $\cap$ planar
+     [java] Tempified 37121 (C_4,C_6,C_8,XC_{12},odd-cycle)--free $\cap$ planar
+     [java] RCheckSCC
+     [java] RCheckForbidden
+     [java] RCheckForbiddenNonEdge
+     [java] RCheckType
+     [java] RProperComplement
+     [java] RProperProbe
+     [java] RProperForbiddenSub
+     [java] RProperComplement
+     [java] RProperProbe
+     [java] RProperForbiddenSub
+     [java] RProperComplement
+     [java] RProperProbe
+     [java] RProperForbiddenSub
+     [java] RCheckProper
+     [java] RCheckAbstractRelations
+     [java] Total relations: 14201785
+     [java] Inclusions: 4852190 (34.166057294910466%)
+     [java] of these
+     [java]    Proper inclusions: 4827364 (99.4883547429099%)
+     [java]    Equalities: 18662 (0.3846098359709739%)
+     [java]    Equal or proper: 6164 (0.12703542111912353%)
+     [java] with confidence
+     [java]    0: 4743753 (97.76519468528643%)
+     [java]    -1: 108437 (2.2348053147135625%)
+     [java] Distributing complexities
+     [java] Problem:        	Lin	P	GIC	NPC	NPh	coNPC	Open	?
+     [java] Recognition    	707	4207	2	73	3	2	30	306	
+     [java] Treewidth      	425	944	0	2438	0	0	8	1515	
+     [java] Cliquewidth    	829	13	0	4102	0	0	0	386	
+     [java] Cliquewidth exp	528	314	0	4102	0	0	0	386	
+     [java] Weighted indepe	1186	1609	0	2132	0	0	0	403	
+     [java] Independent set	1478	1368	0	2132	0	0	2	350	
+     [java] Weighted indepe	528	398	0	2384	0	0	0	2020	
+     [java] Independent dom	791	282	0	2384	0	0	0	1873	
+     [java] Weighted clique	1006	1852	0	2087	0	0	0	385	
+     [java] Clique         	1128	1793	0	2087	0	0	1	321	
+     [java] Domination     	843	572	0	3020	0	0	0	895	
+     [java] Colourability  	1050	1340	0	2316	0	0	0	624	
+     [java] Clique cover   	296	2094	0	2284	0	0	0	656	
+     [java] 3-Colourability	1314	1507	0	2019	0	0	0	490	
+     [java] Cutwidth       	172	13	0	2848	0	0	0	2297	
+     [java] Hamiltonian cyc	768	551	0	3142	0	0	0	869	
+     [java] Hamiltonian pat	644	660	0	3129	0	0	0	897	
+     [java] Weighted feedba	596	466	0	2240	0	0	0	2028	
+     [java] Feedback vertex	620	934	0	2240	0	0	0	1536	
+     [java] Weighted maximu	0	143	0	4705	0	0	0	482	
+     [java] Maximum cut    	330	217	0	2905	0	0	0	1878	
+     [java] Maximum bisecti	0	0	0	32	0	0	0	5298	
+     [java] Minimum bisecti	0	2	0	0	0	0	1	5327	
+     [java] Graph isomorphi	119	0	1993	0	0	0	0	3218	
+     [java] Cleaning up
+     [java] Problem:        	Lin	P	GIC	NPC	NPh	coNPC	Open	?
+     [java] Recognition    	339	884	1	72	3	2	27	169	
+     [java] Nodes: 1497     Edges: 176888
+     [java] Treewidth      	184	371	0	345	0	0	8	589	
+     [java] Cliquewidth    	293	7	0	1019	0	0	0	178	
+     [java] Cliquewidth exp	180	120	0	1019	0	0	0	178	
+     [java] Weighted indepe	426	634	0	244	0	0	0	193	
+     [java] Independent set	519	557	0	244	0	0	1	176	
+     [java] Weighted indepe	180	159	0	359	0	0	0	799	
+     [java] Independent dom	310	98	0	359	0	0	0	730	
+     [java] Weighted clique	410	722	0	193	0	0	0	172	
+     [java] Clique         	454	705	0	193	0	0	1	144	
+     [java] Domination     	335	160	0	616	0	0	0	386	
+     [java] Colourability  	461	475	0	292	0	0	0	269	
+     [java] Clique cover   	115	820	0	260	0	0	0	302	
+     [java] 3-Colourability	544	515	0	194	0	0	0	244	
+     [java] Cutwidth       	85	9	0	537	0	0	0	866	
+     [java] Hamiltonian cyc	274	191	0	691	0	0	0	341	
+     [java] Hamiltonian pat	201	250	0	678	0	0	0	368	
+     [java] Weighted feedba	208	193	0	323	0	0	0	773	
+     [java] Feedback vertex	217	351	0	323	0	0	0	606	
+     [java] Weighted maximu	0	95	0	1137	0	0	0	265	
+     [java] Maximum cut    	179	108	0	505	0	0	0	705	
+     [java] Maximum bisecti	0	0	0	32	0	0	0	1465	
+     [java] Minimum bisecti	0	2	0	0	0	0	1	1494	
+     [java] Graph isomorphi	35	0	160	0	0	0	0	1302	
+     [java] Nodes: 1497     Edges: 4388
+     [exec] Auto classes not present anymore:
+     [exec] 11665	(co-diamond,even anti-hole)--free
+     [exec] 18297	(4K_1,C_7,X_{38},X_{39},\co{W_5},\co{X_{194}},\co{X_{86}},\co{X_{88}},\co{X_{89}},\co{X_{90}},house)--free
+     [exec] 24553	(T_2,X_2,X_3,X_{30},X_{31},X_{32},X_{33},X_{34},X_{35},X_{36},XF_2^{n+1},XF_3^n,XF_4^n,anti-hole,co-XF_1^{2n+3},co-XF_5^{2n+3},co-XF_6^{2n+2},hole)--free
+     [exec] 6273	(XF_1^{2n+3},XF_5^{2n+3},XF_6^{2n+2},\co{T_2},\co{X_2},\co{X_3},\co{X_{30}},\co{X_{31}},\co{X_{32}},\co{X_{33}},\co{X_{34}},\co{X_{35}},\co{X_{36}},anti-hole,co-XF_2^{n+1},co-XF_3^n,co-XF_4^n,hole)--free
+
+BUILD SUCCESSFUL
+Total time: 16 minutes 54 seconds

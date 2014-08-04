@@ -11,6 +11,7 @@
 package teo.isgci.appl.deducer;
 
 import teo.isgci.grapht.*;
+
 import teo.isgci.xml.*;
 import teo.isgci.gc.*;
 import teo.isgci.relation.*;

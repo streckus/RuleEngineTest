@@ -30,6 +30,9 @@
 <property name="relations.trace" location="${build.data.dir}/relations.trace"/>
 <property name="autocache.txt" location="${persistent.dir}/autocache.txt"/>
 <property name="names.txt" location="${build.data.dir}/names.txt"/>
+	
+<!--Here is the place to change IP of the wiki-server-->
+<property name="db.conf" value="http://192.168.10.10/"/>
 
 <property name="iq.dir" value="teo/isgci/appl/iq"/>
 <property name="iq.pkg" value="teo.isgci.appl.iq"/>
@@ -319,6 +322,43 @@
       <arg value="-l"/><arg file="${generate.trace}"/>
       <arg value="-r"/><arg file="${relations.trace}"/>
       <arg value="-s"/><arg file="${isgci.sage.xml.out}"/>
+      <arg file="${isgci.xml.in}"/>
+      <arg file="${smallgraphs.xml.out}"/>
+      <arg file="${isgci.full.xml.out}"/>
+      <arg file="${isgci.xml.out}"/>
+      <arg file="${names.txt}"/>
+   </java>
+   <copy todir="${build.data.dir}">
+      <fileset dir="${data.dir}" includes="isgci.dtd"/>
+   </copy>
+   <exec executable="bash">
+      <arg value="-c"/>
+      <arg value="echo Auto classes not present anymore:;
+            diff --old-line-format='%L' --new-line-format='' --unchanged-line-format='' &lt;(sort ${autocache.txt}) &lt;(sort ${names.txt});
+            true"/> <!-- true to prevent ant result message -->
+   </exec>
+</target>
+	
+<target name="deductions.xml-to-db"
+   description="Deduce graphclass relations">
+   <exec executable="bash">
+	      <arg value="-c"/>
+          <!--add here your wikiServerinformation -->
+   	      <arg value="scp -r -p 'vagrant' vagrant@192.168.10.10:/home/vagrant/webfiles /home/ivo/webfiles"/>
+	      <arg value="scp -r -p 'vagrant' vagrant@192.168.10.10:/home/vagrant/webfiles ~/webfiles"/> <!-- fetch needed files folder from wiki-server -->
+   </exec>
+
+   <java classname="teo.isgci.appl.deducer.Generate" fork="true"
+      maxmemory="3500M"
+      classpathref="run.classpath">
+      <!-- <jvmarg value="-agentlib:hprof=cpu=samples,depth=8,interval=100"/> -->
+      <!-- <arg value="-C"/> -->
+      <!-- <arg value="-x"/> -->
+      <arg value="-a"/><arg file="${autocache.txt}"/>
+      <arg value="-l"/><arg file="${generate.trace}"/>
+      <arg value="-r"/><arg file="${relations.trace}"/>
+      <arg value="-s"/><arg file="${isgci.sage.xml.out}"/>
+   	  <arg value="-d"/><arg value="${db.conf}"/>
       <arg file="${isgci.xml.in}"/>
       <arg file="${smallgraphs.xml.out}"/>
       <arg file="${isgci.full.xml.out}"/>
