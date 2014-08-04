@@ -22,7 +22,7 @@ public class RCheckType extends RCheck {
         boolean err = false;
         StringBuffer s = new StringBuffer();
 
-        s.append("RCheckType\n");
+        s.append("# RCheckType\n");
         for (Inclusion e : d.getGraph().edgeSet()) {
             if (e.getSuper().getDirected() != e.getSub().getDirected()) {
                 err = true;
@@ -31,7 +31,7 @@ public class RCheckType extends RCheck {
         }
 
         if (err) {
-            s.append("end RCheckType\n");
+            s.append("# end RCheckType\n");
             String all = s.toString();
             
             System.out.println(all);

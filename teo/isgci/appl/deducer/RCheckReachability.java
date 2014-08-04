@@ -31,7 +31,7 @@ public class RCheckReachability extends RCheck {
     public void after(DeducerData d, PrintWriter w) {
     	StringBuffer s = new StringBuffer();
 
-        s.append("RCheckReachability\n");
+        s.append("# RCheckReachability\n");
         boolean err = false;
 
         for (Inclusion e :  edges) {
@@ -42,7 +42,7 @@ public class RCheckReachability extends RCheck {
         }
 
         if (err) {
-            s.append("end RCheckReachability");
+            s.append("# end RCheckReachability");
             String all = s.toString();
             
             System.out.println(all);

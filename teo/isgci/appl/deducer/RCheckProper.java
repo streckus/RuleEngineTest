@@ -25,7 +25,7 @@ public class RCheckProper extends RCheck {
         
         StringBuffer s = new StringBuffer();
 
-        s.append("RCheckProper\n");
+        s.append("# RCheckProper\n");
         for (Inclusion e : d.getGraph().edgeSet()) {
             if (!e.isProper())
                 continue;
@@ -38,7 +38,7 @@ public class RCheckProper extends RCheck {
         }
 
         if (err) {
-            s.append("end RCheckProper");
+            s.append("# end RCheckProper");
             
             String all = s.toString();
             w.println(all);

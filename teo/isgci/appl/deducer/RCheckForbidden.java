@@ -29,7 +29,7 @@ public class RCheckForbidden extends RCheck {
     /** Run at the end of the deductions process */
     public void after(DeducerData d, PrintWriter w) {
     	StringBuffer s = new StringBuffer();
-        s.append("RCheckForbidden\n");
+        s.append("# RCheckForbidden\n");
 
         boolean err = false;
         GraphClass from, to;
@@ -61,12 +61,12 @@ public class RCheckForbidden extends RCheck {
             to = inducedSub.getEdgeTarget(e);
             if (!to.subClassOf(from)) {
                 err = true;
-                s.append(from +" ("+ from.getID()+ ") -> "+
-                    to +" ("+ to.getID() +")\n");
+                s.append(from.getID() + " -> " + to.getID() + " : " + from + " -> " + 
+                    to + "\n");
             }
         }
         if (err) {
-            s.append("end RCheckForbidden");
+            s.append("# end RCheckForbidden");
             String all = s.toString();
             
             System.out.println(all);

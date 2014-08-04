@@ -45,7 +45,7 @@ public class RCheckSCC extends RCheck {
             PrintWriter w) {
     	StringBuffer s = new StringBuffer();
 
-        s.append("RCheckSCC\n");
+        s.append("# RCheckSCC\n");
         Set<GraphClass> vecBefore1, vecAfter1, vecBefore2, vecAfter2;
         // Maps after-SCC to beforeSCCs
         HashMap<Set<GraphClass>, Set<Set<GraphClass> > > scc =
@@ -90,19 +90,20 @@ public class RCheckSCC extends RCheck {
         for (Map.Entry<Set<GraphClass>, Set<Set<GraphClass> > > entry :
                 scc.entrySet()) {
             vecAfter1 = entry.getKey();
-            s.append("sccBefore: ");
+            s.append("** sccBefore: ");
             for (Set<GraphClass> bfor : entry.getValue()) {
                 s.append("[");
                 for (GraphClass gc : bfor)
                     s.append( gc.getID() +" ("+ gc.toString() +"), ");
-                s.append("]\n");
+                s.append("]");
             }
-            s.append("sccAfter:\n[");
+            s.append("\n");
+            s.append("** sccAfter:[");
             for (GraphClass gc : vecAfter1)
                 s.append( gc.getID() +" ("+ gc.toString() +"), ");
             s.append("]\n");
         }
-        s.append("end RCheckSCC");
+        s.append("# end RCheckSCC");
         
         String all = s.toString();
         

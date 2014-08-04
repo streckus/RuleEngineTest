@@ -24,7 +24,7 @@ public class RCheckForbiddenNonEdge extends RCheck {
 		boolean err = false;
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("RCheckForbiddenNonEdge\n");
+		sb.append("# RCheckForbiddenNonEdge\n");
 
 		for (GraphClass gc1 : d.getGraph().vertexSet()) {
 			if (!(gc1 instanceof ForbiddenClass))
@@ -39,15 +39,14 @@ public class RCheckForbiddenNonEdge extends RCheck {
 						(ForbiddenClass) gc1, s);
 				if (!b) {
 					err = true;
-					sb.append("Unconfirmed non-inclusion " + gc1
-							+ " (" + gc1.getID() + ") -> " + gc2 + " ("
-							+ gc2.getID() + ")\n");
-					sb.append(s.toString());
+					sb.append(gc1.getID() + " -> " + gc2.getID() + " : Unconfirmed non-inclusion " + gc1
+							+ " (" + gc1.getID() + ") -> " + gc2 + " (" + gc2.getID() + ")\n");
+					sb.append("# " + s.toString() + "\n");
 				}
 			}
 		}
 		if (err) {
-			sb.append("end sanityCheckForbiddenNonEdge");
+			sb.append("# end sanityCheckForbiddenNonEdge");
 			String all = sb.toString();
 			
 			System.out.println(all);

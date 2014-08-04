@@ -30,13 +30,13 @@ public class RCheckAbstractRelations {
         boolean err = false;
         StringBuffer s = new StringBuffer();
 
-        s.append("RCheckAbstractRelations\n");
+        s.append("# RCheckAbstractRelations\n");
         for (AbstractRelation r : relations) {
             if (r instanceof Incomparability) {
                 if (d.containsEdge(r.get1(), r.get2())  ||
                         d.containsEdge(r.get2(), r.get1())) {
                     err = true;
-                    s.append("Inclusion exists for "+ r + "\n");
+                    s.append(r + " : Inclusion\n");
                 }
                 continue;
             }
@@ -53,26 +53,22 @@ public class RCheckAbstractRelations {
 
                     if (d.containsEdge(gc1, gc2)) {
                         err = true;
-                        //s.append("Inclusion "+ d.getEdge(gc1, gc2) +
-                                //" exists for "+ r + "\n");
-                        s.append(r + " Inclusion "+ d.getEdge(gc1, gc2) +
-                                " exists for "+ r + "\n");
+                        s.append(r + " : Inclusion "+ d.getEdge(gc1, gc2) + "\n");
                     }
                     if (d.containsEdge(gc2, gc1)) {
                         err = true;
-                        s.append(r + "Inclusion "+ d.getEdge(gc2, gc1) +
-                                " exists for "+ r + "\n");
+                        s.append(r + " : Inclusion "+ d.getEdge(gc2, gc1) + "\n");
                     }
                     if (gc1.getHereditariness() == GraphClass.Hered.INDUCED &&
                            gc2.getHereditariness()==GraphClass.Hered.INDUCED) {
                         err = true;
-                        s.append("Induced-hereditary subclasses "+
-                                gc1 +" "+ gc2 +" exists for "+ r + "\n");
+                        s.append(r + " : Induced-hereditary subclasses "+
+                                gc1 +" "+ gc2 + "\n");
                     }
                 }
         }
         if (err) {
-            s.append("end RCheckAbstractRelations\n");
+            s.append("# end RCheckAbstractRelations\n");
             String all = s.toString();
             
             System.out.println(all);

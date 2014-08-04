@@ -46,38 +46,38 @@ public class RProperComplement extends RProper<ComplementClass> {
         Inclusion e, f;
 
         if (d.containsEdge(v1, v2)  &&  (e = d.getEdge(v1, v2)) != null  &&
-                e.isProper()  &&  !(f = d.getEdge(v3, v4)).isProper()) {
+                e.isProper()  && (f = d.getEdge(v3, v4)) != null && !f.isProper()) {
             d.setProper(f, d.newTraceData("properFromComplement", e));
         }
         if (d.containsEdge(v3, v4)  &&  (e = d.getEdge(v3, v4)) != null  &&
-                e.isProper()  &&  !(f = d.getEdge(v1, v2)).isProper()) {
+                e.isProper()  && (f = d.getEdge(v1, v2)) != null && !f.isProper()) {
             d.setProper(f, d.newTraceData("properFromComplement", e));
         }
 
         if (d.containsEdge(v2, v1)  &&  (e = d.getEdge(v2, v1)) != null  &&
-                e.isProper()  &&  !(f = d.getEdge(v4, v3)).isProper()) {
+                e.isProper()  && (f = d.getEdge(v4, v3)) != null && !f.isProper()) {
             d.setProper(f, d.newTraceData("properFromComplement", e));
         }
         if (d.containsEdge(v4,v3)  &&  (e = d.getEdge(v4, v3)) != null  &&
-                e.isProper()  &&  !(f = d.getEdge(v2, v1)).isProper()) {
+                e.isProper()  && (f = d.getEdge(v2, v1)) != null && !f.isProper()) {
             d.setProper(f, d.newTraceData("properFromComplement", e));
         }
 
         if (d.containsEdge(v1, v4)  &&  (e = d.getEdge(v1, v4)) != null  &&
-                e.isProper()  &&  !(f = d.getEdge(v3, v2)).isProper()) {
+                e.isProper()  &&  (f = d.getEdge(v3, v2)) != null && !f.isProper()) {
             d.setProper(f, d.newTraceData("properFromComplement", e));
         }
         if (d.containsEdge(v3, v2)  &&  (e = d.getEdge(v3, v2)) != null  &&
-                e.isProper()  &&  !(f = d.getEdge(v1, v4)).isProper()) {
+                e.isProper()  &&  (f = d.getEdge(v1, v4)) != null && !f.isProper()) {
             d.setProper(f, d.newTraceData("properFromComplement", e));
         }
 
         if (d.containsEdge(v4, v1)  &&  (e = d.getEdge(v4, v1)) != null  &&
-                e.isProper()  &&  !(f = d.getEdge(v2, v3)).isProper()) {
+                e.isProper()  &&  (f=d.getEdge(v2, v3)) != null && !f.isProper()) {
             d.setProper(f, d.newTraceData("properFromComplement", e));
         }
         if (d.containsEdge(v2, v3)  &&  (e = d.getEdge(v2, v3)) != null  &&
-                e.isProper()  &&  !(f = d.getEdge(v4, v1)).isProper()) {
+                e.isProper()  &&  (f = d.getEdge(v4, v1)) != null && !f.isProper()) {
             d.setProper(f, d.newTraceData("properFromComplement", e));
         }
     }
