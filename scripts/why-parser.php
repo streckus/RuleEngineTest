@@ -5,7 +5,36 @@
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 <style>
+body {
+    line-height: 200%;
+    font-family: "Courier New", Courier, "Andale Mono", monospace;
+}
+
+.trunc {
+    width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+.trunc:hover {
+    overflow: visible; 
+    white-space: normal; 
+    width: auto;
+}
+
+.ids {
+    width: 120px;
+    display: inline-block;
+}
+
 .spinner {
   margin: 100px auto;
   width: 40px;
@@ -120,6 +149,7 @@
 </style>
 </head>
 <body>
+<h2>Error Log</h2>
 <?php
 require 'why.php';
 
@@ -132,10 +162,14 @@ if ($handle) {
             echo "<h3>". $line . "</h3>";
             continue;
         }
+        if (startsWith($line, '**')) {
+            echo substr($line, 2) . "<br />\n<br />\n<br />\n";
+            continue;
+        }
         preg_match('/(?P<id1>\d+) -> (?P<id2>\d+)(?P<rest>.*)/', $line, $matches);
         $id1 = $matches['id1'];
         $id2 = $matches['id2'];
-        echo $id1 . " -> " . $id2 . " " . $matches['rest'] . " <span class='glyphicon glyphicon-question-sign' onClick='triggerScript($id1,$id2, 0)' style='margin-left:80px' data-toggle='modal' data-backdrop='static' data-target='#myModal' style='cursor:pointer'></span><br />\n";
+        echo "<span class='ids'>" . $id1 . " -> " . $id2 . "</span><span class='trunc'> " . $matches['rest'] . "</span> <span class='glyphicon glyphicon-question-sign' onClick='triggerScript($id1,$id2, 0)' style='margin-left:80px' data-toggle='modal' data-backdrop='static' data-target='#myModal' style='cursor:pointer'></span><br />\n";
         //echo $matches['id2'] . "<br />\n";
         //echo $line . "<br />\n";
     }
@@ -204,7 +238,6 @@ function saveSpaces(str) {
 var circles = " <div class='spinner'> <div class='spinner-container container1'> <div class='circle1'></div> <div class='circle2'></div> <div class='circle3'></div> <div class='circle4'></div> </div> <div class='spinner-container container2'> <div class='circle1'></div> <div class='circle2'></div> <div class='circle3'></div> <div class='circle4'></div> </div> <div class='spinner-container container3'> <div class='circle1'></div> <div class='circle2'></div> <div class='circle3'></div> <div class='circle4'></div> </div> </div>";
 function triggerScript(id1, id2, names) {
     $('#run_again').data('id1', id1).data('id2', id2); 
-    console.log(id1, id2);
     $('.modal-body').html(circles);
     $('.modal-header').html('<h4>Why? Results for ' + id1 + ' and ' + id2 + '</h4>');
     $.ajax({ 
@@ -217,7 +250,14 @@ function triggerScript(id1, id2, names) {
         } 
     })
     .done(function(msg) {
-        $('.modal-body').html(nl2br(saveSpaces(msg),true));
+        console.log(msg.trim());
+        if (msg.trim() == '->' || msg.trim() == '()  -> ()') {
+            $('.modal-body').html('No trace data available for those two IDs');
+        }
+        else {
+            $('.modal-body').html(nl2br(saveSpaces(msg),true));
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
     })
     .error(function(msg) {
         $('.modal-body').html('An error occured: ' + msg);

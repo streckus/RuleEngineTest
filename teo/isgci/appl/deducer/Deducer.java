@@ -143,7 +143,7 @@ public class Deducer implements DeducerData {
         tempify();
 
         // Force error for checking the checks
-        /*{
+        {
             GraphClass chordal = null, interval = null;
 
             for (GraphClass gc : graph.vertexSet())
@@ -152,7 +152,7 @@ public class Deducer implements DeducerData {
                 else if ("interval".equals(gc.toString()))
                     interval = gc;
             addTrivialEdge(interval, chordal, newTraceData("Test"));
-        }*/
+        }
 
         for (RCheck check : checks)
             check.after(this, pw);

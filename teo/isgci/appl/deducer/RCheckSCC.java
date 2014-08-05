@@ -94,13 +94,13 @@ public class RCheckSCC extends RCheck {
             for (Set<GraphClass> bfor : entry.getValue()) {
                 s.append("[");
                 for (GraphClass gc : bfor)
-                    s.append( gc.getID() +" ("+ gc.toString() +"), ");
+                    s.append( gc.getID() +" ($"+ gc.toString() +"$), ");
                 s.append("]");
             }
             s.append("\n");
             s.append("** sccAfter:[");
             for (GraphClass gc : vecAfter1)
-                s.append( gc.getID() +" ("+ gc.toString() +"), ");
+                s.append( gc.getID() +" ($"+ gc.toString() +"$), ");
             s.append("]\n");
         }
         s.append("# end RCheckSCC");

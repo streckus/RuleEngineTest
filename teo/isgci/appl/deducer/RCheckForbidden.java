@@ -61,8 +61,8 @@ public class RCheckForbidden extends RCheck {
             to = inducedSub.getEdgeTarget(e);
             if (!to.subClassOf(from)) {
                 err = true;
-                s.append(from.getID() + " -> " + to.getID() + " : " + from + " -> " + 
-                    to + "\n");
+                s.append(from.getID() + " -> " + to.getID() + " $" + from + "$ -> $" + 
+                    to + "$\n");
             }
         }
         if (err) {

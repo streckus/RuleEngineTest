@@ -12,7 +12,7 @@ function printwhy($mysqli, $sub, $super, $names, $prefix = "") {
     $row = $result->fetch_assoc();
 
     if ($names) {
-        $res = $prefix . "(" . $row['sub'] . ") " . $row['sub_name'] . " -> (" . $row['super'] . ") " .  $row['sup_name'] . "    " . $row['type'] . "\n";
+        $res = $prefix . "(" . $row['sub'] . ") $" . $row['sub_name'] . "$ -> (" . $row['super'] . ") $" .  $row['sup_name'] . "$    " . $row['type'] . "\n";
     }
     else {
         $res = $prefix . $row['sub'] . " -> " . $row['super'] . "    " . $row['type'] . "\n";

@@ -39,9 +39,9 @@ public class RCheckForbiddenNonEdge extends RCheck {
 						(ForbiddenClass) gc1, s);
 				if (!b) {
 					err = true;
-					sb.append(gc1.getID() + " -> " + gc2.getID() + " : Unconfirmed non-inclusion " + gc1
-							+ " (" + gc1.getID() + ") -> " + gc2 + " (" + gc2.getID() + ")\n");
-					sb.append("# " + s.toString() + "\n");
+					sb.append(gc1.getID() + " -> " + gc2.getID() + " : Unconfirmed non-inclusion $" + gc1
+							+ "$ (" + gc1.getID() + ") -> $" + gc2 + "$ (" + gc2.getID() + ")\n");
+					sb.append("** " + s.toString() + "\n");
 				}
 			}
 		}
