@@ -863,7 +863,7 @@ public class Deducer implements DeducerData {
         for (ForbiddenClass ni : v) {
             if (temporaries.contains(ni))
                 temp.add(ni);
-            else if ((ni.getID()&1)==1) //intID AUTO
+            else if ((~(ni.getID()^1)&7) == 7) //intID AUTO 
                 auto.add(ni);
             else
                 orig.add(ni);

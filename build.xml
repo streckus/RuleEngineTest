@@ -30,6 +30,9 @@
 <property name="relations.trace" location="${build.data.dir}/relations.trace"/>
 <property name="autocache.txt" location="${persistent.dir}/autocache.txt"/>
 <property name="names.txt" location="${build.data.dir}/names.txt"/>
+	
+<!--Here is the place to change IP of the wiki-server-->
+<property name="db.conf" value="http://192.168.10.10/"/>
 
 <property name="iq.dir" value="teo/isgci/appl/iq"/>
 <property name="iq.pkg" value="teo.isgci.appl.iq"/>
@@ -82,6 +85,7 @@
    <path refid="compile.classpath"/>
    <pathelement location="${jarlib.dir}/saxon.jar"/>
    <pathelement location="${build.classes.dir}"/>
+   <pathelement location="${jarlib.dir}/mysql-connector-java-5.1.31-bin.jar"/>
 </path>
 
 <!-- Targets -->
@@ -478,6 +482,7 @@
       <param name="rooturl" expression="${root.url}"/>
       <param name="classesdir" expression="${web.classes.rel}"/>
       <param name="graphlinks" expression="${graphlinks.xml.out}"/>
+      <param name="refsinput" expression="${refs.xml.in}"/>
    </xslt>
    <xslt style="${xsl.dir}/mkkeywords.xsl"
       in="${isgci.full.xml.out}"
