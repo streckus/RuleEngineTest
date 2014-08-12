@@ -21,7 +21,12 @@ public abstract class GraphClass {
         /** This is an undirected class (default) */
         UNDIRECTED,
         /** This is a directed class */
-        DIRECTED
+        DIRECTED,
+        /**
+         * This is a parameter pseudoclass. (added by vector to keep
+         * hierarchies apart.)
+         */
+        PARAMETER
     };
 
     public enum Hered {
@@ -96,6 +101,13 @@ public abstract class GraphClass {
         return directed == Directed.UNDIRECTED;
     }
 
+    /**
+     * Return true iff this class is a Parameter PseudoClass.
+     * @author vector
+     */
+    public boolean isPseudoClass() {
+        return directed == Directed.PARAMETER;
+    }
 
     /** Get the hereditariness */
     public Hered getHereditariness() {

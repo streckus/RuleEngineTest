@@ -10,12 +10,12 @@
 
 package teo.isgci.problem;
 
-class ComplexityClashException extends RuntimeException {
+public class ComplexityClashException extends RuntimeException {
     public ComplexityClashException(String s) {
         super(s);
     }
-
-    public ComplexityClashException(Complexity a, Complexity b) {
+    // changed to AbstractComplexity by vector
+    public ComplexityClashException(AbstractComplexity a, AbstractComplexity b) {
         super(a.toString() +" /\\ "+ b.toString());
     }
 }

@@ -37,33 +37,37 @@ public class RCheckAbstractRelations /*extends RCheck*/ {
                 continue;
             }
 
-            if (!(r instanceof Disjointness))
+            // Support for NotBounds and Open added by vector
+            if (!(r instanceof Disjointness) && !(r instanceof NotBounds)
+                    && !(r instanceof Open))
                 throw new RuntimeException("Unknown relation"+ r);
 
-            for (GraphClass gc1 : new Itera<GraphClass>(Iterators.union(
-                    Iterators.singleton(r.get1()),
-                    GAlg.outNeighboursOf(d.getGraph(), r.get1()))))
-                for (GraphClass gc2 : new Itera<GraphClass>(Iterators.union(
-                        Iterators.singleton(r.get2()),
-                        GAlg.outNeighboursOf(d.getGraph(), r.get2())))) {
+            if (!(r instanceof NotBounds))
+                for (GraphClass gc1 : new Itera<GraphClass>(Iterators.union(
+                        Iterators.singleton(r.get1()),
+                        GAlg.outNeighboursOf(d.getGraph(), r.get1()))))
+                    for (GraphClass gc2 : new Itera<GraphClass>(Iterators.union(
+                            Iterators.singleton(r.get2()),
+                            GAlg.outNeighboursOf(d.getGraph(), r.get2())))) {
 
-                    if (d.containsEdge(gc1, gc2)) {
-                        err = true;
-                        System.out.println("Inclusion "+ d.getEdge(gc1, gc2) +
-                                " exists for "+ r);
+                        if (d.containsEdge(gc1, gc2)) {
+                            err = true;
+                            System.out.println("Inclusion "+ d.getEdge(gc1, gc2)
+                                    + " exists for "+ r);
+                        }
+                        if (d.containsEdge(gc2, gc1)) {
+                            err = true;
+                            System.out.println("Inclusion "+ d.getEdge(gc2, gc1)
+                                    + " exists for " + r);
+                        }
+                        if (gc1.getHereditariness()==GraphClass.Hered.INDUCED &&
+                            gc2.getHereditariness()==GraphClass.Hered.INDUCED) {
+                            err = true;
+                            System.out
+                                    .println("Induced-hereditary subclasses "+
+                                            gc1 +" "+ gc2 +" exists for "+ r);
+                        }
                     }
-                    if (d.containsEdge(gc2, gc1)) {
-                        err = true;
-                        System.out.println("Inclusion "+ d.getEdge(gc2, gc1) +
-                                " exists for "+ r);
-                    }
-                    if (gc1.getHereditariness() == GraphClass.Hered.INDUCED &&
-                           gc2.getHereditariness()==GraphClass.Hered.INDUCED) {
-                        err = true;
-                        System.out.println("Induced-hereditary subclasses "+
-                                gc1 +" "+ gc2 +" exists for "+ r);
-                    }
-                }
         }
         if (err)
             System.out.println("end RCheckAbstractRelations");

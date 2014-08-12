@@ -10,16 +10,19 @@
 
 package teo.isgci.problem;
 
-import java.util.Iterator;
-import java.util.List;
-import teo.isgci.gc.GraphClass;
-
-public abstract class Algorithm {
+public abstract class Algorithm extends AbstractAlgorithm {
+    // Abstracted by vector to support GraphParameters
     public abstract Problem getProblem();
+    @Override
+    public AbstractProblem getAbstractProblem() {
+        return getProblem();
+    }
     public abstract Complexity getComplexity();
+    @Override
+    public AbstractComplexity getAbstractComplexity() {
+        return getComplexity();
+    }
     public abstract String getTimeBounds();
-    public abstract List getRefs();
-    public abstract GraphClass getGraphClass();
 }
 
 /* EOF */

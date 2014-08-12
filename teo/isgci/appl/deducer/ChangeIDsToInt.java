@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
  * Postfixes are:
  * 000 for User "gc_" classes
  * 001 for AUTO classes
+ * 010 for Parameters and parameter PseudoClasses (added by vector)
  * 
  * For further Classes please accustomize the code!
  * @author ivo
@@ -97,6 +98,19 @@ public void changeIDs(String filename, String outputfile) throws
 				continue;
 				}
 			}
+		/*PARAMETER (added by vector)*/
+		if(parts[0].startsWith("par_")){
+		        String[] parts2 = parts[0].split("_", 2);
+		        int id = Integer.parseInt(parts2[1]);
+		        id=(id<<3)|2; //parameter intID -> 010
+		        if(!used2.get(id)){
+		                used2.set(id);
+		                out.write(id + "\t" + parts[1]);
+		                out.newLine();
+		                System.out.println(id + "\t" + parts[1]);
+		                continue;
+		                }
+		        }
 		}
 	System.out.println("done");
 	in.close();
@@ -117,7 +131,7 @@ public void changeXMLIDs(String filename, String outputfile)
 	BufferedReader in = new BufferedReader(new FileReader(filename));
 	BufferedWriter out = new BufferedWriter(new FileWriter(outputfile));
 	
-	String  regex   = "AUTO_\\d*|gc_\\d*";
+	String  regex   = "AUTO_\\d*|gc_\\d*|par_\\d*"; // par added by vector
 	
 	/*Reads line by line and replaces old IDs via Regex*/
 	
@@ -141,6 +155,11 @@ public void changeXMLIDs(String filename, String outputfile)
 			if(temp[0].compareTo("gc")==0){
 				Integer nID=(Integer.parseInt(temp[1])<<3);
 				matcher.appendReplacement( sb, nID.toString() );
+			}
+			/*PARAMETER (added by vector)*/
+			if(temp[0].compareTo("par")==0){
+			        Integer nID=(Integer.parseInt(temp[1])<<3)|2;
+			        matcher.appendReplacement( sb, nID.toString() );
 			}
 		}
 		matcher.appendTail( sb );

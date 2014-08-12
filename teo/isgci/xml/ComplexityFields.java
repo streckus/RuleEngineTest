@@ -30,11 +30,6 @@ public class ComplexityFields {
 	public static final String NPHARDS   = getNextID() + ", 'NPH', 'NPH', 4" ;
 	
 	public static final String CONPCOMPS = getNextID() + ", 'coNPC', 'coNPC', 4" ;
-
-	public static final String BOUNDED = getNextID() + ", 'Bounded', 'B', 1" ;
-	
-	public static final String UNBOUNDED = getNextID() + ", 'Unbounded', 'unB', 4" ;
-
 	/*
 	 * Want to add a new Complexity ? Add a new public static final String. Format: getNextID() + ", 'COMPLEXITYNAME', 'COMPLEXITYALIAS', COMPLEXITYSORT"
 	 * You replace COMPLEXITYNAME, COMPLEXITYALIAS, COMPLEXITYSORT with your String.

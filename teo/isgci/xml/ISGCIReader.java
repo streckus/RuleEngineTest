@@ -24,6 +24,7 @@ import java.io.PrintWriter;
 
 import teo.isgci.gc.*;
 import teo.isgci.grapht.*;
+import teo.isgci.parameter.*;
 import teo.isgci.problem.*;
 import teo.isgci.ref.*;
 import teo.isgci.relation.*;
@@ -45,6 +46,16 @@ public class ISGCIReader extends DefaultHandler{
     private Inclusion curIncl;
     private AbstractRelation curRel;
     private List<AbstractRelation> relations;
+    private String rel; // The string representing the parameter relation.
+
+    /* Parameters (added by vector) */
+    private HashMap<String, GraphParameter> parameterNames;
+    private HashMap<Integer, GraphParameter> parameterIDs;
+    private List<GraphParameter> parameters;
+    private List<GraphParameterWrapper> parTodo;
+    private GraphParameterWrapper curGraphPar;
+    private List<BoundednessProofWrapper> proofs;
+    private BoundednessProofWrapper curProof;
 
     /* Problems */
     private Hashtable problemNames;
@@ -53,6 +64,8 @@ public class ISGCIReader extends DefaultHandler{
     private AlgoWrapper curAlgo;
     private Problem curProblem;
     private List<ReductionWrapper> reductionsTodo;
+    private List<ParamAlgoWrapper> paramAlgos;
+    private ParamAlgoWrapper curParAlgo;
 
     /* References */
     private List refs;                // Refs for the current element
@@ -71,15 +84,21 @@ public class ISGCIReader extends DefaultHandler{
      * by the reader.
      */
     public ISGCIReader(DirectedGraph<GraphClass,Inclusion> g,
-            List<Problem> problems) {
+            List<Problem> problems, List<GraphParameter> parameters) {
         parsingDone = false;
         chunks = new StringBuffer();
         this.graph = g;
+        this.parameters = parameters;
         this.problems = problems;
+        parameterNames = new HashMap<String, GraphParameter>();
+        parameterIDs = new HashMap<Integer, GraphParameter>();
         problemNames = new Hashtable();
         classes = new HashMap<Integer,GraphClass>(); //intID
         todo = new ArrayList<GraphClassWrapper>();
+        parTodo = new ArrayList<GraphParameterWrapper>();
+        proofs = new ArrayList<BoundednessProofWrapper>();
         algos = new ArrayList<AlgoWrapper>();
+        paramAlgos = new ArrayList<ParamAlgoWrapper>();
         reductionsTodo = new ArrayList<ReductionWrapper>();
         relations = new ArrayList<AbstractRelation>();
     }
@@ -94,6 +113,10 @@ public class ISGCIReader extends DefaultHandler{
 
     public List<Problem> getProblems() {
         return problems;
+    }
+
+    public List<GraphParameter> getGraphParameters() {
+        return parameters;
     }
 
     /** ContentHandler interface */
@@ -196,7 +219,8 @@ public class ISGCIReader extends DefaultHandler{
             refs = new ArrayList();
 
         } else if (Tags.DISJOINT.equals(qName)  ||
-                Tags.INCOMPARABLE.equals(qName)) {
+                Tags.INCOMPARABLE.equals(qName)  ||
+                Tags.OPEN.equals(qName)) {
             if (atts.getValue(Tags.GC1) == atts.getValue(Tags.GC2))
                 throw new SAXException("gc1 = gc2 = "+
                         atts.getValue(Tags.GC1));
@@ -207,19 +231,116 @@ public class ISGCIReader extends DefaultHandler{
                         gc1.getID() +" -> "+ gc2.getID());
             if (Tags.DISJOINT.equals(qName))
                 curRel = new Disjointness(gc1, gc2);
-            else
+            else if (Tags.INCOMPARABLE.equals(qName))
                 curRel = new Incomparability(gc1, gc2);
+            else
+                curRel = new Open(gc1, gc2);
             curRel.setConfidence(Tags.string2confidence(
                     atts.getValue(Tags.CONFIDENCE)));
             for (AbstractRelation r : relations)
                 if (r.get1() == curRel.get1()  &&  r.get2() == curRel.get2())
                     throw new SAXException(
-                        "An incomparability or disjointness between "+
+                        "An incomparability, disjointness or open between "+
                         curRel.get1().getID() +" and "+ curRel.get2().getID() +
                         " already exists.");
             relations.add(curRel);
             refs = new ArrayList();
         } else
+
+        // ---- Parameter stuff (added by vector) ----
+        if (Tags.PARAMETER_DEF.equals(qName)) {
+
+            // System.out.println("ID: "+atts.getValue(Tags.ID)+
+            // " Name: "+atts.getValue(Tags.NAME));
+            curGraphPar = new GraphParameterWrapper(
+                        Integer.parseInt(atts.getValue(Tags.ID)),
+                        atts.getValue(Tags.NAME),
+                        atts.getValue(Tags.DIRTYPE),
+                        atts.getValue(Tags.PARAMETER_DECOMP),
+                        atts.getValue(Tags.PARAMETER_COMPLEMENT));
+        } else
+        // ---- Parameter-Boundedness ----
+        if (Tags.BOUNDED.equals(qName)) {
+            curProof = new BoundednessProofWrapper(curClass.id,
+                    atts.getValue(Tags.NAME),
+                    atts.getValue(Tags.BOUNDEDNESS));
+        } else
+        // ---- "parameter"-Tag ----
+        if (Tags.PARAMETER.equals(qName)) {
+            curClass.boundednesses.add(new BoundednessWrapper(
+                    parameterNames.get(atts.getValue(Tags.NAME)),
+                    atts.getValue(Tags.BOUNDEDNESS) != null ? Boundedness
+                            .getBoundedness(atts
+                                    .getValue(Tags.BOUNDEDNESS))
+                            : Boundedness.UNKNOWN));
+        } else
+
+        // ---- Relations ----
+        if (Tags.PARAM_RELATION.equals(qName)) {
+            PseudoClass pgc1;
+            PseudoClass pgc2;
+            rel = atts.getValue(Tags.PAR_ATT_REL);
+
+                pgc1 = parameterIDs.get(
+                        Integer.parseInt(atts.getValue(Tags.PARAM1)))
+                        .getPseudoClass();
+                pgc2 = parameterIDs.get(
+                        Integer.parseInt(atts.getValue(Tags.PARAM2)))
+                        .getPseudoClass();
+            if (pgc1 == pgc2)
+                throw new SAXException("param1 = param2 = " + pgc1.getID());
+            // Case: Relation ">=" (bounds) or "=" (equ) or ">" (strictly
+            // bounds)
+            if (rel.equals(Tags.PAR_BOUNDS) || rel.equals(Tags.PAR_EQU)
+                    || rel.equals(Tags.PAR_STRICT_BOUNDS)) {
+                if (graph.containsEdge(pgc1, pgc2))
+                    throw new SAXException("Edge " + pgc1.getID() + " -> "
+                            + pgc2.getID() + " already exists");
+                if (pgc1.getDirected() != pgc2.getDirected())
+                    throw new SAXException(
+                            "Edge with unmatched directedness " + pgc1.getID()
+                                    + " -> " + pgc2.getID());
+                curIncl = graph.addEdge(pgc1, pgc2);
+                if (rel.equals(Tags.PAR_STRICT_BOUNDS))
+                    curIncl.setProper(true);
+                for (AbstractRelation r : relations)
+                    if (r.get1() == pgc2 && r.get2() == pgc1)
+                        curIncl.setProper(true);
+                curIncl.setConfidence(Tags.string2confidence(atts
+                        .getValue(Tags.CONFIDENCE)));
+                curIncl.setFunctiontype(atts.getValue(Tags.FUNCTIONTYPE));
+            } else
+            // Case: Relation "not >=" (not bounds) or open
+            if (rel.equals(Tags.PAR_NOT_BOUNDS)|| rel.equals(Tags.OPEN)) {
+                if (pgc1.getDirected() != pgc2.getDirected())
+                     throw new SAXException(
+                            "Relation with unmatched directedness "
+                                    + pgc1.getID() + " -> " + pgc2.getID());
+
+                if (rel.equals(Tags.PAR_NOT_BOUNDS))
+                    curRel = new NotBounds(pgc1, pgc2);
+                else
+                    curRel = new Open(pgc1, pgc2);
+
+                curRel.setConfidence(Tags.string2confidence(atts
+                        .getValue(Tags.CONFIDENCE)));
+                if (graph.containsEdge(pgc2, pgc1)
+                        && curRel instanceof NotBounds)
+                    graph.getEdge(pgc2, pgc1).setProper(true);
+                for (AbstractRelation r : relations)
+                    if (r.get1() == curRel.get1()
+                            && r.get2() == curRel.get2())
+                        throw new SAXException("A not >= or open between "
+                                + curRel.get1() + " and " + curRel.get2()
+                                + " already exists.");
+                relations.add(curRel);
+            } else {
+                    throw new IllegalArgumentException(
+                            "Unknown relation type for graphparameters: "
+                                    + rel);
+            }
+            refs = new ArrayList();
+        }
 
         //---- Problem stuff ----
         if (Tags.PROBLEM_DEF.equals(qName)) {
@@ -242,6 +363,8 @@ public class ISGCIReader extends DefaultHandler{
 
         } else if (Tags.PROBLEM_SPARSE.equals(qName)) {
             curProblem.setSparse();
+        } else if (Tags.PROBLEM_FORPARAMS.equals(qName)) {
+            curProblem.setParameters(true);
         } else if (Tags.PROBLEM_FROM.equals(qName)) {
             String from = atts.getValue(Tags.NAME);
             Complexity c = Complexity.getComplexity(
@@ -258,6 +381,21 @@ public class ISGCIReader extends DefaultHandler{
                 atts.getValue(Tags.COMPLEXITY) != null ?
                     Complexity.getComplexity(atts.getValue(Tags.COMPLEXITY)) :
                     Complexity.UNKNOWN));
+            // ---- Parameter-Algorithm ----
+        } else if (Tags.PAR_ALGO.equals(qName)) {
+            curParAlgo = new ParamAlgoWrapper(curGraphPar.id,
+                    atts.getValue(Tags.NAME),
+                    atts.getValue(Tags.COMPLEXITY),
+                    atts.getValue(Tags.BOUNDS));
+            // ---- Parameter-Problem ----
+        } else if (Tags.PAR_PROBLEM.equals(qName)) {
+            curGraphPar.complexities
+                    .add(new ParamProblemWrapper(
+                          (Problem) problemNames.get(atts.getValue(Tags.NAME)),
+                          atts.getValue(Tags.COMPLEXITY) != null ?
+                              ParamComplexity.getComplexity(
+                                      atts.getValue(Tags.COMPLEXITY))
+                              : ParamComplexity.UNKNOWN));
         } else
 
         //---- References ----
@@ -309,6 +447,8 @@ public class ISGCIReader extends DefaultHandler{
             // Then create the Complexities.
             for (AlgoWrapper aw : algos)
                 aw.generate();
+            for (BoundednessProofWrapper pw : proofs)
+                pw.generate();
 
         } else if (Tags.GRAPHCLASS.equals(qName)) {
             curClass.end();
@@ -354,10 +494,69 @@ public class ISGCIReader extends DefaultHandler{
             revIncl.setRefs(new ArrayList(refs));
         } else
 
+        //---- Parameters (added by vector) ----
+        if (Tags.PARAMETERS.equals(qName)) {
+            // First generate the outstanding graphparameters.
+            int i, size, oldsize = parTodo.size();
+            while ((size = parTodo.size()) != 0) {
+                for (i = size - 1; i >= 0; i--) {
+                    if (parTodo.get(i).generate())
+                        parTodo.remove(i);
+                }
+                if (parTodo.size() == oldsize) {
+                    System.err.println(size + " parameters not resolved");
+                    System.err.println(parTodo);
+                    return;
+                }
+                oldsize = size;
+            }
+
+            // Then create the Complexities.
+            for (ParamAlgoWrapper aw : paramAlgos)
+                aw.generate();
+        } else
+        // ---- Parameter ----
+        if (Tags.PARAMETER_DEF.equals(qName)) {
+            curGraphPar.end();
+            if (!curGraphPar.generate())
+                parTodo.add(curGraphPar);
+        } else
+        // ---- Parameter-Boundedness ----
+        if (Tags.BOUNDED.equals(qName)) {
+            curProof.end();
+            proofs.add(curProof);
+        } else
+        // ---- Relations ----
+        if (Tags.PARAM_RELATION.equals(qName)) {
+           if (rel.equals(Tags.PAR_BOUNDS) || rel.equals(Tags.PAR_EQU)
+                   || rel.equals(Tags.PAR_STRICT_BOUNDS)) {
+                curIncl.setRefs(refs);
+                if (rel.equals(Tags.PAR_EQU)) {
+                    Inclusion revIncl = graph.addEdge(
+                            graph.getEdgeTarget(curIncl),
+                            graph.getEdgeSource(curIncl));
+                    revIncl.setConfidence(curIncl.getConfidence());
+                    revIncl.setRefs(new ArrayList(refs));
+                } else if (rel.equals(Tags.PAR_STRICT_BOUNDS)) {
+                    NotBounds revRel = new NotBounds(
+                            (PseudoClass) graph.getEdgeTarget(curIncl),
+                            (PseudoClass) graph.getEdgeSource(curIncl));
+                    revRel.setConfidence(curIncl.getConfidence());
+                    revRel.setRefs(new ArrayList(refs));
+                    relations.add(revRel);
+                }
+            } else if (rel.equals(Tags.PAR_NOT_BOUNDS)) {
+                curRel.setRefs(refs);
+            }
+        } else
         //---- Problems ----
         if (Tags.ALGO.equals(qName)) {
             curAlgo.end();
             algos.add(curAlgo);
+        // ---- Parameter-Algorithm ----
+        } else if (Tags.PAR_ALGO.equals(qName)) {
+            curParAlgo.end();
+            paramAlgos.add(curParAlgo);
         } else if (Tags.PROBLEM_DEF.equals(qName)) {
             curProblem.setRefs(new ArrayList(refs));
         } else
@@ -391,6 +590,7 @@ public class ISGCIReader extends DefaultHandler{
         boolean selfComplementary;
         boolean cliqueFixed;
         List<ProblemWrapper> complexities;
+        List<BoundednessWrapper> boundednesses;
         List refs, prevrefs;
         
         public GraphClassWrapper(Integer id, String type, String dirtype) { //intID
@@ -401,6 +601,7 @@ public class ISGCIReader extends DefaultHandler{
             selfComplementary = false;
             cliqueFixed = false;
             complexities = new ArrayList<ProblemWrapper>();
+            boundednesses = new ArrayList<BoundednessWrapper>();
             this.id = id;
             this.type = type;
             this.dirtype = dirtype;
@@ -536,6 +737,9 @@ public class ISGCIReader extends DefaultHandler{
             for (ProblemWrapper w : complexities) {
                 w.problem.setComplexity(gc, w.complexity);
             }
+            for (BoundednessWrapper w : boundednesses) {
+                w.parameter.setBoundedness(gc, w.boundedness);
+            }
             classes.put(id, gc);
             return true;
         }
@@ -545,6 +749,131 @@ public class ISGCIReader extends DefaultHandler{
         }
     }
 
+    //------------------------ GraphParameterWrapper -----------------------
+    /**
+     * Serves as an all-in-one package for creating GraphParameters.
+     * More information can be found in the constructor.
+     * @author vector
+     */
+    private class GraphParameterWrapper {
+        /**
+         * Name of the Parameter.
+         */
+        private String name;
+        /**
+         * Its corresponding Parameter-ID.
+         */
+        private Integer id;
+        /**
+         * Corresponding Directedness ({@link Directed}) value.
+         */
+        private String dirtype;
+        /**
+         * Corresponding decomposition-time.
+         */
+        private String decomp;
+        /**
+         * It's complementary GraphParameter.
+         */
+        private String compl;
+        /**
+         * All complexities belonging to this parameter.
+         */
+        private List<ParamProblemWrapper> complexities;
+        /**
+         * Corresponding references ({@link Ref}).
+         */
+        private List refs;
+        /**
+         * Corresponding previous references.
+         */
+        private List prevrefs;
+
+        /**
+         * Constructs an all-in-one set containing the necessary information
+         * for creating GraphParameters in the system.
+         * Important: Only information, no actual function (like deduction).
+         * By invoking <b>end()</b>, the parameter will receive the
+         * corresponding references.
+         * Eventually, the wrapper can be used to create an
+         * {@link GraphParameter}-object
+         * in the system by invoking <b>generate()</b>.
+         *
+         * @param id A unique ID-Integer.
+         * @param name The parameter-name
+         * @param dirtype The corresponding {@link Directed}-Enum-value
+         * @param decomp A decomposition time.
+         * @param compl Corresponding complementary
+         *               {@link GraphParameter} (if available)
+         */
+        public GraphParameterWrapper(Integer id, String name, String dirtype,
+                String decomp, String compl) {
+            complexities = new ArrayList<ParamProblemWrapper>();
+            this.id = id;
+            this.name = name;
+            this.dirtype = dirtype;
+            this.decomp = decomp;
+            this.compl = compl;
+            prevrefs = ISGCIReader.this.refs;
+            ISGCIReader.this.refs = refs = new ArrayList();
+        }
+        /**
+         * Adds references.
+         */
+        public void end() {
+            ISGCIReader.this.refs = prevrefs;
+        }
+        /**
+         * Creates a parameter with information provided by the
+         * wrapper and eventually adds it into the system.
+         *
+         * @return True if creation was successfully.
+         * @throws SAXException Thrown if duplicate parameters exist.
+         */
+        public boolean generate() throws SAXException {
+            GraphParameter par = GraphParameter.createParameter(id, name,
+                    graph);
+
+            // ---- Check if parameter already exists
+            for (GraphParameter other : parameterIDs.values()) {
+                if (par.equals(other))
+                    throw new SAXException("Duplicate parameters " + id + " "
+                            + other.getID());
+            }
+
+            // ---- Complete it and add it
+            par.setDirected(Tags.problemString2directed(dirtype));
+            par.setDecomposition(Complexity.getComplexity(this.decomp));
+            if (!par.isLinDecomp()) {
+                Problem decomposition = (Problem) problemNames.get(par
+                        .getName() + " decomposition");
+                if (decomposition == null)
+                    throw new SAXException("No decomposition problem given "
+                            + "non-linear decomposible parameter "
+                            + par.getName());
+                par.setDecompositionProblem(decomposition);
+            }
+            parameterNames.put(name, par);
+            parameterIDs.put(id, par);
+            if (compl != null) {
+                GraphParameter c = parameterNames.get(compl);
+                if (c == null)
+                    throw new SAXException("Complement parameter " + compl
+                            + " not found.");
+                par.setComplement(c);
+            }
+            par.setRefs(refs);
+            for (ParamProblemWrapper w : complexities) {
+                w.problem.setComplexity(par.getPseudoClass(), w.complexity);
+            }
+            parameters.add(par);
+            return true;
+        }
+
+        public String toString() {
+            return "<GraphParameter: " + id + " " + name + ">";
+        }
+    }
 
     //-------------------------- AlgoWrapper -------------------------
     private class AlgoWrapper {
@@ -576,6 +905,165 @@ public class ISGCIReader extends DefaultHandler{
         }
     }
 
+    //-------------------------- ParamAlgoWrapper -------------------------
+    /**
+     * ParamAlgoWrapper serves as a help for handling algorithms (
+     * {@link ParamAlgorithm}) defined on parameters ({@link GraphParameter}).
+     * More information can be found in the constructor.
+     * @author vector
+     */
+    private class ParamAlgoWrapper {
+        /**
+         * Corresponding Parameter to ParamAlgorithm.
+         */
+        private Integer id;
+        /**
+         * Boundedness of ParamAlgo.
+         */
+        private String bounds;
+        /**
+         * Correspnding problem.
+         */
+        private Problem problem;
+        /**
+         * Corresponding complexity. More info: {@link ParamComplexity}
+         */
+        private ParamComplexity complexity;
+        /**
+         * Corresponding references.
+         */
+        private List refs, prevrefs;
+
+        /**
+         * Constructs an all-in-one set containing the necessary information
+         * for handling algorithms on parameters. Important: Only information,
+         * no actual function.
+         *
+         * The wrapper can then be used to create an algorithm in the system by
+         * invoking <b>generate()</b>.
+         *
+         * @param id
+         *            Parameter id
+         * @param probname
+         *            Problem name
+         * @param complexity
+         *            Parametrized complexity
+         * @param bounds
+         *            Specifies a boundedness.
+         * @throws SAXException
+         *             Thrown, if problem hasn't been found.
+         */
+        public ParamAlgoWrapper(Integer id, String probname,
+                String complexity, String bounds) throws SAXException {
+            this.id = id;
+            this.bounds = bounds;
+            this.problem = (Problem) problemNames.get(probname);
+            if (this.problem == null)
+                throw new SAXException("problem not found: " + probname);
+            this.complexity = ParamComplexity.getComplexity(complexity);
+            prevrefs = ISGCIReader.this.refs;
+            ISGCIReader.this.refs = refs = new ArrayList();
+        }
+
+        /**
+         * Finishes the wrapper by adding references.
+         */
+        public void end() {
+            ISGCIReader.this.refs = prevrefs;
+        }
+
+        /**
+         * Generates an algorithm on a parameter, with information provided by
+         * the wrapper.
+         * @return true if creation is finished.
+         */
+        public boolean generate() {
+            problem.createAlgo(
+                    parameterIDs.get(this.id).getPseudoClass(),
+                    complexity, bounds, refs);
+            return true;
+        }
+    }
+
+    //---------------------- BoundednessProofWrapper --------------
+    /**
+     * Serves as all-in-one help for creating/setting boundedness proofs values
+     * on graphclasses with associated parameters.
+     *
+     * Similar to {@link BoundednessWrapper}, but with references.
+     *
+     * More info can be found in the constructor.
+     * @author vector
+     */
+    private class BoundednessProofWrapper {
+        /**
+         * Corresponding {@link GraphParameter}.
+         */
+        private GraphParameter parameter;
+        /**
+         * Corresponding {@link GraphClass}-ID.
+         */
+        private Integer id;
+        /**
+         * Corresponding {@link Boundedness}.
+         */
+        private Boundedness boundedness;
+        /**
+         * Corresponding local references (added to the object on generation
+         * via <b>generate()</b>).
+         */
+        private List refs, prevrefs;
+
+        /**
+         * Constructs an all-in-one set containing the necessary information
+         * for setting boundedness proofs on parameters, similar to
+         * {@link BoundednessWrapper}, but providing more information on the
+         * actual proof (refrences, notes) Important: Only information, no
+         * actual function. <br>
+         * <br>
+         * The wrapper can then be used to add the boundedness proof into the
+         * system by invoking <b>generate()</b>. <br>
+         * <br>
+         * References are never null (set to empty element on creation of
+         * object).
+         *
+         * @param id2
+         *            graphclass, the parameter is (un-)bounded on.
+         * @param name
+         *            graphparameter, whose boundedness is set.
+         * @param boundedness
+         *            the boundedness enumeration value (More info:
+         *            {@link Boundedness})
+         */
+        public BoundednessProofWrapper(Integer id2, String name,
+                String boundedness) throws SAXException {
+            this.id = id2;
+            this.parameter = parameterNames.get(name);
+            if (this.parameter == null)
+                throw new SAXException("parameter not found: " + name);
+            this.boundedness = Boundedness.getBoundedness(boundedness);
+            prevrefs = ISGCIReader.this.refs;
+            ISGCIReader.this.refs = refs = new ArrayList();
+        }
+
+        /**
+         * Adds references.
+         */
+        public void end() {
+            ISGCIReader.this.refs = prevrefs;
+        }
+
+        /**
+         * Generates/sets a boundedness proof on a graphclass, with information
+         * provided by the wrapper.
+         * @return true if creation is finished.
+         */
+        public boolean generate() {
+            parameter.createProof(classes.get(id), boundedness, refs);
+            return true;
+        }
+    }
+
     //---------------------- ProblemWrapper -----------------------
     private class ProblemWrapper {
         Problem problem;
@@ -587,6 +1075,55 @@ public class ISGCIReader extends DefaultHandler{
         }
     }
 
+    // -------------------- ParamProblemWrapper (added by vector)-------------
+    private class ParamProblemWrapper {
+        Problem problem;
+        ParamComplexity complexity;
+
+        public ParamProblemWrapper(Problem p, ParamComplexity c) {
+            problem = p;
+            complexity = c;
+        }
+    }
+
+    // ---------------------- BoundednessWrapper -------------------
+    /**
+     * Serves as all-in-one help for creating/setting boundedness values on
+     * graphclasses with associated parameters.
+     *
+     * More info can be found in the constructor.
+     * @author vector
+     */
+    private class BoundednessWrapper {
+        /**
+         * Corresponding {@link Boundedness}-Enum-Value.
+         */
+        private Boundedness boundedness;
+        /**
+         * Corresponding {@link GraphParameter}-Object.
+         */
+        private GraphParameter parameter;
+
+        /**
+         * Constructs an all-in-one set containing the necessary information
+         * for setting parametrized boundednesses on graphclasses. Important:
+         * Only information, no actual function.
+         *
+         * The wrapper can then be used to add the boundedness in the system by
+         * invoking <b>generate()</b>.
+         *
+         * @param parameter
+         *            graphparameter, whose boundedness is set.
+         * @param boundedness
+         *            the boundedness enumeration value (More info:
+         *            {@link Boundedness})
+         */
+        public BoundednessWrapper(final GraphParameter parameter,
+                final Boundedness boundedness) {
+            this.parameter = parameter;
+            this.boundedness = boundedness;
+        }
+    }
 
     //---------------------- ReductionWrapper -------------------------
     private class ReductionWrapper {

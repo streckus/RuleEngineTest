@@ -17,6 +17,8 @@ import org.jgrapht.graph.SimpleDirectedGraph;
 import teo.isgci.grapht.*;
 import teo.isgci.xml.*;
 import teo.isgci.gc.GraphClass;
+import teo.isgci.parameter.GraphParameter;
+import teo.isgci.parameter.PseudoClass;
 import teo.isgci.problem.Problem;
 import teo.isgci.util.LessLatex;
 import teo.isgci.relation.*;
@@ -42,6 +44,8 @@ public final class DataSet {
 
     /** Problems */
     public static Vector<Problem> problems;
+    /** Parameters. */
+    public static Vector<GraphParameter> parameters;
 
     /** Relations not in inclGraph */
     public static List<AbstractRelation> relations;
@@ -59,7 +63,8 @@ public final class DataSet {
         inclGraph = new SimpleDirectedGraph<GraphClass,Inclusion>(
                 Inclusion.class);
         problems = new Vector<Problem>();
-        load(loader, file, inclGraph, problems);
+        parameters = new Vector<GraphParameter>(); // added by vector
+        load(loader, file, inclGraph, problems, parameters);
 
         // Sort problems
         Collections.sort(problems, new Comparator<Problem>() {
@@ -68,10 +73,18 @@ public final class DataSet {
             }
         });
 
+        // Sort parameters (added by vector)
+        Collections.sort(parameters, new Comparator<GraphParameter>() {
+            public int compare(GraphParameter o1, GraphParameter o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+
         // Gather the classnames
         names = new TreeMap<String,GraphClass>(new LessLatex());
         for (GraphClass gclass : inclGraph.vertexSet())
-            names.put(gclass.toString(), gclass);
+            if (!gclass.isPseudoClass())
+                names.put(gclass.toString(), gclass);
 
         // Gather the SCCs
         sccs = GAlg.calcSCCMap(inclGraph);
@@ -82,8 +95,9 @@ public final class DataSet {
 
     public static void load(Resolver loader, String file,
             SimpleDirectedGraph<GraphClass,Inclusion> graph,
-            Vector problems) {
-        ISGCIReader gcr = new ISGCIReader(graph, problems);
+            Vector<Problem> problems, Vector<GraphParameter> parameters) {
+        // parameters added by vector
+        ISGCIReader gcr = new ISGCIReader(graph, problems, parameters);
         XMLParser xml=new XMLParser(loader.openInputSource(file),
                 gcr, loader.getEntityResolver());
         xml.parse();
@@ -137,6 +151,17 @@ public final class DataSet {
         return null;
     }
     
+    /**
+     * Return the parameter with the given name.
+     */
+    public static GraphParameter getParameter(String name){
+        for (int i = 0; i < parameters.size(); i++)
+            if (name.equals(parameters.elementAt(i).getName())) {
+                return parameters.elementAt(i);
+            }
+        return null;
+    }
+
     public static String getDate() {
         return date;
     }        

@@ -10,6 +10,7 @@
 
 package teo.isgci.problem;
 
+import java.awt.Color;
 
 /**
  * Represents complexity classes like Linear, P, NPC, coNPC and Unknown.
@@ -18,30 +19,30 @@ package teo.isgci.problem;
  * The betterThan and betterOrEqual compare as LIN < P < GIC < NPC,NPH,CONPC.
  * betterThan with other complexities is undefined.
  */
-public enum Complexity {
+public enum Complexity implements AbstractComplexity {
     /** Higher complexity, higher number */
-    LINEAR ("Linear",        "Lin",   "Bounded"),
-    P      ("Polynomial",    "P",     "Bounded"),
-    GIC    ("GI-complete",   "GIC",   "Unbounded"),
-    NPC    ("NP-complete",   "NPC",   "Unbounded"),
-    NPH    ("NP-hard",       "NPh",   "Unbounded"),
-    CONPC  ("coNP-complete", "coNPC", "Unbounded"),
-    OPEN   ("Open",          "Open",  "Open"),
-    UNKNOWN("Unknown",       "?",     "Unknown");
+    LINEAR ("Linear",        "Lin", Color.green),
+    P      ("Polynomial",    "P", Color.green.darker()),
+    GIC    ("GI-complete",   "GIC", new Color(255, 100, 100)),
+    NPC    ("NP-complete",   "NPC", Color.red),
+    NPH    ("NP-hard",       "NPh", Color.red),
+    CONPC  ("coNP-complete", "coNPC", Color.red),
+    OPEN   ("Open",          "Open", Color.white),
+    UNKNOWN("Unknown",       "?", Color.white);
 
 
     /** Complexity class */
     protected String name;
     protected String abbrev;
-    protected String widthName;
+    protected Color defaultColor;
 
     /**
      * Creates a new complexity with the given value and names
      */
-    private Complexity(String name, String abbrev, String widthName) {
+    private Complexity(String name, String abbrev, Color color) {
         this.name = name;
         this.abbrev = abbrev;
-        this.widthName = widthName;
+        this.defaultColor = color;
     }
 
 
@@ -53,16 +54,21 @@ public enum Complexity {
         return name;
     }
 
-    public String getWidthString() {
-        return widthName;
-    }
-
     public boolean betterThan(Complexity c) {
         return compareTo(c) < 0;
     }
 
     public boolean betterOrEqual(Complexity c) {
         return compareTo(c) <= 0;
+    }
+    
+    /**
+     * Gets the default color of the complexity.
+     * @return
+     *          The default color.
+     */
+    public Color getDefaultColor() {
+        return defaultColor;
     }
 
     public boolean isUnknown() {
@@ -99,27 +105,32 @@ public enum Complexity {
     }
 
     /**
-     * Assuming this complexity is assigned to some graphclasses, return true
-     * iff this complexity also holds for subclasses.
+     * Can a problem at the same time have this complexity and c's
+     * parameterized complexity?
+     * @param c
+     *            the parameterized complexity to check compatibility with.
+     * @return true, iff c and this are compatible.
+     * @author vector
      */
-    boolean distributesDown() {
+    public boolean isCompatible(ParamComplexity c) {
+        // To prevent errors in later changes of compatibilities, this function
+        // is implemented only once.
+        return c.isCompatible(this);
+    }
+
+    // changes in visibility needed for abstraction (changed by vector)
+    @Override
+    public boolean distributesDown() {
         return betterOrEqual(P);
     }
 
-    /**
-     * Assuming this complexity is assigned to some graphclasses, return true
-     * iff this complexity also holds for superclasses.
-     */
-    boolean distributesUp() {
+    @Override
+    public boolean distributesUp() {
         return likelyNotP();
     }
 
-    /**
-     * Assuming this complexity is assigned to some graphclasses, return true
-     * iff this complexity also holds for equivalent classes, but not
-     * necessarily for super/sub classes.
-     */
-    boolean distributesEqual() {
+    @Override
+    public boolean distributesEqual() {
         return isOpen();
     }
 
@@ -146,10 +157,12 @@ public enum Complexity {
         for (Complexity c : Complexity.values())
             if (c.name.equals(s)  ||  c.abbrev.equals(s))
                 return c;
-        if (LINEAR.widthName.equals(s))
-            return LINEAR;
-        if (NPC.widthName.equals(s))
-            return NPC;
+        // vector removed Bounded and Unbounded since Parameters are now
+        // imported as GraphParameters.
+        // if (s.equals("Bounded"))
+        //      return Complexity.LINEAR;
+        // if (s.equals("Unbounded"))
+        //      return Complexity.NPC;
         throw new IllegalArgumentException(s);
     }
 }

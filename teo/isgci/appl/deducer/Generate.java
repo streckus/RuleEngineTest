@@ -15,6 +15,7 @@ import teo.isgci.grapht.*;
 import teo.isgci.xml.*;
 import teo.isgci.gc.*;
 import teo.isgci.relation.*;
+import teo.isgci.parameter.*;
 import teo.isgci.problem.*;
 import teo.isgci.appl.*;
 
@@ -43,6 +44,7 @@ public class Generate {
         Deducer deducer;
         DirectedGraph<GraphClass,Inclusion> graph;
         List<Problem> problems;
+        List<GraphParameter> parameters;
         RCheck checkReachability = new RCheckReachability();
 
         boolean notrivial = false;
@@ -93,11 +95,14 @@ public class Generate {
         // so the underlying graph does not need to check this.
         graph = new DirectedMultigraph<GraphClass,Inclusion>(Inclusion.class);
         problems = new ArrayList<Problem>();
+        parameters = new ArrayList<GraphParameter>(); // added by vector
 
         Problem.setDeducing();
+        GraphParameter.setDeducing(); // added by vector
 
+        // parameters added by vector
         load(args[opts.getOptind()], args[opts.getOptind()+1],
-                graph, problems, relations);
+                graph, problems, parameters, relations);
         deducer = new Deducer(graph,true, extrachecks);
         deducer.setGeneratorCache(autocache);
         showNodeStats(graph);
@@ -129,10 +134,13 @@ public class Generate {
             exportRelDebug(deducer, originals, writer);
         }
 
-        //---- Deduce complexities
-        System.out.println("Distributing complexities");
-        Problem.distributeComplexities();
+        //---- Deduce abstract complexities
+        // (changed by vector, run deductions for problems and parameters
+        // interleaved)
+        System.out.println("Distributing abstract complexities");
+        AbstractProblem.distributeAbstractComplexities();
         showProblemStats(graph, problems);
+        showParameterStats(graph, parameters);
 
         compls = gatherComplements(graph);
 
@@ -141,6 +149,7 @@ public class Generate {
         deducer.removeTemp();
         showNodeStats(graph);
         showProblemStats(graph, problems);
+        showParameterStats(graph, parameters);
         
         checkReachability.before(deducer);
         int nc = graph.vertexSet().size();               // For Safety check
@@ -153,17 +162,19 @@ public class Generate {
 
         showNodeStats(graph);
 
-        //---- Export data
+        //---- Export data (parameters added by vector)
         deducer.addRefs();
-        exportApp(graph, problems, relations, compls,args[opts.getOptind()+3]);
-        exportSage(graph, problems, relations, compls, sageout);
+        exportApp(graph, problems, parameters, relations, compls,
+                args[opts.getOptind()+3]);
+        exportSage(graph, problems, parameters, relations, compls, sageout);
 
         deducer.deleteSuperfluousEdgesFull();
         if (extrachecks) {
             checkReachability.after(deducer);
         }
 
-        exportWeb(graph,problems, relations, compls, args[opts.getOptind()+2]);
+        exportWeb(graph,problems, parameters, relations, compls,
+                args[opts.getOptind()+2]);
         exportNames(graph, args[opts.getOptind()+4]);
 
         //---- Final safety check
@@ -193,6 +204,7 @@ public class Generate {
             String smallgraphfile,
             DirectedGraph<GraphClass,Inclusion> graph,
             List<Problem> problems,
+            List<GraphParameter> parameters,
             List<AbstractRelation> relations)
             throws java.net.MalformedURLException {
         XMLParser xml;
@@ -207,13 +219,14 @@ public class Generate {
         xml.parse();
         ForbiddenClass.initRules(handler.getGraphs(), handler.getInclusions());
 
-        ISGCIReader gcr = new ISGCIReader(graph, problems);
+        // parameters added by vector
+        ISGCIReader gcr = new ISGCIReader(graph, problems, parameters);
         xml = new XMLParser(loader.openInputSource(file),
                 gcr, loader.getEntityResolver(), new NoteFilter());
         xml.parse();
         relations.addAll(gcr.getRelations());
-		
-		//TODO right now, still using ISGCIReader
+
+        //TODO right now, still using ISGCIReader
         /*
         SQLReader sqr = null;
         try{
@@ -252,8 +265,10 @@ public class Generate {
 
         Arrays.fill(count, 0);
 
-        for (GraphClass gc : dg.vertexSet())
-            count[p.getDerivedComplexity(gc).ordinal()]++;
+        for (GraphClass gc : dg.vertexSet()) {
+            if (!gc.isPseudoClass()) // added by vector
+                count[p.getDerivedComplexity(gc).ordinal()]++;
+        }
 
         System.out.print(String.format("%1$-15.15s", p.getName()));
         System.out.print("\t");
@@ -264,6 +279,31 @@ public class Generate {
         System.out.println();
     }
 
+    /**
+     * Print statistics on the given parameter problem.
+     * @author vector
+     */
+    private static void showParamProblemStats(
+            DirectedGraph<GraphClass, Inclusion> dg, Problem p) {
+        int i;
+        String cs;
+        int[] count = new int[Complexity.values().length];
+
+        Arrays.fill(count, 0);
+
+        for (GraphClass gc : dg.vertexSet()) {
+            if (gc.isPseudoClass())
+                count[p.getDerivedComplexity((PseudoClass) gc).ordinal()]++;
+        }
+
+        System.out.print(String.format("%1$-15.15s", p.getName()));
+        System.out.print("\t");
+        for (i = 0; i < count.length; i++) {
+            System.out.print(count[i]);
+            System.out.print("\t");
+        }
+        System.out.println();
+    }
 
     /**
      * Print statistics on the given problems.
@@ -278,6 +318,58 @@ public class Generate {
         System.out.println();
         for (Problem p : problems)
             showProblemStats(dg, p);
+        System.out.print("                "); // added by vector
+        for (ParamComplexity c : ParamComplexity.values()) {
+            System.out.print("\t");
+            System.out.print(c.getShortString());
+        }
+        System.out.println();
+        for (Problem p : problems)
+            if (p.forParameters())
+                showParamProblemStats(dg, p);
+    }
+
+    /**
+     * Print statistics on the given parameter.
+     * @author vector
+     */
+    private static void showParameterStats(
+            DirectedGraph<GraphClass, Inclusion> dg, GraphParameter p) {
+        int i;
+        String cs;
+        int[] count = new int[Boundedness.values().length];
+
+        Arrays.fill(count, 0);
+
+        for (GraphClass gc : dg.vertexSet()) {
+            if (!gc.isPseudoClass())
+                count[p.getDerivedBoundedness(gc).ordinal()]++;
+        }
+
+        System.out.print(String.format("%1$-15.15s", p.getName()));
+        System.out.print("\t");
+        for (i = 0; i < count.length; i++) {
+            System.out.print(count[i]);
+            System.out.print("\t");
+        }
+        System.out.println();
+    }
+
+    /**
+     * Print statistics on the given parameters.
+     * @author vector
+     */
+    private static void showParameterStats(
+            DirectedGraph<GraphClass, Inclusion> dg,
+            List<GraphParameter> parameters) {
+        System.out.print("Parameter:      ");
+        for (Boundedness b : Boundedness.values()) {
+            System.out.print("\t");
+            System.out.print(b.getShortString());
+        }
+        System.out.println();
+        for (GraphParameter p : parameters)
+            showParameterStats(dg, p);
     }
 
 
@@ -397,10 +489,11 @@ public class Generate {
     private static void exportSage(
             DirectedGraph<GraphClass,Inclusion> g,
             List<Problem> problems,
+            List<GraphParameter> parameters, // added by vector
             List<AbstractRelation> relations,
             Map<GraphClass,Set<GraphClass> > complements,
             String file) {
-        writeISGCI(g, problems, relations, complements, file,
+        writeISGCI(g, problems, parameters, relations, complements, file,
                 ISGCIWriter.MODE_SAGE);
     }
 
@@ -411,10 +504,11 @@ public class Generate {
     private static void exportWeb(
             DirectedGraph<GraphClass,Inclusion> g,
             List<Problem> problems,
+            List<GraphParameter> parameters,
             List<AbstractRelation> relations,
             Map<GraphClass,Set<GraphClass> > complements,
             String file) {
-        writeISGCI(g, problems, relations, complements, file,
+        writeISGCI(g, problems, parameters, relations, complements, file,
                 ISGCIWriter.MODE_WEB);
     }
 
@@ -425,10 +519,11 @@ public class Generate {
     private static void exportApp(
             DirectedGraph<GraphClass,Inclusion> g,
             List<Problem> problems,
+            List<GraphParameter> parameters, // added by vector
             List<AbstractRelation> relations,
             Map<GraphClass,Set<GraphClass> > complements,
             String file){
-        writeISGCI(g, problems, relations, complements, file,
+        writeISGCI(g, problems, parameters, relations, complements, file,
                 ISGCIWriter.MODE_ONLINE);
     }
 
@@ -439,6 +534,7 @@ public class Generate {
     private static void writeISGCI(
             DirectedGraph<GraphClass,Inclusion> g,
             List<Problem> problems,
+            List<GraphParameter> parameters, // added by vector
             List<AbstractRelation> relations,
             Map<GraphClass,Set<GraphClass> > complements,
             String file,
@@ -446,7 +542,8 @@ public class Generate {
         try {
             FileWriter out = new FileWriter(file);
             ISGCIWriter w = new ISGCIWriter(out, format);
-            w.writeISGCIDocument(g, problems, relations, complements, XMLDECL);
+            w.writeISGCIDocument(g, problems, parameters, relations,
+                    complements, XMLDECL);
             out.close();
         } catch (Exception e) {
             e.printStackTrace();

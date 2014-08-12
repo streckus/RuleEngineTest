@@ -50,18 +50,22 @@ class Tags {
     static final String NAME = "name";
     static final String SMALLGRAPH = "smallgraph";
     public static final String GCREF = "graphclass";
+    public static final String PARREF = "graphparameter";
     static final String COMPLEMENTS = "complements";
     static final String EQUIVALENTS = "equivalents";
 
     /* Problems */
     static final String ALGO = "algo";
     static final String PROBLEM = "problem";
+    static final String PAR_PROBLEM = "parproblem";
+    static final String PAR_ALGO = "paralgo";
     static final String COMPLEXITY = "complexity";
     static final String BOUNDS = "bounds";
     static final String PROBLEM_DEF = "Problem";
     static final String PROBLEM_FROM = "from";
     static final String PROBLEM_COMPLEMENT = "complement";
     static final String PROBLEM_SPARSE = "sparse";
+    static final String PROBLEM_FORPARAMS = "forparams";
 
     /* Inclusions */
     static final String INCLUSIONS = "Inclusions";
@@ -71,12 +75,46 @@ class Tags {
     static final String EQU = "equ";
     static final String DISJOINT = "disjoint";
     static final String INCOMPARABLE = "incmp";
+    static final String OPEN = "open";
     static final String GC1 = "gc1";
     static final String GC2 = "gc2";
     static final String PROPER = "proper";
     static final String CONFIDENCE = "confidence";
     static final String UNREVIEWED = "unreviewed";
     static final String UNPUBLISHED = "unpublished";
+
+    /* Parameters (added by vector) */
+    static final String BOUNDED = "bounded";
+    static final String PARAMETER = "parameter";
+    static final String BOUNDEDNESS = "boundedness";
+    static final String PARAMETERS = "Parameters";
+    static final String PARAMETER_DEF = "Parameter";
+    static final String PARAMETER_COMPLEMENT = "parcomplement";
+    static final String PARAMETER_DECOMP = "decomp";
+    /*
+     * The following abbreviations are also used:
+     * - ID (from GraphClass)
+     * - NAME (from attributes/child elements)
+     * - DIRTYPE (from Graphclass)
+     * - PAR_ALGO (from Problems)
+     * - PAR_PROBLEM (from Problems)
+     */
+
+    /* Relations between Parameters (added by vector) */
+    static final String PARAM_RELATIONS = "ParamRelations";
+    static final String PARAM_RELATION = "parrelation";
+    static final String PARAM1 = "param1";
+    static final String PARAM2 = "param2";
+    static final String PAR_ATT_REL = "rel";
+    static final String PAR_BOUNDS = ">=";
+    static final String PAR_NOT_BOUNDS = "not >=";
+    static final String PAR_STRICT_BOUNDS = ">";
+    static final String PAR_EQU = "=";
+    static final String FUNCTIONTYPE = "functiontype";
+    /*
+     * The following abbreviations are also used:
+     * - CONFIDENCE (from Inclusions)
+     */
 
     /* References */
     static final String REF = "ref";
@@ -126,7 +164,7 @@ class Tags {
             return GraphClass.Directed.DIRECTED;
         else if (UNDIRECTED.equals(s))
             return GraphClass.Directed.UNDIRECTED;
-        else if (s == null)
+        else if (s == null || s.equals(""))
             return null;
         else
             throw new RuntimeException("Unknown directedness "+s);
@@ -163,6 +201,12 @@ class Tags {
             throw new RuntimeException("Unknown confidence "+s);
     }
 
+    public static int boolean2confidence(Boolean b) {
+        if (b)
+            return Inclusion.CONFIDENCE_HIGHEST;
+        else
+            return Inclusion.CONFIDENCE_UNPUBLISHED;
+    }
 
     public static String confidence2string(int c) {
         switch (c) {
