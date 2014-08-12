@@ -14875,6 +14875,62 @@
       </bib>
    </Ref>
 
+   <Ref id="ref_1679">
+      <bib>
+         <authors>F.R.K. Chung</authors>
+         <title>On the cutwidth and the topological bandwidth of a tree</title>
+         <rest>SIAM J. Alg. Discr. Meth. 6 1985 268--277</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1680">
+      <bib>
+         <authors>F.R.K. Chung, P.D. Seymour</authors>
+         <title>Graphs with small bandwidth and cutwidth</title>
+         <rest>Disc. Math. 75 1989 113--119</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1681">
+      <bib>
+         <authors>DeLaVi{\~n}a, Ermelinda and Waller, Bill</authors>
+         <title>A NOTE ON A CONJECTURE OF HANSEN ET AL.</title>
+         <rest>manuscript 2009</rest>
+         <link rrr="http://cms.dt.uh.edu/faculty/delavinae/research/DelavinaWaller2009.pdf"/>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1682">
+      <bib>
+         <authors>D.J. Kleitman, D.B. West</authors>
+         <title>Spanning trees with many leaves</title>
+         <rest>SIAM J. Alg. Discr. Meth. 4 1991 99--106</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1683">
+      <bib>
+         <authors>Róbert Sasák</authors>
+         <title>Comparing 17 graph parameters</title>
+         <rest>Master's thesis, University of Bergen 2010</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1684">
+      <bib>
+         <authors>R.A. Wilson</authors>
+         <title>Graphs, colourings and the four-colour theorem</title>
+         <rest>Oxford University Press, London 2002</rest>
+      </bib>
+   </Ref>
+
+   <Ref id="ref_1685">
+      <bib>
+         <authors>M. Vatshelle</authors>
+         <title>New Width Parameters of Graphs</title>
+         <rest>PhD Thesis, Dept. of Informatics, University of Bergen 2012</rest>
+      </bib>
+   </Ref>
 
 
 </REFS>
