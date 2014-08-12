@@ -448,10 +448,11 @@ public class SQLExporter {
     private void writeRelationsRef(Collection<AbstractRelation> relations)
             throws SQLException {
         for (AbstractRelation r : relations) {
-            if (!(r instanceof NotBounds)) {
+            if (!(r instanceof NotBounds)
+                    && !(r instanceof Open && r.get1().isPseudoClass())) {
                 if (mode != MODE_SAGE) {
                     // if not SAGE then write References
-                    writeRelationRefs(r.getRefs(), m_relationRefID);
+                    writeRelationRefs(r.getRefs(), m_relationID);
                 }
                 m_relationID++;
             }
