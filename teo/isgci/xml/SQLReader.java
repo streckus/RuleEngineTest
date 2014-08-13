@@ -1370,7 +1370,6 @@ public class SQLReader {
             }
         } else if (rel.equals(Tags.PAR_NOT_BOUNDS)) {
             curRel.setRefs(refs);
-            relations.add(curRel);
         }
     }
 
