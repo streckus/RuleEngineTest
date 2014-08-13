@@ -17,7 +17,7 @@
   - problem in "open-problem". Do not use problem in masterdata.xml.
  -->
 <!-- Replaced ID to CDATA after id two lines down. -->
-<!ELEMENT GraphClass (name?,(graphclass*|smallgraph*),hereditary?,self-complementary?,clique-fixed?,(ref|note)*,(problem|algo)*)>
+<!ELEMENT GraphClass (name?,(graphclass*|smallgraph*),hereditary?,self-complementary?,clique-fixed?,(ref|note)*,(problem|algo|parameter|bounded)*)>
 <!ATTLIST GraphClass id CDATA #REQUIRED 
     type (base|intersect|union|forbidden|induced-hereditary|connected-hereditary|isometric-hereditary|complement|probe|clique) #REQUIRED
     dir (directed) #IMPLIED>
