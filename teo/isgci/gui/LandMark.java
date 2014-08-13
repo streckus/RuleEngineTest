@@ -128,11 +128,11 @@ public class LandMark {
      * Load the ISGCI database.
      */
     public static void load(String file,
-            SimpleDirectedGraph<GraphClass,Inclusion> graph, Vector problems)
-            throws java.net.MalformedURLException {
+            SimpleDirectedGraph<GraphClass,Inclusion> graph, Vector problems,
+            Vector parameters) throws java.net.MalformedURLException {
         Resolver loader = new ISGCIResolver(
                 "file:"+System.getProperty("user.dir")+"/");
-        ISGCIReader gcr = new ISGCIReader(graph, problems);
+        ISGCIReader gcr = new ISGCIReader(graph, problems, parameters);
         XMLParser xml=new XMLParser(loader.openInputSource(file),
                 gcr, loader.getEntityResolver(), new NoteFilter());
         xml.parse();

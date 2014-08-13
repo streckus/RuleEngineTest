@@ -83,7 +83,7 @@ public class ISGCIWriter {
 				{
 					SQLWriter s = new SQLWriter(databaseAdress, databaseAccountName, databaseAccountPassword, "", false);
 					SQLExporter exp = new SQLExporter(s, SQLExporter.MODE_WEB);
-					exp.writeISGCIDocument(g, problems, relations, complementAnn);				
+					exp.writeISGCIDocument(g, problems, parameters, relations, complementAnn);				
 				}
 			} catch (SQLException e) {
 				System.out.println("Problems with sql");
