@@ -730,6 +730,10 @@ public class SQLExporter {
 
     /**
      * Write all Complexities for PseudoClass n.
+     * @param n the PseudoClass to write complexities for
+     * @param problems the Collection of Problems that can occur for n
+     * @param onlyWriteAlgos whether we only write to the param_algorithm
+     *                       table, works like in writeComplexities
      * @throws SQLException
      * @author vector
      */
@@ -749,6 +753,12 @@ public class SQLExporter {
 
     /**
      * Write a ParamComplexity for Problem problem.
+     * @param problem the Problem to write a Complexity for
+     * @param c the complexity to write
+     * @param algos the algorithms that prove c for the current PseudoClass
+     * @param parIntID the ID of the GraphParameter to write the Complexity for
+     * @param onlyWriteAlgos whether we only write to the param_algorithm
+     *                       table, works like in writeComplexity
      * @throws SQLException
      * @author vector
      */
@@ -814,7 +824,10 @@ public class SQLExporter {
 
     /**
      * Write the paramalgorithms for problem.
-     * 
+     * @param p the problem to write the algorithms for
+     * @param algos the collection of ParamAlgorithms to write
+     * @param parProbID the current param_problem-ID to write the algorithms
+     *        for
      * @throws SQLException
      * @author vector
      */
@@ -892,8 +905,11 @@ public class SQLExporter {
     }
 
     /**
-     * Writes all given references to a parametrized algorithm into the
+     * Writes all given references to a parameterized algorithm into the
      * database.
+     * @param refs the references to write
+     * @param paralgoID the ID of the param_algorithm-entry to write the refs
+     *        for
      * @throws SQLException
      * @author vector
      */
@@ -995,7 +1011,13 @@ public class SQLExporter {
 
     /**
      * Write all Boundednesses for GraphClass n.
-     * @throws SQLException 
+     * @param n the GraphClass to write the boundedness values for
+     * @param parameters the Collection of GraphParameters which can be defined
+     *                   for n
+     * @param onlyWriteProofs whether we only write to the
+     *                        gc_parameter_boundedness table, works like
+     *                        onlyWriteAlgos in writeAlgos
+     * @throws SQLException
      * @author vector
      */
     private void writeBoundednesses(GraphClass n,
@@ -1010,6 +1032,11 @@ public class SQLExporter {
 
     /**
      * Write a Boundedness for GraphParameter parameter.
+     * @param parameter the GraphParameter to write the boundedness for
+     * @param b the resulting Boundedness for the parameter on the current
+     *          graphclass
+     * @param proofs the proofs for b to write
+     * @param gcIntID the ID for the current gc_parameter-entry
      * @throws SQLException
      * @author vector
      */
@@ -1042,6 +1069,9 @@ public class SQLExporter {
 
     /**
      * Write the proofs for a given parameter.
+     * @param parameter the GraphParameter to write BoundednessProofs for
+     * @param proofs the Proofs to write
+     * @param gcParamID the gcParamID for which the proofs are written
      * @throws SQLException
      * @author vector
      */
@@ -1073,6 +1103,8 @@ public class SQLExporter {
 
     /**
      * Write the references in Proof.
+     * @param refs the references to write
+     * @param proofID the the ID of Proof to write the references for
      * @throws SQLException
      * @author vector
      */
@@ -1184,7 +1216,8 @@ public class SQLExporter {
 
     /**
      * Write the references in refs.
-     * 
+     * @param refs the collection of references to write
+     * @param parIntID the ID of the GraphParameter to write the references for
      * @throws SQLException
      * @author vector
      */
@@ -1228,6 +1261,8 @@ public class SQLExporter {
 
     /**
      * Write the parameter edges.
+     * @param g the inclusion graph that contains the parameter relation
+     *          edges to write to the database
      * @throws SQLException
      * @author vector
      */
@@ -1256,6 +1291,8 @@ public class SQLExporter {
 
     /**
      * Write the param edges refs.
+     * @param g the inclusion graph that contains the parameter relations
+     *          edges to write references for
      * @throws SQLException
      * @author vector
      */
@@ -1274,6 +1311,8 @@ public class SQLExporter {
 
     /**
      * Write the parameter edges.
+     * @param relations the collection of parameter relations to write to the
+     *        database
      * @throws SQLException
      * @author vector
      */
@@ -1303,6 +1342,7 @@ public class SQLExporter {
 
     /**
      * Write the ref edges.
+     * @param relations the collection of relations to write the references for
      * @throws SQLException
      * @author vector
      */
@@ -1322,6 +1362,8 @@ public class SQLExporter {
 
     /**
      * Write the references in refs.
+     * @param refs the refereces to write
+     * @param parRelID the current relation-ID to write the refs for
      * @throws SQLException
      * @author vector
      */

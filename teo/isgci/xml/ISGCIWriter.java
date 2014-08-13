@@ -319,6 +319,8 @@ public class ISGCIWriter {
 
     /**
      * Write the not bounds relation between parameters.
+     * @param relations the list that contains the NotBounds or Open relations to
+     *                  write
      * @author vector
      */
     private void writeParamRelations(Collection<AbstractRelation> relations)
@@ -382,6 +384,8 @@ public class ISGCIWriter {
 
     /**
      * Write the parameter relation edges.
+     * @param g the inclusion graph which contains the edges between
+     *          parameter PseudoClasses
      * @author vector
      */
     private void writeParamEdges(DirectedGraph<GraphClass, Inclusion> g)
@@ -500,6 +504,7 @@ public class ISGCIWriter {
 
     /**
      * Write a note containing the given equivalent parameters.
+     * @param eqs the Set of equivalent parameter PseudoClasses 
      * @author vector
      */
     private void writeEquivParams(Set<GraphClass> eqs) throws SAXException {
@@ -532,6 +537,9 @@ public class ISGCIWriter {
 
     /**
      * Write all boundedness values for GraphClass n.
+     * @param n the GraphClass to write boundedness values for
+     * @param parameters the list of parameters that can be bounded or unbounded on
+     *                   the GraphClasses
      * @author vector
      */
     private void writeBoundednesses(GraphClass n,
@@ -544,7 +552,10 @@ public class ISGCIWriter {
     }
 
     /**
-     * Write a boundednes value for GraphParameter parameter.
+     * Write a boundedness value for GraphParameter parameter.
+     * @param parameter the GraphParameter to write a boundedness value for
+     * @param b the Boundedness for parameter on the current GraphClass
+     * @param proofs the proofs for boundedness b
      * @author vector
      */
     private void writeBoundedness(GraphParameter parameter, Boundedness b,
@@ -567,6 +578,8 @@ public class ISGCIWriter {
 
     /**
      * Write the boundedness proofs for parameter.
+     * @param parameter the GraphParameter to write boundedness proofs for
+     * @param proofs the proofs to write
      * @author vector
      */
     private void writeProofs(GraphParameter parameter,
@@ -605,6 +618,8 @@ public class ISGCIWriter {
 
     /**
      * Write all Complexities for PseudoClass n.
+     * @param n the PseudoClass to write the complexities for
+     * @param problems the problems that can be defined for n
      * @author vector
      */
     private void writeComplexities(PseudoClass n, Collection<Problem> problems)
@@ -638,6 +653,10 @@ public class ISGCIWriter {
 
     /**
      * Write a parameterized Complexity for Problem problem.
+     * @param problem the problem to write a complexity for
+     * @param c the parameterized Complexity value for problem for the
+     *          current GraphParameter
+     * @param algos the algorithms that prove complexity c for the problem
      * @author vector
      */
     private void writeComplexity(Problem problem, ParamComplexity c,
@@ -685,6 +704,8 @@ public class ISGCIWriter {
 
     /**
      * Write the parameterized algorithms for problem.
+     * @param problem the Problem to write algorithms for
+     * @param algos the algorithms to write
      * @author vector
      */
     private void writeParamAlgorithms(Problem problem,

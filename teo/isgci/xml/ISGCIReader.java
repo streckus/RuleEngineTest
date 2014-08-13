@@ -1075,11 +1075,30 @@ public class ISGCIReader extends DefaultHandler{
         }
     }
 
-    // -------------------- ParamProblemWrapper (added by vector)-------------
+    // -------------------- ParamProblemWrapper -------------
+    /**
+     * Serves as all-in-one help for creating/setting parameterized complexity values on
+     * pseudoclasses with associated problems.
+     *
+     * More info can be found in the constructor.
+     * @author vector
+     */
     private class ParamProblemWrapper {
         Problem problem;
         ParamComplexity complexity;
 
+        /**
+         * Constructs an all-in-one set containing the necessary information
+         * for setting parametrized complexity on graphclasses. Important: Only
+         * information, no actual function.
+         * 
+         * 
+         * @param p
+         *            Problem for which the complexity is set
+         * @param c
+         *            the parameterized complexity enumeration value (More
+         *            info: {@link ParamComplexity})
+         */
         public ParamProblemWrapper(Problem p, ParamComplexity c) {
             problem = p;
             complexity = c;

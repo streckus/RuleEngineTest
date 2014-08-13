@@ -34,7 +34,7 @@ public enum Boundedness implements AbstractComplexity {
     protected Color defaultColor;
 
     /**
-     * Creates a new boundedness with the given value and names.
+     * Creates a new boundedness with the given value and name.
      * @param name
      *            the name of the boundedness.
      * @param abbrev
