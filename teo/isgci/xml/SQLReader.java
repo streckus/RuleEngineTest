@@ -1815,7 +1815,7 @@ public class SQLReader {
         private Boundedness boundedness;
         /**
          * Corresponding local references (added to the object on generation
-         * via {@link #generate()}</b>).
+         * via {@link #generate()}).
          */
         private List refs, prevrefs;
 
@@ -1823,7 +1823,7 @@ public class SQLReader {
          * Constructs an all-in-one set containing the necessary information
          * for setting boundedness proofs on parameters, similar to
          * {@link BoundednessWrapper}, but providing more information on the
-         * actual proof (refrences, notes) Important: Only information, no
+         * actual proof (references, notes) Important: Only information, no
          * actual function. <br>
          * <br>
          * The wrapper can then be used to add the boundedness proof into the

@@ -793,11 +793,11 @@ public class ISGCIReader extends DefaultHandler{
          * Constructs an all-in-one set containing the necessary information
          * for creating GraphParameters in the system.
          * Important: Only information, no actual function (like deduction).
-         * By invoking <b>end()</b>, the parameter will receive the
+         * By invoking {@link #end()}, the parameter will receive the
          * corresponding references.
          * Eventually, the wrapper can be used to create an
          * {@link GraphParameter}-object
-         * in the system by invoking <b>generate()</b>.
+         * in the system by invoking {@link #generate()}.
          *
          * @param id A unique ID-Integer.
          * @param name The parameter-name
@@ -940,7 +940,7 @@ public class ISGCIReader extends DefaultHandler{
          * no actual function.
          *
          * The wrapper can then be used to create an algorithm in the system by
-         * invoking <b>generate()</b>.
+         * invoking {@link #generate()}.
          *
          * @param id
          *            Parameter id
@@ -1010,7 +1010,7 @@ public class ISGCIReader extends DefaultHandler{
         private Boundedness boundedness;
         /**
          * Corresponding local references (added to the object on generation
-         * via <b>generate()</b>).
+         * via {@link #generate()}).
          */
         private List refs, prevrefs;
 
@@ -1018,11 +1018,11 @@ public class ISGCIReader extends DefaultHandler{
          * Constructs an all-in-one set containing the necessary information
          * for setting boundedness proofs on parameters, similar to
          * {@link BoundednessWrapper}, but providing more information on the
-         * actual proof (refrences, notes) Important: Only information, no
+         * actual proof (references, notes) Important: Only information, no
          * actual function. <br>
          * <br>
          * The wrapper can then be used to add the boundedness proof into the
-         * system by invoking <b>generate()</b>. <br>
+         * system by invoking {@link #generate()}.<br>
          * <br>
          * References are never null (set to empty element on creation of
          * object).
@@ -1109,8 +1109,6 @@ public class ISGCIReader extends DefaultHandler{
          * for setting parametrized boundednesses on graphclasses. Important:
          * Only information, no actual function.
          *
-         * The wrapper can then be used to add the boundedness in the system by
-         * invoking <b>generate()</b>.
          *
          * @param parameter
          *            graphparameter, whose boundedness is set.
