@@ -378,11 +378,16 @@ public class SQLReader {
      * @author vector
      */
     private void handleGraphParameterRefs() throws SQLException {
-        tempresult = tempconn.executeQuery("SELECT ref_id FROM param_ref"
+        tempresult = tempconn.executeQuery("SELECT ref_id, type FROM param_ref"
                 + " WHERE param_id=" + mainresult.getInt("param_id"));
 
         while (tempresult.next()) {
-            refs.add(new Ref(new String(tempresult.getString("ref_id"))));
+            String type = tempresult.getString("type");
+            if (type.equals("ref"))
+                refs.add(new Ref(new String("ref_"
+                        + tempresult.getString("ref_id"))));
+            else
+                refs.add(new Ref(new String(type)));
         }
         tempresult.close();
 
@@ -649,12 +654,18 @@ public class SQLReader {
 
         Statement temp2conn = m_connection.createStatement();
         ResultSet temp2result = temp2conn
-                .executeQuery("SELECT ref_id from param_algo_ref "
+                .executeQuery("SELECT ref_id, type from param_algo_ref "
                         + "WHERE type = 'ref' AND param_algo_id = "
                         + tempresult
                              .getString("param_algorithm.param_algorithm_id"));
-        while (temp2result.next())
-            refs.add(new Ref(new String(temp2result.getString("ref_id"))));
+        while (temp2result.next()) {
+            String type = temp2result.getString("type");
+            if (type.equals("ref"))
+                refs.add(new Ref(new String("ref_"
+                        + temp2result.getString("ref_id"))));
+            else
+                refs.add(new Ref(new String(type)));
+        }
         temp2result.close();
 
     }
@@ -857,12 +868,18 @@ public class SQLReader {
 
         Statement temp2conn = m_connection.createStatement();
         ResultSet temp2result = temp2conn
-                .executeQuery("SELECT ref_id from gc_param_ref "
+                .executeQuery("SELECT ref_id, type from gc_param_ref "
                         + "WHERE type = 'ref' AND gc_param_boundedness_id = "
                         + tempresult.getString(
                       "gc_parameter_boundedness.gc_parameter_boundedness_id"));
-        while (temp2result.next())
-            refs.add(new Ref(new String(temp2result.getString("ref_id"))));
+        while (temp2result.next()) {
+            String type = temp2result.getString("type");
+            if (type.equals("ref"))
+                refs.add(new Ref(new String("ref_"
+                        + temp2result.getString("ref_id"))));
+            else
+                refs.add(new Ref(new String(type)));
+        }
         temp2result.close();
 
     }
@@ -1324,14 +1341,19 @@ public class SQLReader {
         try {
             //Build references
             tempresult = tempconn.executeQuery(""
-                    + "SELECT ref_id FROM param_relation_ref"
+                    + "SELECT ref_id, type FROM param_relation_ref"
                     + " LEFT JOIN param_relation"
                     + " ON param_relation_ref.param_relation_id = "
                     + "param_relation.param_relation_id"
                     + " WHERE param_relation.param_relation_id = "
                     + tmp_rel_id);
             while (tempresult.next()) {
-                refs.add(new Ref(tempresult.getString("ref_id")));
+                String type = tempresult.getString("type");
+                if (type.equals("ref"))
+                    refs.add(new Ref(new String("ref_"
+                            + tempresult.getString("ref_id"))));
+                else
+                    refs.add(new Ref(new String(type)));
             }
             //Build notes
             tempresult = tempconn.executeQuery(""
