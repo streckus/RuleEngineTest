@@ -231,7 +231,7 @@ public class Generate {
         SQLReader sqr = null;
         try{
                 sqr = new SQLReader("jdbc:mySQL://localhost/Spectre", "root", 
-                                   "", "", graph, problems);
+                                   "", "", graph, problems, parameters);
                 sqr.readDatabase();
         }catch(SQLException e){
                 e.printStackTrace();
