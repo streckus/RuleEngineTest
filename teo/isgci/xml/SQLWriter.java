@@ -467,6 +467,9 @@ public class SQLWriter {
     }
 
     /**
+     * Insert new entries into table param_complexity.
+     * @param values the ParamComplexity-values to write
+     * @throws SQLException
      * @author vector
      */
     public void insertNewParamComplexity(String values) throws SQLException {
@@ -483,6 +486,9 @@ public class SQLWriter {
     }
 
     /**
+     * Insert new entries into table boundedness.
+     * @param values the Boundedness-values to write
+     * @throws SQLException
      * @author vector
      */
     public void insertNewBoundedness(String values) throws SQLException {
@@ -904,6 +910,12 @@ public class SQLWriter {
     }
 
     /**
+     * Insert a new entry into table param_relation_note.
+     * @param parRelationNoteID the ID of the new entry
+     * @param parentRelation the parent-Relation-ID
+     * @param title the title of the note
+     * @param text the contents of the note
+     * @throws SQLException
      * @author vector
      */
     public void insertNewParamRelationNote(Integer parRelationNoteID,

@@ -124,7 +124,7 @@ public class ParamAlgorithm extends AbstractAlgorithm {
 
     /**
      * Since an ParamAlgortihm is always defined on a parameter PseudoClass, we
-     * can get is as such.
+     * can get it as such.
      * @return the PseudoClass this algorithm is defined on
      */
     public PseudoClass getPseudoClass() {

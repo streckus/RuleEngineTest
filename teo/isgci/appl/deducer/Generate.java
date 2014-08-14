@@ -281,6 +281,9 @@ public class Generate {
 
     /**
      * Print statistics on the given parameter problem.
+     * @param dg the inclusion graph which contains the PseudoClasses to print
+     *           statistics for
+     * @param p the problem to print statistics for
      * @author vector
      */
     private static void showParamProblemStats(
@@ -331,6 +334,9 @@ public class Generate {
 
     /**
      * Print statistics on the given parameter.
+     * @param dg the inclusion graph that contains the GraphClasses to print
+     *           statistics for
+     * @param p the GraphParameter to print statistics for
      * @author vector
      */
     private static void showParameterStats(
@@ -357,6 +363,8 @@ public class Generate {
 
     /**
      * Print statistics on the given parameters.
+     * @param dg the inclusion graph to print statistics for
+     * @param parameters the List of GraphParameters to print statistics for
      * @author vector
      */
     private static void showParameterStats(
