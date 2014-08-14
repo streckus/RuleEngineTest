@@ -1341,14 +1341,15 @@ public class SQLReader {
         try {
             //Build references
             tempresult = tempconn.executeQuery(""
-                    + "SELECT ref_id, type FROM param_relation_ref"
+                    + "SELECT ref_id, param_relation_ref.type"
+                    + " FROM param_relation_ref"
                     + " LEFT JOIN param_relation"
                     + " ON param_relation_ref.param_relation_id = "
                     + "param_relation.param_relation_id"
                     + " WHERE param_relation.param_relation_id = "
                     + tmp_rel_id);
             while (tempresult.next()) {
-                String type = tempresult.getString("type");
+                String type = tempresult.getString("param_relation_ref.type");
                 if (type.equals("ref"))
                     refs.add(new Ref(new String("ref_"
                             + tempresult.getString("ref_id"))));
