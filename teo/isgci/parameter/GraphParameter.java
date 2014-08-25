@@ -75,6 +75,8 @@ public class GraphParameter extends AbstractProblem {
      * The proofs (node independent) from problem complexity incompatibilities.
      */
     protected Map<Problem, Set<BoundednessProof>> probProofs;
+    /* The proofs (node independent) from decomposition problems. */
+    protected Set<BoundednessProof> decompProofs;
 
     /**
      * Create a new GraphParameter with given data.
@@ -397,6 +399,30 @@ public class GraphParameter extends AbstractProblem {
     }
 
     /**
+     * Get the boundedness of n, consulting decomposition problems, too.
+     * @param n the GraphClass for which we want to get data
+     * @return unbounded, if the decomposition problem is not in P and bounded,
+     *         if the decomposition problem is in P.
+     */
+    protected Boundedness getDecompDerivedBoundedness(GraphClass n) {
+        if (n.isPseudoClass())
+            throw new UnsupportedOperationException(
+                    "Boundedness for parameter pseudoclasses is not defined.");
+
+        Boundedness b = getDerivedBoundedness(n);
+        if (!b.isUnknown())
+            return b;
+
+        Complexity c = decomposition.getDerivedComplexity(n);
+        if (c.likelyNotP())
+            b = Boundedness.UNBOUNDED;
+        else if (c.betterOrEqual(Complexity.P))
+            b = Boundedness.BOUNDED;
+
+        return b;
+    }
+
+    /**
      * If complement has boundedness b on co-G, return the boundedness for this
      * parameter.
      * @param b the boundedness for the complement on co-G
@@ -617,7 +643,7 @@ public class GraphParameter extends AbstractProblem {
 
     /**
      * Distribute the proofs for unboundedness by incompatibilities for
-     * complexities.
+     * complexities or complexities for decomposition Problems.
      */
     protected void distributeProblems() {
         Boundedness b;
@@ -630,6 +656,14 @@ public class GraphParameter extends AbstractProblem {
                         b = getProblemDerivedBoundedness(n, p);
                         if (!b.isUnknown())
                             addProof(n, getProblemProof(b, p));
+                    }
+
+                    // also deduce (un-)boundedness from the decomposition
+                    // problem
+                    if (!isLinDecomp()) {
+                        b = getDecompDerivedBoundedness(n);
+                        if (!b.isUnknown())
+                            addProof(n, getDecompProof(b));
                     }
                 }
             }
@@ -655,6 +689,27 @@ public class GraphParameter extends AbstractProblem {
 
         BoundednessProof proof = createProof(null, b, why);
         probProofs.get(p).add(proof);
+        return proof;
+    }
+
+    /**
+     * Return a boundedness proof on a class for boundedness b, assuming it can
+     * be deduced from the complexity for the decomposition problem.
+     * @param b the resulting (un-)boundedness to get a proof for
+     * @return a proof from the node-independent collection or a new one that
+     *         is added to the collection
+     */
+    protected BoundednessProof getDecompProof(Boundedness b) {
+        final String why = "from " + decomposition.getName();
+        if (decompProofs == null)
+            decompProofs = new HashSet<BoundednessProof>();
+        for (BoundednessProof proof : decompProofs) {
+            if (proof.getBoundedness().equals(b))
+                return proof;
+        }
+
+        BoundednessProof proof = createProof(null, b, why);
+        decompProofs.add(proof);
         return proof;
     }
 
